@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <script> 
+    //1.数组的解构赋值
+    //传统声明变量方法
+        // let a=1;
+        // let b=2; 
+        // let c=3;
+    //解构赋值
+    //第一类：
+    //    let [a,b,c]=[1,2,3]; //a=1,b=2,c=3
+    //    let [a,,c]=[1,2,3]; //a=1,c=3（不完全解构）
+    //    let [a,b,c]=[1,,3]; //a=1,b=undefined,c=3（不完全解构）
+    //    let [a,[b],c]=[1,[2],3];//a=1,b=2,c=3
+    //    let [a,[[b,c]]]=[1,[[2,3]]];//a=1,b=2,c=3
+    //    let [a,[[b,c],d],e]=[1,[[2],3],4];//1 2 undefined 3 4（不完全解构）  
+    //总结：无论怎么写，“等号=”左右数组的结构必须相同
+    //第二类： 
+    //    let [a,b,...c]=[1,2,3,4];//a=1,b=2,c=[3,4]("..."后面的变量为一个数组，为前面变量赋值后剩下所有数的数组（其中"..."必须写在最后）)
+    //    let [a,b,...c]=[1,2,3];//a=1,b=2,c=[3]   
+    //    let [a,b,...c]=["1"]; //a=1,b=undedined,c=[]
+    //第三类：解构赋值允许指定默认值
+    //    let [a=fn(),b=2,c=3]=[4,,6];//a=4,b=2,c=6(当未赋值的时候（全等undefined），就启用默认值；有值的时候(null也是值，因为不全等于undefined)，默认值就没用。)
+    
+    //2.对象的解构赋值
+    //第一类：
+    //let{bar,foo}={foo:'aaa',bar:'bbb'};//foo:aaa,bar:bbb
+    //let{baz}={foo:'aaa',bar:'bbb'};//报错
+    //注意：1.对象的解构与数组有一个重要的不同。数组的元素是按次序排列的，变量的取值由它的位置决定；而对象的属性没有次序，变量必须与属性同名，才能取到正确的值。
+    //2.上面代码的第一个例子，等号左边的两个变量的次序，与等号右边两个同名属性的次序不一致，但是对取值完全没有影响。
+    //3.第二个例子的变量没有对应的同名属性，导致取不到值，最后等于undefined。
+    //第二类：
+    //let{bar,foo}={foo:'aaa',bar:'bbb'} === let{bar:bar,foo:foo}={foo:'aaa',bar:'bbb'};
+    //let{foo:baz}={foo:'aaa',bar:'bbb'}
+    //注意：上面代码中，foo是匹配的模式，baz才是变量。真正被赋值的是变量baz，而不是模式foo。
+    //第三类：
+    //let {tan, sin, cos}=Math;sin(90);
+    //let {log}=console;log("hello world");
+    //let obj={
+    //    x:["hello",{y:"world"}],
+    //    fn:function(){
+    //        return log(this);
+    ///    }
+    //};
+    //let{x,x:[p,{y}]}=obj;
+    //第四类：一种代码表达式"()"
+    //({x}={x:"hello world!"});
+
+    //3.字符串的解构赋值
+    //字符串也可以解构赋值。这是因为此时，字符串被转换成了一个类似数组的对象。
+    //类似数组的对象都有一个length属性，因此还可以对这个属性解构赋
+    //const[a,b,c,d,e]='hello';//a:h,b:e,c:l,d:l,e:o
+    //let {length:len}='hello';//len:5
+
+    //4.数值和布尔值的解构赋值
+    //1.
+    //解构赋值时，如果等号右边是数值和布尔值，则会先转为对象(临时的包装对象)
+    //左侧代码中，数值和布尔值的包装对象都有toString属性，因此左侧的变量str/st都能取到值。
+    //let{s}=123;//undefined
+    //let{s}=true;//undefined
+    //let{toString:str}=123;//ƒ toString() { [native code] }
+    //let{toString:str}=true;//ƒ toString() { [native code] }
+    //2.
+    //解构赋值的规则是:只要等号右边的值不是对象或数组，就先将其转为对象。
+    //由于undefined和null无法转为对象，所以对它们进行解构赋值，都会报错。
+    //let{orop:x}=undefined;//报错
+    //let{orop:x}=true;//报错
+
+    //5.函数的解构赋值
+    //第一类：
+    //function add([x,y]){
+    //    return x+y;
+    //}
+    //add([1,2]); //3
+    //面代码中，函数add的参数表面上是一个数组，但在传入参数的那一刻，数组参数就被解构成变量x和y。对于函数内部的代码来说，它们能感受到的参数就是x和y。
+    //第二类：
+    //function move({x=1,y=2}){
+    //    return [x,y];
+    //}
+    // function move({x,y}={x:1,y:2}){
+    //    return [x,y];
+    // }
+    // move({x:3,y:4});//[3,4]
+    // move({x:3});//[3,2]
+    // move({});//[1,2]
+    // move();
+    // 函数参数的解构也可以使用默认值。
+    // 这里有两个步骤:
+    // 1.对函数里面的参数进行解构赋值, 得到的结果就是{x=0,y=0}
+    // 2.函数调用时进行数据传参, 如果传入的参数可以正常进行解构赋值,那么就使用传进的参数否则,就调用默认值
+
+    //6.解构赋值注意点辨析
+    //1.圆括号问题
+    //（1）不能使用的情况
+    //变量声明语句，模式不能使用圆括号。
+    //函数参数，函数参数也属于变量声明，因此不能带有圆括号。
+    //function f([(z)]){return x;} //报错
+    //function f([z,(x)]){return z;} //报错
+    //赋值语句的模式，上面代码将整个模式放在圆括号之中，导致报错。下面代码将一部分模式放在圆括号之中，导致报错。
+    //({p:a})={p:42};
+    //([a])=[5];
+    //[({p:a}),{x:c}]=[{},{}];
+    //（2）能使用的情况：赋值语句的非模式部分，可以使用圆括号。
+    //[(b)]=[3];
+    //({p:(d)}={});
+    //[(parseInt.prop)]=[3];
+    //     上面三行语句都可以正确执行，
+    // 因为首先它们都是赋值语句，而不是声明语句；
+    // 其次它们的圆括号都不属于模式的一部分。
+    // 第一行语句中，模式是取数组的第一个成员，跟圆括号无关；
+    // 第二行语句中，模式是p，而不是d；
+    // 第三行语句与第一行语句的性质一致。
+    //2.应用场景
+    // （1）交换变量的值
+    // let x=1;
+    // let y=2;
+    // [x,y]=[y,x];
+    // （2）从函数返回多个值
+    // function fn(){
+    //     return[1,2,3];
+    //     return{
+    //         foo:1,
+    //         bar:2
+    //     };
+    // }
+    // let [a,b,c]=fn();//返回一个数组
+    // let {foo,bar}=fn();//返回一个对象
+    // （3）函数参数的定义
+    // function f([x,y,z]){...}
+    // f([1,2,3]);
+    // function f({x,y,z}){...}
+    // f({z: 3,y: 2,x: 1});
+    // （4）提取 JSON 数据
+    // let jsonDate={
+    //     id:42,
+    //     status:"OK",
+    //     data:[5656,5685]
+    // };
+    // let{id,status,data:number}=jsonDate;
+    // console.log{id,status,data,number};
+    </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4-jquery获取dom元素的方法</title>
+    <style>
+        #root {
+            width: 500px;
+            margin: 0 auto;
+            background: rgb(199, 145, 145);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <p class="a">家用电器</p>
+        <p>日用百货</p>
+        <ul>
+
+            <li>one</li>
+            <li class="a">two</li>
+            <li>three</li>
+            <li>fore</li>
+            <!-- <div>div</div> -->
+            <li id="five">five</li>
+            <div>div</div>
+            <li>six</li>
+            <li>seven</li>
+            <li>eight</li>
+            <li class="a">nine</li>
+            <li>ten</li>
+        </ul>
+        <p class="a">数码产品</p>
+        <p>电子产品</p>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+        let five = $("#five");
+        five.css("text-align", "center");
+
+        // 1.prev()方法，用于获取前一个兄弟元素,该方法里面可以传选择器
+        five.prev().css("color", "red");
+        // five.prev("div").css("color", "red");
+        five.prev().prev().prev().css("color", "green");//前面第三个
+
+        // 2.next()方法，用于获取后一个兄弟元素,该方法里面可以传选择器
+        // five.next().css("color", "green");
+        five.next("div").css("color", "red");
+        //$("#five").next("div")===$("#five+div")
+        // $("#five+div").css("background", "lightgray");
+
+        // 3.siblings()方法，用于获取同级所有兄弟元素,该方法里面可以传选择器
+        five.siblings().css("font-weight", "bold");
+        five.siblings("li").css("font-size", "25px");
+        // $("#five~li")选择器：表示获取同级下面的所有li标签
+        $("#five~li").css("font-size", "15px");
+
+        // 4.parent()方法：用于获取父级元素
+        five.parent().css("border", "1px solid black");
+        five.parent().parent().css("border", "1px solid orange");
+
+        // 5.parents()方法,用于获取所有的父级元素,该方法里面可以传选择器来获取指定的父级
+        five.parents("#root").css("border-radius", "20px");
+
+        // 6.children()方法，用于获取子元素,该方法里面可以传选择器
+        five.parents("#root").children(".a").css("color", "#ff5577");
+
+        // 7.find()方法：获取所有子元素，,该方法里面可以传选择器
+        five.parents("#root").find(".a").css("background", "#77ff98");
+
+        // 8.first()方法，用于获取第一个元素
+        five.parents("#root").find(".a").first().css("font-size", "30px");
+        // first选择器的写法
+        // five.parents("#root").find(".a:first").css("font-size", "30px");
+
+        // 9.last()方法，用于获取最后一个元素
+        five.parents("#root").find(".a").last().css("font-size", "10px");
+        // last选择器的写法
+        // five.parents("#root").find(".a:last").css("font-size", "10px");
+
+        // 10.eq()方法，用于获取指定下标的元素
+        five.parents("#root").find(".a").eq(2).css("color", "white");
+        // eq选择器的写法
+        // five.parents("#root").find(".a:eq(2)").css("color", "white");
+
+    </script>
+</body>
+
+</html>

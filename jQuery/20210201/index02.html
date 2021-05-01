@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2-jquery选择器</title>
+</head>
+<style>
+    #root {
+        width: 600px;
+    }
+</style>
+
+<body>
+    <div id="root">
+        <p class="a">家用电器</p>
+        <p name="b">日用百货</p>
+        <ul>
+            <li>one</li>
+            <li class="a">two</li>
+            <li>three</li>
+            <li name="b">fore</li>
+            <li>five</li>
+            <li>six</li>
+            <li>seven</li>
+            <li>eight</li>
+            <li class="a">nine</li>
+            <li>ten</li>
+        </ul>
+        <p class="a">数码产品</p>
+        <p>电子产品</p>
+
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <!-- $是核心对象；$()是核心方法 -->
+    <script>
+        //选择器的作用：
+
+        //1.全局选择器 *
+        $("*").css("font-size", "25px");
+        //2.id选择器 #
+        $("#root").css({ border: "1px solid blue", background: "lightblue", margin: " 0 auto" });
+        //3.class类选择器 .
+        $(".a").css("color", "red");
+        //4.标签选择器
+        $("p").css("text-decoration", "underline");
+        //5.层级选择器
+        //5-1.子选择器
+        $("#root>.a").css("text-align", "center");
+        //5-2.后代选择器
+        $("#root .a").css("text-align", "center");
+        //6.结构伪类选择器
+        $("ul>li:odd").css("text-align", "right");
+        $("ul>li:even").css("text-align", "left");
+        //7.属性选择器
+        $("p[name='b']").css("color", "orange");
+
+        //总结：jquery选择器的语法就是css选择器的语法
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7-选项卡</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    #tab {
+        width: 500px;
+        height: 400px;
+        margin: 20px auto;
+    }
+
+    .title {
+        display: flex;
+    }
+
+    .title li {
+        padding: 5px 20px;
+        border: 1px solid #cccccc;
+        border-radius: 10px;
+        margin: 0 5px;
+        cursor: pointer;
+    }
+
+    .title li.active {
+        background: orangered;
+        color: white;
+    }
+
+    .list li {
+        display: none;
+    }
+
+    .list li.show {
+        display: inline;
+    }
+</style>
+
+<body>
+    <div id="tab">
+        <ul class="title">
+            <li class="active">中国</li>
+            <li>美国</li>
+            <li>德国</li>
+        </ul>
+        <ul class="list">
+            <li class="show">中国的美食闻名世界</li>
+            <li>美国的军队很厉害</li>
+            <li>德国的骑车很安全</li>
+        </ul>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+        // 给.tltle里面的所有li注册点击事件
+        $(".title li").click(function () {
+            // this是触发当前事件的dom对象，要将它转换为jquery对象
+            // addClass()方法，用于添加样式
+            // removeClass()方法，用于移除样式
+            // siblings()方法，返回所有同级的兄弟元素,该方法可以传选择器，用于精确查找
+            $(this).addClass("active").siblings(".active").removeClass("active")
+            // index()方法，返回当前元素的索引
+            // eq()方法，是根据索引返回指定的元素
+            $(".list li").eq($(this).index()).show().siblings().hide()
+        })
+    </script>
+</body>
+
+</html>

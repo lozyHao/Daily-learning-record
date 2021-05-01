@@ -1,0 +1,18 @@
+{
+  "pages":[
+    "pages/demo1/demo1",
+    "pages/demo1-1/demo1-1",
+    "pages/add/add",
+    "pages/shujuku/shujuku",
+    "pages/index/index"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle":"black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "cloud": true
+}

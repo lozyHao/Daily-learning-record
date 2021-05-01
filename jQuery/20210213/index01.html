@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16-mini贪食蛇</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    #box {
+        position: relative;
+        width: 1000px;
+        height: 520px;
+        border: 2px solid red;
+        margin: 20px auto;
+        overflow: hidden;
+    }
+
+    .mine {
+        position: absolute;
+        height: 40px;
+        width: 40px;
+        background-color: red;
+    }
+
+    .food {
+        width: 40px;
+        height: 40px;
+        background-color: rgb(38, 153, 115);
+        position: absolute;
+        border-radius: 50%;
+    }
+</style>
+
+<body>
+    <div id="box">
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+        // 生成自己
+        let mine = $("<div/>").addClass("mine")
+        $("#box").append(mine)
+        // 自己的宽度
+        let mine_width = $(".mine").innerWidth()
+        // 自己的高度
+        let mine_height = $(".mine").innerHeight()
+        // 容器的宽度
+        let box_width = $("#box").innerWidth()
+        // 容器的高度
+        let box_height = $("#box").innerHeight()
+        // 初始化自己的位置
+        mine.css({
+            left: ((box_width / 2) - (mine_width / 2)) + "px",
+            top: ((box_height / 2) - (mine_height / 2)) + "px"
+        })
+
+        // offset().top,是返回元素到浏览器顶部的距离
+        // position().top，是返回元素到父级顶部的距离
+
+        // 定义运动的方向
+        let position = "top"
+        let timer = null
+        let speed = 200 //运动速度
+        // 自己运动的方法
+        function run() {
+            timer = setInterval(() => {
+                let top = mine.position().top
+                let left = mine.position().left
+                // 判断运动方向
+                switch (position) {
+                    case "top":
+                        top -= 20
+                        break;
+                    case "bottom":
+                        top += 20
+                        break;
+                    case "left":
+                        left -= 20
+                        break;
+                    case "right":
+                        left += 20
+                        break;
+                }
+                // 设置自己的最新位置
+                mine.css({
+                    top: top + "px",
+                    left: left + "px"
+                })
+                // 判断自己是否碰到边界
+                if (top < 0 || left < 0 || left > box_width - mine_width || top > box_height - mine_height) {
+                    alert("Geam Over~~~")
+                    mine.remove() //删除自己
+                    clearInterval(timer) //删除定时器
+                    timer = null
+                }
+            }, speed);
+        }
+
+        // 生成食物div方法 
+        let timer2 = null
+        function creatediv() {
+            timer2 = setInterval(() => {
+                // 生成食物div
+                let food = $("<div class='food'/>")
+                let left = Math.floor(Math.random() * box_width - 20)
+                let top = Math.floor(Math.random() * box_height - 30)
+                food.css({
+                    left: left + "px",
+                    top: top + "px"
+                })
+                $("#box").append(food)
+            }, 3000)
+        }
+
+        //检查碰撞
+        let timer3 = null
+        function checkCollision() {
+            timer3 = setInterval(() => {
+                $(".food").each(function (index, food) {
+                    // 获取每个.food元素的位置信息
+                    let p1 = returnDom_trbl(food)
+                    // 获取自己的位置信息,注意mine此时是jquery对象，需要先转为dom对象
+                    let p2 = returnDom_trbl(mine[0])
+                    // 判断food元素跟自己是否发生碰撞
+                    if (p1.l > p2.l && p1.l < p2.r && p1.t > p2.t && p1.t < p2.b ||
+                        p1.r > p2.l && p1.r < p2.r && p1.t > p2.t && p1.t < p2.b ||
+                        p1.l > p2.l && p1.l < p2.r && p1.b > p2.t && p1.b < p2.b ||
+                        p1.r > p2.l && p1.r < p2.r && p1.b > p2.t && p1.b < p2.b ||
+                        p2.l > p1.l && p2.l < p1.r && p2.t > p1.t && p2.t < p1.b ||
+                        p2.r > p1.l && p2.r < p1.r && p2.t > p1.t && p2.t < p1.b ||
+                        p2.l > p1.l && p2.l < p1.r && p2.b > p1.t && p2.b < p1.b ||
+                        p2.r > p1.l && p2.r < p1.r && p2.b > p1.t && p2.b < p1.b) {
+                        // 碰撞成功，吃掉食物，food消失
+                        $(food).remove()
+                    }
+                })
+            }, 20);
+        }
+
+
+        // 键盘按下事件
+        $(document).keydown(function (e) {
+            // 获取按键键码
+            let { keyCode } = e
+            switch (keyCode) {
+                // 如果是回车，运行/暂停
+                case 13:
+                    if (timer === null) {
+                        start() // 调用开始方法
+                    } else {
+                        clearTimer() // 调用清空定时器方法
+                    }
+                    break;
+                // 上
+                case 38:
+                    position = "top"
+                    break;
+                // 下
+                case 40:
+                    position = "bottom"
+                    break;
+                // 左
+                case 37:
+                    position = "left"
+                    break;
+                // 右
+                case 39:
+                    position = "right"
+                    break;
+                // 空格加速
+                case 32:
+                    speed = 50
+                    clearInterval(timer)
+                    run()
+                    break;
+            }
+        }).keyup(function (e) {
+            let { keyCode } = e
+            // 松开空格键恢复速度
+            if (keyCode === 32) {
+                speed = 200
+                clearInterval(timer)
+                run()
+            }
+        })
+
+        // 开始方法
+        function start() {
+            run()
+            creatediv()
+            checkCollision()
+        }
+        // 清空定时器方法
+        function clearTimer() {
+            clearInterval(timer)
+            clearInterval(timer2)
+            clearInterval(timer3)
+            timer = null
+            timer2 = null
+            timer3 = null
+        }
+
+        // 该方法用于返回一个Dom元素的top,right,bottom,left,到父级的距离
+        function returnDom_trbl(dom) {
+            let t = dom.offsetTop
+            let r = dom.offsetLeft + dom.offsetWidth
+            let b = dom.offsetTop + dom.offsetHeight
+            let l = dom.offsetLeft
+            return {
+                t, r, b, l
+            }
+        }
+    </script>
+</body>
+
+</html>

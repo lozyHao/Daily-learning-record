@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9-制作导航条</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    #nav {
+        margin: 50px 0;
+        width: 100vw;
+        height: 40px;
+        background: #eeeeee;
+        display: flex;
+        align-items: center;
+    }
+
+    #nav .title {
+        width: 100px;
+        height: 60px;
+        background: #336699;
+        color: white;
+        font-size: 25px;
+        line-height: 60px;
+        margin-left: 50px;
+        text-align: center;
+        /* 倾斜 */
+        transform: skew(-15deg);
+    }
+
+    #nav li {
+        cursor: pointer;
+        padding: 0 10px;
+        margin: 0 10px;
+        height: 40px;
+        line-height: 40px;
+        border-bottom: 2px solid transparent;
+    }
+
+    #nav li:hover {
+        border-bottom: 2px solid #369;
+    }
+</style>
+
+<body>
+    <ul id="nav">
+        <li class="title">课程</li>
+        <!-- <li>Web</li>
+        <li>Java</li>
+        <li>FastApi</li>
+        <li>javaScript</li>
+        <li>C++</li> -->
+    </ul>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+        // $("<li/>")是jquery创建标签的方式
+        // html()方法==>js中的innerHTML属性
+        // text()方法==>js中的innerText属性
+        // append()方法==>js中appendChlid()方法
+        // 加载菜单的方法
+        function loadMenu() {
+            // ajax请求一个本地的json文件
+            $.get("./data/menu.json", res => {
+                res.data.forEach(r => {
+                    // 创建一个li标签
+                    let li = $("<li/>").text(r.name)
+                    // 将li标签追加到#nav中
+                    $("#nav").append(li)
+                });
+            })
+        }
+        loadMenu();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21-extend()方法给jquery扩展方法</title>
+</head>
+<style>
+
+</style>
+
+<body>
+    <div id="tel"></div>
+    <div id="text"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <!-- 引入封装好了的方法的库 -->
+    <script src="../js/bing.js"></script>
+    <script>
+        // 1.给jquer对象扩展方法
+        // $ 其实是 jquery 对象的简写  get()方法，就是jquery对象的方法
+        $.get("http://www.bingjs.com:81/Grade/GetAll", function (res) {
+            console.log(res)
+        })
+
+        // extend()方法，用于给jquery对象扩展方法(此时，该库文件需要在引入jquer库之后引入)
+        $.extend($b)
+
+        // 电话号码打码
+        let tel = "18381118961"
+        // $("#tel").text($b.telmosic(tel))
+        $("#tel").text($.telmosic(tel))
+        // 文本打码
+        let text = "对有些人来说，困难是放弃的借口，而对另外一部分人来说，困难是成长壮大的机遇。"
+        // $("#text").text($b.textmosic(text)).attr("title", text)
+        $("#text").text($.textmosic(text)).attr("title", text)
+
+
+        // 2.给jquery的实例对象扩展方法
+        // fn.extend()方法，用于给jquery实例对象扩展方法
+        $.fn.extend({
+            red() {
+                $(this).css("color", "red")
+            },
+            green() {
+                $(this).css("color", "green")
+            }
+        })
+        $("#tel").red()
+        $("#text").green()
+
+        console.log("--------------------");
+
+        // 给其他对象扩展方法
+        let zjl = {
+            sing: function () {
+                console.log("正在唱歌...")
+            }
+        }
+        let wyz = {
+            filming: function () {
+                console.log("正在拍戏...")
+            }
+        }
+        let xtf = {
+            cook: function () {
+                console.log("正在做饭...")
+            }
+        }
+        //extend(方法，如果传多个对象，是将后面对象的方法扩展给第一个对象
+        $.extend(xtf, zjl, wyz)
+        console.log(xtf);
+
+    </script>
+</body>
+
+</html>

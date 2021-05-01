@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12-ajax方法</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .div {
+        width: 210px;
+        height: 25px;
+        background-color: rgb(219, 219, 219);
+        margin: 20px auto;
+    }
+</style>
+
+<body>
+    <div class="div">
+        <label for="">年级：</label>
+        <select name="" id="grade">
+            <option value="">---请选择年级---</option>
+        </select>
+        <button>查询</button>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+        // 获取年级信息的方法
+        function loadGrade() {
+            // 专门用于请求get请求的方法
+            // $.get("", {}, function (res) { })
+            // 专门用于发生post请求的方法
+            // $.post("", {}, function (res) { })
+
+            // 既可以发生get请求，又可以发生post请求
+            $.ajax({
+                url: "http://www.bingjs.com:81/Grade/GetAll", //设置请求地址
+                type: "GET", //设置请求类型（GET/POST），默认值是GET
+                data: {}, //设置请求参数数据
+                dataType: "json", //服务器返回的数据类型
+                async: true, //true表示异步请求（默认值），false表示同步请求
+                beforeSend: function (xhr) {
+                    // 发送请求之前的回调函数
+                    console.log(xhr);
+                    console.log("请求即将开始");
+                },
+                success: function (data, textStatus, xhr) {
+                    // 请求成功后的回调函数
+                    console.log("请求成功");
+                    console.log(data);
+                    console.log(textStatus);
+                    console.log(xhr);
+                    data.forEach(r => {
+                        let option = $("<option/>").html(r.GradeName).attr("value", r.GradeId)
+                        $("#grade").append(option)
+                    })
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    // 请求失败后的回调函数
+                    console.log("请求失败");
+                    console.log(xhr);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                },
+                complete: function (xhr, ts) {
+                    console.log(xhr);
+                    console.log(ts);
+                    // 请求完成后的回调函数
+                    console.log("请求已完成...");
+                }
+            })
+        }
+        loadGrade()
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11-下拉框省市联动效果</title>
+</head>
+
+<body>
+    <select name="" id="province">
+        <option value="0">---请选择省份---</option>
+    </select>
+    <select name="" id="city">
+        <option value="0">---请选择城市---</option>
+    </select>
+    <select name="" id="district">
+        <option value="0">---请选择区县---</option>
+    </select>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+
+        // attr()方法：用于设置属性 和 获取属性 ===> 类似于js中的 setAttribute() 和 getArrtibute()
+        // attr()方法，传两个参数，表示设置指定的属性，传一个参数，表示获取指定属性的值
+
+        let data = null //定义一个变量，用于备份数据
+        // 获取省份信息的方法
+        function getProvince() {
+            $.get("./data/city.json", res => {
+                data = res // 备份获取的全部数据
+                // 获取所有省份数据
+                res.filter(r => r.pid === 0).forEach(r => {
+                    // 每个省份信息，创建一个option标签
+                    let option = $("<option/>").html(r.name).attr("value", r.id)
+                    $("#province").append(option)
+                })
+            })
+        }
+        getProvince()
+
+        // val()方法：用于获取表单元素的值 ==> js里面的value属性
+        // remove()方法，用于删除自己
+        // empty()方法，用于清空子元素
+        // 结构伪类选择器
+        // --:gt(i) 表示大于指定的索引
+        // --:lt(i) 表示小于指定的索引
+        // --:eq(i) 表示等于指定的索引
+        // --:not(选择器) 表示排除指定的选择器
+
+        // 给省份下拉框注册一个选项改变后事件，就是js里面的onchange
+        $("#province").change(function () {
+            // 清空城市下拉框里面的数据
+            // $("#city option:gt(0)").empty()
+            $("#city option:not(:eq(0))").remove()
+            $("#district option:gt(0)").remove()
+            // 获取省份的id
+            let pid = parseInt($(this).val())
+            if (pid > 0) {
+                // 根据该省份id，获取对应的城市信息
+                data.filter(r => r.pid == pid).forEach(r => {
+                    // 每个城市信息创建一个option标签
+                    let option = $("<option/>").html(r.name).attr("value", r.id)
+                    $("#city").append(option)
+                })
+            }
+        })
+
+        // 给城市下拉框注册一个选项改变后事件
+        $("#city").change(function () {
+            // 清空区县下拉框里面的数据
+            $("#district option:gt(0)").remove()
+            // 获取区县的id
+            let cid = parseInt($(this).val())
+            if (cid > 0) {
+                // 根据该省份id，获取对应的城市信息
+                data.filter(r => r.pid == cid).forEach(r => {
+                    // 每个区县信息创建一个option标签
+                    let option = $("<option/>").html(r.name).attr("value", r.id)
+                    $("#district").append(option)
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>

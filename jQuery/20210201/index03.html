@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3-练习一：给表格的奇数偶数行添加不同的背景色</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            width: 100px;
+            height: 20px;
+            border: 1px solid rgb(104, 104, 104);
+        }
+    </style>
+</head>
+
+<body>
+    <button id="light1">浅色样式1</button>
+    <button id="dark1">深色样式1</button>
+    <button id="light2">浅色样式2</button>
+    <button id="dark2">深色样式2</button>
+    <br><br>
+    <table id="list">
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+        //方式一：
+        //浅色样式按点击事件
+        $("#light1").click(function () {
+            $("#list tr:even").css("background", "lightblue");
+            $("#list tr:odd").css("background", "lightgreen");
+        })
+        //浅色样式按点击事件
+        $("#light2").click(function () {
+            $("#list tr:even td:nth-child(even)").css("background", "lightblue");
+            $("#list tr:even td:nth-child(odd)").css("background", "lightgreen");
+            $("#list tr:odd td:nth-child(odd)").css("background", "lightblue");
+            $("#list tr:odd td:nth-child(even)").css("background", "lightgreen");
+        })
+        //深色样式按点击事件
+        $("#dark1").click(function () {
+            $("#list tr:nth-child(even)").css("background", "blue");
+            $("#list tr:nth-child(odd)").css("background", "green");
+        })
+
+        //深色样式按点击事件
+        $("#dark2").click(function () {
+            $("#list tr:even td:nth-child(even)").css("background", "blue");
+            $("#list tr:even td:nth-child(odd)").css("background", "green");
+            $("#list tr:odd td:nth-child(odd)").css("background", "blue");
+            $("#list tr:odd td:nth-child(even)").css("background", "green");
+        })
+    </script>
+</body>
+
+</html>

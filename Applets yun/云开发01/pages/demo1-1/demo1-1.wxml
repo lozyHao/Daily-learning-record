@@ -1,0 +1,6 @@
+<!--pages/demo1-1/demo1-1.wxml-->
+<view>商品名：{{goods.name}},价格：￥{{goods.price}}元</view>
+更新商品价格：
+<input bindinput="getPrice"></input>
+<button type="primary" bindtap="update">更新商品</button>
+<button bindtap="shanchu">删除当前商品</button>

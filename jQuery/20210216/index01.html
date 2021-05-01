@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18-日历控件</title>
+    <link rel="stylesheet" href="../css/common.css">
+</head>
+<style>
+    #time {
+        width: 350px;
+        border: 2px solid rgb(97, 218, 218);
+        margin: 20px auto;
+        user-select: none;
+    }
+
+    #time li {
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        /* color: rgb(19, 143, 143); */
+    }
+
+    .btn {
+        width: 350px;
+        height: 40px;
+        border-bottom: 1px solid rgb(97, 218, 218);
+    }
+
+    .btn>button {
+        padding: 2px 5px;
+        margin: 0 4px;
+        background-color: rgba(97, 218, 218, 0.2);
+        border: 1px solid rgb(97, 218, 218);
+        outline: none;
+        border-radius: 10px;
+        font-size: 10px;
+        color: rgb(19, 143, 143);
+    }
+
+    .btn>button:hover {
+        color: white;
+        background-color: rgb(97, 218, 218);
+        cursor: pointer;
+    }
+
+    .btn>span {
+        font-size: 14px;
+        color: rgb(19, 143, 143);
+    }
+
+    .btn>button+span {
+        padding-left: 10px;
+    }
+
+    .btn>span:last-of-type {
+        padding-right: 10px;
+    }
+
+    .days>li:hover {
+        cursor: pointer;
+        background-color: rgba(97, 218, 218, 0.2);
+    }
+
+    .days>li.active {
+        background-color: rgb(97, 218, 218);
+        color: white;
+    }
+
+    .days>li.other {
+        color: #ccc;
+        cursor: not-allowed;
+    }
+</style>
+
+<body>
+    <div id="time">
+        <div class="btn flex j-c a-c">
+            <button class="prev_year">上一年</button>
+            <button class="prev">上月</button>
+            <span></span>
+            <span>年</span>
+            <span></span>
+            <span>月</span>
+            <button class="next">下月</button>
+            <button class="next_year">下一年</button>
+            <button class="now">当前</button>
+        </div>
+        <ul class="week flex">
+            <li>日</li>
+            <li>一</li>
+            <li>二</li>
+            <li>三</li>
+            <li>四</li>
+            <li>五</li>
+            <li>六</li>
+        </ul>
+        <ul class="days flex-wrap"></ul>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script src="../js/bing.js"></script>
+    <script>
+        // 获取当前日期
+        let date = new Date()
+
+        // 日期点击事件
+        // 注意：因为li是后加的，所以它的点击事件需要委托父级
+        $(".days").on("click", "li:not(.other)", function () {
+            date.setDate(parseInt($(this).text()))
+            // 调用显示日历的方法
+            showSalender()
+        })
+
+        // 显示标题的方法
+        function showTitle() {
+            $(".btn span").eq(0).text(date.getFullYear())
+            $(".btn span").eq(2).text($b.repairZero(date.getMonth() + 1))
+        }
+        showTitle()
+
+        // 上月按钮点击事件
+        $(".prev").click(function () {
+            // 备份当前月份的日期
+            let bak_date = date.getDate()
+            // 设置为当前日期的第一天
+            date.setDate(1)
+            // 返回日期，返回到上个月
+            date.setMonth(date.getMonth() - 1)
+            // 获取最新月份有多少天
+            let days = getDays(date).days
+            if (days >= bak_date) {
+                date.setDate(bak_date)
+            } else {
+                date.setDate(days)
+            }
+            // 调用显示日历的方法
+            showSalender()
+            // 调用显示日历标题的方法
+            showTitle()
+        })
+
+        // 下月按钮点击事件
+        $(".next").click(function () {
+            // 备份当前月份的日期
+            let bak_date = date.getDate()
+            // 设置为当前日期的第一天
+            date.setDate(1)
+            // 返回日期，返回到上个月
+            date.setMonth(date.getMonth() + 1)
+            // 获取最新月份有多少天
+            let days = getDays(date).days
+            if (days >= bak_date) {
+                date.setDate(bak_date)
+            } else {
+                date.setDate(days)
+            }
+            showSalender()
+            // 调用显示日历标题的方法
+            showTitle()
+        })
+
+        // 上一年按钮点击事件
+        $(".prev_year").click(function () {
+            // 返回日期，返回到上一年
+            date.setYear(date.getFullYear() - 1)
+            // 调用显示日历的方法
+            showSalender()
+            // 调用显示日历标题的方法
+            showTitle()
+        })
+
+        // 下一年按钮点击事件
+        $(".next_year").click(function () {
+            // 返回日期，返回到下一年
+            date.setYear(date.getFullYear() + 1)
+            // 调用显示日历的方法
+            showSalender()
+            // 调用显示日历标题的方法
+            showTitle()
+        })
+
+        // 当前按钮点击事件
+        $(".now").click(function () {
+            let date1 = new Date()
+            date.setYear(date1.getFullYear())
+            date.setMonth(date1.getMonth())
+            date.setDate(date1.getDate())
+            // 调用显示日历的方法
+            showSalender()
+            // 调用显示日历标题的方法
+            showTitle()
+        })
+
+        // 显示日历的方法
+        function showSalender() {
+            // empty()清空所有的内容
+            $(".days").empty()
+            // 返回当前月份有多少天
+            let c_days = getDays(date)
+            for (let i = 1; i <= c_days.days; i++) {
+                let li = $("<li/>").text(i)
+                // 如果是当前日期，添加高亮样式
+                if (i === c_days.today) {
+                    li.addClass("active")
+                }
+                $(".days").append(li)
+            }
+            // 获取当前月份的一号是星期几
+            let date1 = new Date(date)
+            date1.setDate(1)
+            let weekday = date1.getDay()
+            for (let i = 1; i <= weekday; i++) {
+                date1.setDate(date1.getDate() - 1)
+                let li = $("<li/>").text(date1.getDate()).addClass("other")
+                $(".days").prepend(li)
+            }
+            // 获取当前月份的的最后一天是星期几
+            let date2 = new Date(date)
+            date2.setDate(c_days.days)
+            let weekday2 = date2.getDay()
+            for (let i = 1; i <= (6 - weekday2); i++) {
+                let li = $("<li/>").text(i).addClass("other")
+                $(".days").append(li)
+            }
+        }
+        showSalender()
+
+        // 获取当前月份有多少天 和 当前日期是几号 的方法
+        function getDays(date) {
+            // 获取年份
+            let year = date.getFullYear()
+            // 获取月份
+            let month = date.getMonth() //注意：月份返回的是0-11
+            // 定义天数
+            let days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month]
+            // 如果是二月份，并且是当前年龄是闰月，天数要加1
+            days = month === 1 && $b.isLeapYear(year) ? days + 1 : days
+
+            // 获取日期是几号
+            let today = date.getDate()
+            return {
+                days,
+                today
+            }
+        }
+    </script>
+</body>
+
+</html>

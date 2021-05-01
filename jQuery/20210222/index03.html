@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22-整屏切换效果之扩展</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        #container {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #container>div {
+            width: 100vw;
+            height: 100vh;
+            font-size: 100px;
+            color: white;
+            text-align: center;
+            transition: 1s;
+        }
+
+        .one {
+            background-color: rgb(255, 109, 109);
+        }
+
+        .two {
+            background-color: rgb(255, 109, 177);
+        }
+
+        .three {
+            background-color: rgb(239, 118, 255);
+        }
+
+        .fore {
+            background-color: rgb(123, 121, 255);
+        }
+
+        .five {
+            background-color: rgb(116, 211, 255);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div class="one">one</div>
+        <div class="two">two</div>
+        <div class="three">three</div>
+        <div class="fore">fore</div>
+        <div class="five">five</div>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script src="../js/bingJq.js"></script>
+    <script>
+
+        // 调用给jquery注册的鼠标滚轮事件方法
+        $.mousewheel(move)
+
+        let i = 0  //定义i表示翻屏数量
+        let date = null  //定义日期，用于节流操作
+
+        function move(ismove) {
+            if (new Date() - date >= 500) {
+                if (-ismove < 0) {
+                    // 滚轮往上滚，屏幕往下翻
+                    if (--i < 0) {
+                        i = 0
+                    }
+                } else {
+                    // 滚轮往下滚，屏幕往上翻
+                    if (++i > 4) {
+                        i = 4
+                    }
+                }
+                $("#container div").css("transform", `translateY(-${i * 100}vh)`)
+                date = new Date()
+            }
+        }
+    </script>
+</body>
+
+</html>

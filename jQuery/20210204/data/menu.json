@@ -1,0 +1,24 @@
+{
+    "data": [
+        {
+            "name": "Web",
+            "icon": ""
+        },
+        {
+            "name": "Java",
+            "icon": ""
+        },
+        {
+            "name": "FastApi",
+            "icon": ""
+        },
+        {
+            "name": "javaScript",
+            "icon": ""
+        },
+        {
+            "name": "C++",
+            "icon": ""
+        }
+    ]
+}

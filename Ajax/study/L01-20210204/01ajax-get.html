@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax-get请求</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    div {
+        width: 400px;
+        height: 300px;
+        border: 2px solid red;
+        margin-top: 5px;
+    }
+</style>
+
+<body>
+    <button id="btn">get请求</button>
+    <button id="btn2">获取省份的城市</button>
+    <div id="result"></div>
+    <script>
+        let btn = document.getElementById("btn")
+        let btn2 = document.getElementById("btn2")
+        let result = document.getElementById("result")
+        // 点击按钮获取所有城市信息
+        btn.onclick = function () {
+            // 1.创建ajax对象
+            let xhr = new XMLHttpRequest()
+            // 2.初始化GET请求
+            xhr.open('GET', 'http://localhost:8848/getCitys')
+            // 3.发送请求
+            xhr.send()
+            // 4.监听事件获取结果
+            xhr.onreadystatechange = function () {
+                // 判断请求是否完成
+                if (xhr.readyState === 4) {
+                    // 判断请求状态码是否正常
+                    if (xhr.status === 200) {
+                        // 显示结果
+                        let str = ""
+                        let list = JSON.parse(xhr.response)
+                        list.forEach(r => {
+                            str += `<li>${r.id}:${r.name}<li/>`
+                        })
+                        result.innerHTML = str
+                    }
+                }
+            }
+        }
+
+        btn2.onclick = function () {
+            // 1.创建ajax对象
+            let xhr = new XMLHttpRequest()
+            // 2.初始化GET请求
+            // GET请求的参数，在URL后面拼接
+            xhr.open('GET', 'http://localhost:8848/getProvincecitys?pid=2')
+            // 3.发送请求
+            xhr.send()
+            // 4.监听事件获取结果
+            xhr.onreadystatechange = function () {
+                // 判断请求是否完成
+                if (xhr.readyState === 4) {
+                    // 判断请求状态码是否正常
+                    if (xhr.status === 200) {
+                        // 显示结果
+                        let str = ""
+                        let list = JSON.parse(xhr.response)
+                        list.forEach(r => {
+                            str += `<li>${r.id}:${r.name}<li/>`
+                        })
+                        result.innerHTML = str
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

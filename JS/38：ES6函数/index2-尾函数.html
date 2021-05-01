@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数的尾调用</title>
+</head>
+
+<body>
+    <script>
+        //函数的尾调用:是函数式编程的一个重要概念，本身非常简单，一句话就能说清楚，就是指某个函数的最后一步是返回调用另一个函数的执行结果。
+        // function fn(x) {
+        //     return g(x);
+        // };
+
+        // function f(x) {
+        //     if (x > 0) {
+        //         return m(x)
+        //     }
+        //     return n(x);
+        // }
+
+        //递归recursion 函数自己调用自己，如：阶乘
+        // function recursion(num) {
+        //     if (num <= 1) {
+        //         return 1;
+        //     }
+        //     return num + recursion(num - 1);
+        // }
+
+        //1.函数的尾调用的内存优化：
+        //简单来说就是变量数据的保存周期,  如果是尾调用的话, 需要哪些数据不需要哪些已经是很明白的了,那么不需要用的那些就可以直接把它清除掉, 以减少内存的消耗
+        // function f() {
+        //     let m = 1; let n = 2;
+        //     return g(m + n);
+        // }
+        // f();
+        // //等同于
+        // function f() { return g(3); }
+        // f();
+        // //等同于
+        // g(3);
+
+        //注意:只有不再用到外层函数的内部变量，内层函数的调用帧才会取代外层函数的调用帧，否则就无法进行“尾调用优化”。
+        // function addOne(a) {
+        //     var one = 1;
+        //     function inner(b) {
+        //         return b + one;
+        //     }
+        //     return inner(a);
+        // }
+        //上面的函数不会进行尾调用优化，因为内层函数inner用到了外层函数addOne的内部变量one。
+
+        //2.函数尾调用的复杂度优化
+        //函数调用自身，称为递归。如果尾调用自身，就称为尾递归。
+        // function factorial(n) {
+        //     if (n === 1)
+        //         return 1;
+        //     return n * factorial(n - 1);
+        // }
+        // factoria1(5)// 120
+        //a.上面是阶乘函数，计算n的阶乘，最多需要保存n个调用记录(需要保存上一次函数的参数, 相当于n个闭包)，复杂度 O(n) 
+        // function factorial(n, total) {
+        //     if (n === 1)
+        //         return total;
+        //     return factorial(n - 1, n * total);
+        // }
+        // factorial(5, 1)// 120
+        //b.如果改写成上面的尾递归，只保留一个调用记录，复杂度 O(1)
+
+
+    </script>
+</body>
+
+</html>

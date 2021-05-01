@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5-显示和隐藏方法</title>
+</head>
+<style>
+    #box {
+        width: 200px;
+        height: 200px;
+        background: red;
+        display: none;
+    }
+</style>
+
+<body>
+    <button id="show">显示</button>
+    <button id="hide">隐藏</button>
+    <button id="sh">隐藏/隐藏</button>
+    <button id="down">下拉显示</button>
+    <button id="up">上拉隐藏</button>
+    <button id="du">下拉显示/上拉隐藏</button>
+    <button id="in">淡入显示</button>
+    <button id="out">淡出隐藏</button>
+    <button id="inOut">淡入显示/淡出隐藏</button>
+    <div id="box"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+        // 1.show()方法显示
+        //   hide()方法隐藏。内部其实就是对style.display属性进行设置
+        //   toddle()方法，是对show()方法和show()方法的封装
+        $("#show").click(function () {
+            // show()方法可以传参控制显示，可以是关键字、也可以是指定时间。第二个参数是完全显示后的回调函数
+            // $("#box").show();
+            // $("#box").show("fast"); //快速
+            // $("#box").show("slow"); //慢速
+            // $("#box").show("normal"); //正常速度
+            $("#box").show(1000); //也可以传指定的时间ms
+            // $("#box").show(1000, function () {
+            //     $("#box").css("background", "green");
+            // });
+        })
+        $("#hide").click(function () {
+            $("#box").hide()
+        })
+        $("#sh").click(function () {
+            // 注意：css()方法，传两个参数是对指定的样式赋值，只传一个参数是获取指定样式值
+            // if ($("#box").css("display") === "none") {
+            //     $("#box").show();
+            // } else {
+            //     $("#box").hide();
+            // }
+            // toggle()方法，其实就是上面的判断（就是对上面判断的封装）
+            $("#box").toggle(500)
+        })
+
+        // 2.slideDown()方法,下拉显示
+        //   slideUp()方法,上拉隐藏
+        //   slideToggle()方法 是对 slideDown()方法 和 slideUp()方法 的封装
+        $("#down").click(function () {
+            $("#box").slideDown(1000)
+        })
+        $("#up").click(function () {
+            $("#box").slideUp()
+        })
+        $("#du").click(function () {
+            $("#box").slideToggle()
+        })
+
+        //3.fadeIn()方法,淡入显示
+        //  fadeOut()方法,淡出隐藏
+        //  fadeToggle()方法 是对 fadeIn()方法 和 fadeOut()方法 的封装
+
+        $("#in").click(function () {
+            $("#box").fadeIn(1000)
+        })
+        $("#out").click(function () {
+            $("#box").fadeOut()
+        })
+        $("#inOut").click(function () {
+            $("#box").fadeToggle()
+        })
+    </script>
+</body>
+
+</html>

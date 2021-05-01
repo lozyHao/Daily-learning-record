@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+//一：函数的默认参数设置
+    //1.ES6 之前，不能直接为函数的参数指定默认值，只能采用变通的方法
+        // function log(x,y){
+        //     y = y ||'world';
+        //     console.log(x,y);
+        // }
+        // log( 'Hello')// Hello world
+        // log( 'Hello', 'China') // Hello China
+        // log( 'Hello','')// Hello world
+            //这种写法的缺点在于，如果参数y赋值了，但是对应的布尔值为false，则该赋值不起作用。
+            //就像上面代码的最后一行，参数y等于空字符，结果被改为默认值
+        // function log(x,y){
+        //     if (typeof y === 'undefined'){
+        //         y = 'World';
+        //     }
+        //     console.log(x,y);
+        // }
+        // log('Hello')// HeLLo worLd
+        // log('Hello' , 'China') // HeLLo china
+        // log( 'Hello', '')// HeLlo
+            //为了避免这个问题，通常需要先判断一下参数y是否被赋值，如果没有，再等于默认值
+    //2.ES6 允许为函数的参数设置默认值，即直接写在参数定义的后面
+        // function log(x, y = 'world'){
+        //     console.log(x,y);
+        // }
+        // log( 'Hello')// Hello world
+        // log( 'Hello', 'China')// Hello China
+        // log( 'Hello', '')// Hello
+            //相当于上面的写法
+    //3.注意：
+        //1.参数变量是默认声明的，所以不能用let或const再次声明
+            // function foo(x = 5){
+            //     let x = 1; // error
+            //     const x= 2; // error
+            // }
+        //2.使用参数默认值时，函数不能有同名参数
+            //不报错
+                // function foo(x,x,y){
+                //     //...
+                // }
+            //报错
+                // function foo(x,x,y = 1){
+                //     //...
+                // }
+    //4.参数默认值可以与解构赋值的默认值，结合起来使用
+        // function foo({x, y = 5}){
+        //     console.log(x,y);
+        // }
+        // foo(0)// undefined 5
+        // foo({x:1})// 1 5
+        // foo({x: 1, y: 2})// 1 2
+        // foo()// TypeError: Cannot read property 'x' of undefined
+            //优化：通过提供函数参数的默认值，就可以避免
+                // function foo({x, y = 5}={}){
+                //     console.log(x,y);
+                // }
+                // foo()// undefined 5
+    //5.有默认值的参数都不是尾参数。这时，无法只省略该参数，而不省略它后面的参数，除非显式输入undefined
+        //例一
+            // function f(x = 1, y){
+            //     return [x,y];
+            // }
+            // f() // [1,undefined]f(2)
+            // f(2) //[2,undefined]
+            // f( ,1) //报错
+            // f(undefined,1) //[1,1]
+        //例二
+            // function f(x,y = 5,z){
+            //     return [x, y,z];
+            // }
+            // f()// [undefined,5,undefined]
+            // f(1)// [1，5,undefined]
+            // f(1, ,2)//报错
+            // f(1,undefined,2)// [1,5,2]
+        //如果传入undefined，将触发该参数等于默认值，null则没有这个效果。
+            // function foo(x = 5, y = 6){
+            //     console.log(x,y);
+            // }
+            // foo(undefined,null)// 5 null
+    //6:函数的length属性:指定了默认值以后，函数的length属性，将返回没有指定默认值的参数个数
+        //1.这是因为length属性的含义是，该函数预期传入的参数个数。某个参数指定默认值以后，预期传入的参数个数就不包括这个参数了
+            // (function (a) {}).length // 1
+            // (function (a = 5) {}).length // 0
+            // (function (a,b,c = 5) {}).length // 2
+        //2.如果设置了默认值的参数不是尾参数，那么length属性也不再计入后面的参数了
+            // (function (a = 0,b,c) {}).length // 0
+            // (function (a, b = 1,c) {}).length // 1
+    //7:函数的参数作用域
+        //1.参数y的默认值等于变量x。调用函数f时，参数形成一个单独的作用域。在这个作用域里面，默认值变量x指向第一个参数x，而不是全局变量x，所以输出是2。
+            // var x= 1;
+            // function f(x,y = x){
+            //     console.log(y);
+            // }
+            // f(2)// 2
+        //2.左侧代码中，函数f调用时，参数y = x形成一个单独的作用域。这个作用域里面，变量x本身没有定义，所以指向外层的全局变量x。函数调用时，函数体内部的局部变量x影响不到默认值变量x
+            // let x = 1;
+            // function f(y = x){
+            //     let x = 2;
+            //     console.log(y);
+            // }
+            // f() // 1 //如果全局变量 let x = 1 不存在就会报错
+    //8:函数的默认参数设置：
+
+    //9:函数的rest参数设置：ES6 引入 rest 参数（形式为...变量名），用于获取函数的多余参数，这样就不需要使用arguments对象了
+        //1.
+        // function fn(x,y,...other){
+        // console. log(x);
+        // console.log(y);
+        // console. log(other);
+            // 输出：fn(1,2,3,4,5)
+            // 1
+            // 2
+            // (3)[3,4,5]
+        //2.用 rest 参数改写数组push方法
+            function push(array, ...items) {
+                items.forEach(function(item){
+                    array.push(item);
+                    console.log(item);
+                });
+            }
+            var a = [];
+            push(a,1,2,3)
+            //注意：rest 参数它就是一个真正的数组，数组特有的方法都可以使用
+    //10:函数的严格模式(不常用)
+
+    //11:函数的name属性：返回该函数的函数名（如果将一个具名函数赋值给一个变量，则 ES5 和 ES6 的name属性都返回这个具名函数原本的名字）
+        // function foo(){}
+        // ofoo.name // "foo"
+    
+
+    </script>
+</body>
+</html>

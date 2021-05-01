@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10-三级菜单</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        #menu {
+            width: 200px;
+            height: 400px;
+            margin: 20px auto;
+        }
+
+        .province {
+            cursor: pointer;
+        }
+
+        .title {
+            height: 30px;
+            color: white;
+            background-color: rgb(31, 160, 128);
+            font-size: 18px;
+            text-align: center;
+            line-height: 30px;
+            cursor: default;
+        }
+
+        .city>li {
+            height: 30px;
+            color: white;
+            background-color: rgb(115, 154, 187);
+            text-align: center;
+            line-height: 30px;
+            position: relative;
+        }
+
+        .city>li:hover>.district {
+            display: block;
+        }
+
+        .district {
+            position: absolute;
+            background-color: rgb(127, 224, 156);
+            top: 0;
+            left: 200px;
+            width: 100px;
+            color: white;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="menu">
+        <!-- <div class="province">
+            <div class="title">四川省</div>
+            <ul class="city">
+                <li>广安市
+                    <ul class="district">
+                        <li>岳池县</li>
+                        <li>武胜县</li>
+                    </ul>
+                </li>
+                <li>成都市
+                    <ul class="district">
+                        <li>武侯区</li>
+                        <li>双流区</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="province">
+            <div class="title">广东省</div>
+            <ul class="city">
+                <li>清远市
+                    <ul class="district">
+                        <li>清新区</li>
+                        <li>佛冈县</li>
+                    </ul>
+                </li>
+                <li>汕头市
+                    <ul class="district">
+                        <li>潮阳区</li>
+                        <li>潮安区</li>
+                    </ul>
+                </li>
+            </ul>
+        </div> -->
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+        //定义一个省份数组
+        let provinces = []
+        // 1.加载数据的方法
+        function loadData() {
+            $.get("./data/city.json", res => {
+                // 先从原始数据中获取所有的省份信息
+                provinces = res.filter(r => r.pid === 0)
+                // 循环省份数组
+                provinces.forEach(p => {
+                    // 该每个省份对象添加一个城市数组
+                    p.citys = res.filter(r => r.pid === p.id)
+                    // 循环每个省份里面的城市数组
+                    p.citys.forEach(c => {
+                        // 给每个城市添加一个区县数组
+                        c.districts = res.filter(r => r.pid === c.id)
+                    })
+                })
+
+                // 调用显示数据的方法 
+                showData();
+            })
+        }
+        // 2.显示数据的方法
+        function showData() {
+            // 循环出所有的省份信息
+            provinces.forEach(p => {
+                // 创建省份div
+                let province = $("<div class='province'/>")
+                let title = $("<div class='title'/>").html(p.name)
+                province.append(title)
+                let city = $("<ul class='city'/>")
+                province.append(city)
+                // 循环出每个省份的城市信息
+                p.citys.forEach(c => {
+                    let li = $("<li/>").html(c.name)
+                    city.append(li)
+                    let district = $("<ul class='district'/>")
+                    li.append(district)
+                    // 循环出每个城市的区县信息
+                    c.districts.forEach(d => {
+                        let li2 = $("<li/>").html(d.name)
+                        district.append(li2)
+                    })
+                })
+                // 将省份div添加到menu中
+                $("#menu").append(province)
+            })
+        }
+
+        // 调用加载数据的方法
+        loadData();
+
+    </script>
+</body>
+
+</html>

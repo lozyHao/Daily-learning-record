@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax-post请求</title>
+</head>
+<style>
+    #result {
+        width: 400px;
+        height: 300px;
+        border: 2px solid red;
+        margin-top: 5px;
+    }
+</style>
+
+<body>
+    <div>
+        <span>城市编号：</span>
+        <input type="text" id="cid">
+    </div>
+    <div>
+        <span>城市名称：</span>
+        <input type="text" id="cname">
+    </div>
+    <div>
+        <button id="btn">添加</button>
+    </div>
+    <div id="result"></div>
+    <script>
+        let btn = document.querySelector("#btn")
+        let result = document.querySelector("#result")
+        // 添加按钮添加数据，并获取最新的数据
+        btn.onclick = function () {
+            // 获取数据
+            let cid = document.querySelector("#cid").value
+            let cname = document.querySelector("#cname").value
+
+            // 1.创建ajax对象
+            let xhr = new XMLHttpRequest()
+
+            // 2.初始化POST请求
+            xhr.open('POST', 'http://localhost:8848/addCity')
+
+            // 设置请求体的类型form-urlencoded
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+
+            // 3.发送请求
+            xhr.send(`cid=${cid}&cname=${cname}`)
+            // 4.监听状态获取结果
+            xhr.onreadystatechange = function () {
+                // 判断请求是否完成
+                if (xhr.readyState === 4) {
+                    // 判断请求状态码是否正常
+                    if (xhr.status === 200) {
+                        // 显示结果
+                        result.innerHTML = xhr.response
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

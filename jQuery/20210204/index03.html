@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6-js对象和jquery对象之间的转换</title>
+</head>
+
+<body>
+    <!-- 复选框 -->
+    <input id="gender" type="checkbox" value="男" checked>男
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+        // 获取dom元素并返回（js对象）
+        let gender = document.getElementById("gender")
+        console.log(gender);
+        console.log(gender.value);
+        console.log(gender.checked);
+
+        if (gender.checked) {
+            console.log("选中状态")
+        } else {
+            console.log("没有选中")
+        }
+
+        // 将js对象转换为jquery对象--方法是:$(js对象)
+        // 将js对象转换为jquery对象--目的：我们需要jquery提供的各种方法
+        let jgender = $(gender)
+        console.log(jgender);
+        console.log(jgender[0]); //jquery对象，是一个类似于数组的对象，可以通过[索引] 或 get(索引)的方式返回指定dom对象
+        console.log(jgender.get(0));
+        console.log(jgender.val()); //val()方法===value属性
+        console.log(jgender.attr("checked"));
+
+        if (jgender[0].checked) {
+            console.log("选中状态")
+        } else {
+            console.log("没有选中")
+        }
+
+    </script>
+</body>
+
+</html>

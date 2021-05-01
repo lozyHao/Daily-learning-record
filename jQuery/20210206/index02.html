@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>13-轮播图1</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    #lunbo {
+        width: 700px;
+        height: 300px;
+        margin: 50px auto;
+        background-color: red;
+        position: relative;
+    }
+
+    #lunbo img {
+        width: 700px;
+        height: 300px;
+    }
+
+    #lunbo .btn {
+        position: absolute;
+        bottom: 10px;
+        height: 14px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    #lunbo .btn li {
+        width: 10px;
+        height: 10px;
+        background-color: rgb(197, 197, 197);
+        border-radius: 50%;
+        cursor: pointer;
+        margin: 2px 5px;
+        border: 2px solid repeat;
+    }
+
+    #lunbo .btn .active {
+        background-color: rgb(207, 59, 59);
+    }
+
+    .left {
+        width: 37px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 5px;
+        display: flex;
+        align-items: center;
+    }
+
+    .left_arrow {
+        width: 37px;
+        height: 63px;
+        background-image: url("img/arrl.png");
+        cursor: pointer;
+    }
+
+    .left_arrow:hover {
+        background-color: rgba(185, 185, 185, 0.3);
+    }
+
+    .right {
+        width: 37px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 5px;
+        display: flex;
+        align-items: center;
+    }
+
+    .right_arrow {
+        width: 37px;
+        height: 63px;
+        background-image: url("img/arrr.png");
+        cursor: pointer;
+    }
+
+    .right_arrow:hover {
+        background-color: rgba(185, 185, 185, 0.3);
+    }
+</style>
+
+<body>
+    <div id="lunbo">
+        <div class="left">
+            <div class="left_arrow"></div>
+        </div>
+        <div class="right">
+            <div class="right_arrow"></div>
+        </div>
+        <img class="img"
+            src="http://p1.music.126.net/gveAPpvt7djStWOgsaHyuA==/109951165696014282.jpg?imageView&quality=89">
+        <ul class="btn">
+        </ul>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+        // 定义图片数组
+        let imgs = ["http://p1.music.126.net/gveAPpvt7djStWOgsaHyuA==/109951165696014282.jpg?imageView&quality=89",
+            "http://p1.music.126.net/xRkky47JCAJ8sGoY7WyDTA==/109951165695605796.jpg?imageView&quality=89",
+            "http://p1.music.126.net/_vRVPe0yjrILrDHzOth6lw==/109951165695524637.jpg?imageView&quality=89",
+            "http://p1.music.126.net/7Ji-HHrbB0VIb6CDUqNE6g==/109951165695731186.jpg?imageView&quality=89",
+            "http://p1.music.126.net/e8nPmdw7Z5BrBMnXqZOY7w==/109951165692921218.jpg?imageView&quality=89"]
+        let i = 0 //用于表示当前显示的下标
+
+        // 生成li按钮
+        for (let i = 0; i < imgs.length; i++) {
+            let li = $("<li/>")
+            if (i === 0) {
+                li.addClass("active")
+            }
+            $(".btn").append(li)
+        }
+
+        // 点击按钮切换
+        $(".btn li").click(function () {
+            // 先清空定时器
+            clearInterval(timer)
+            // 将当前li的位置值赋值给i
+            i = $(this).index()
+            change() //调用切换方法
+            // 再开启定时器
+            run()
+        })
+
+        // 左箭头点击事件
+        $(".left_arrow").click(function () {
+            // 先清空定时器
+            clearInterval(timer)
+            // 判断当移动至第一张时，直接跳转到最后一张
+            if (--i < 0) {
+                i = imgs.length - 1
+            }
+            change() //调用切换方法
+            // 再开启定时器
+            run()
+
+        })
+
+        // 右箭头点击事件
+        $(".right_arrow").click(function () {
+            // 先清空定时器
+            clearInterval(timer)
+            // 判断当移动至最后一张时，直接跳转到第一张
+            if (++i >= imgs.length) {
+                i = 0
+            }
+            change() //调用切换方法
+            // 再开启定时器
+            run()
+        })
+
+        // 切换方法
+        function change() {
+            // 切换图片
+            $(".img").attr("src", imgs[i])
+            // 切换按钮样式
+            $(".btn li").eq(i).addClass("active").siblings(".active").removeClass("active")
+        }
+
+        // 定时器
+        let timer = null //定义一个变量，用来接收定时器
+        // 开启定时器的方法
+        function run() {
+            timer = setInterval(() => {
+                // i每次+1，如果i的值超过了数组的长度就从0开始
+                if (++i >= imgs.length) {
+                    i = 0
+                }
+                change() //调用切换方法
+            }, 4000);
+        }
+        run() //开启定时器
+    </script>
+</body>
+
+</html>

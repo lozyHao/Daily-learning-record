@@ -1,0 +1,23 @@
+/* pages/demo1/demo1.wxss */
+.title{
+  width: 100%;
+}
+.content{
+  width: 80%;
+  height: 80rpx;
+  margin: 10rpx auto;
+  text-align: center;
+  line-height: 80rpx;
+  background: rgb(226, 226, 226);
+  border-radius: 20rpx;
+}
+input{
+  width: 80%;
+  height: 60rpx;
+  margin: 20rpx auto;
+  border-radius: 20rpx;
+  border: 1rpx solid rgb(156, 156, 156);
+}
+button{
+  margin-top: 20rpx;
+}

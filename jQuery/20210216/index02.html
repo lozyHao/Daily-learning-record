@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>19-下拉菜单效果</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        #menu {
+            width: 200px;
+            border: 2px solid rgb(95, 197, 175);
+            margin: 20px auto;
+            text-indent: 20px;
+        }
+
+        .title {
+            font-weight: bold;
+            padding: 4px 0;
+            border-bottom: 1px solid white;
+            cursor: pointer;
+            background-color: rgb(135, 241, 218);
+            color: white;
+        }
+
+        .list {
+            border-bottom: 1px solid white;
+        }
+
+        .list:last-of-type {
+            border-bottom: none;
+        }
+
+        .list>ul {
+            background-color: rgb(175, 247, 231);
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="menu">
+        <div class="list">
+            <div class="title">我的好友</div>
+            <ul>
+                <li>吴亦凡</li>
+                <li>鹿晗</li>
+                <li>黄子韬</li>
+                <li>黄渤</li>
+            </ul>
+        </div>
+        <div class="list">
+            <div class="title">我的好友</div>
+            <ul>
+                <li>迪丽热巴</li>
+                <li>杨幂</li>
+                <li>杨颖</li>
+                <li>赵丽颖</li>
+            </ul>
+        </div>
+        <div class="list">
+            <div class="title">黑名单</div>
+            <ul>
+                <li>罗志飞</li>
+                <li>蔡徐坤</li>
+                <li>黄海强</li>
+                <li>胡海云</li>
+            </ul>
+        </div>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+
+        $(".title").click(function () {
+            // 下拉效果   
+            $(this).next().slideToggle()
+
+            // 手风琴效果
+            // $(this).next().slideToggle()
+            // $(this).parent().siblings().find("ul").slideUp()
+        })
+
+
+    </script>
+</body>
+
+</html>

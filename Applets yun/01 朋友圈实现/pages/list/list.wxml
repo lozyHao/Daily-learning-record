@@ -1,0 +1,50 @@
+<!--pages/list/list.wxml-->
+<mp-navigation-bar back="{{false}}" title="朋友圈">
+  <image slot="left" class="go-publish" src="../../images/4.png" bindtap="goPublish"></image>
+</mp-navigation-bar>
+<view class="item" wx:for="{{list}}" wx:index="index" wx:key="id">
+  <view class="left">
+    <image class="avatar"></image>
+  </view>
+  <view class="right">
+    <view class="nickname">{{item.nickName}}</view>
+    <view class="content">{{item.content}}</view>
+    <view class="image-list">
+      <image class="image" wx:for="{{item.imageList}}" wx:key="url"></image>
+    </view>
+    <view class="time-area">
+      <view class="time">{{item.time}}</view>
+      <view>
+        <image class="operation-button" catchtap="showOperationIndex" data-index="{{index}}" src="../../images/1.png">
+        </image>
+        <view class="operation-pannel" wx:if="{{showOperationIndex==index}}">
+          <view class="tab" catchtap="clickLove" data-index="{{index}}">
+            <image class="image" src="../../images/2.png"></image>
+            <text>赞</text>
+          </view>
+          <view class="tab" catchtap="clickComment" data-index="{{index}}">
+            <image class="image" src="../../images/3.png"></image>
+            <text>评论</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="love-comment">
+      <view class="love" wx:if="{{item.loveList.length>0}}">
+        <image class="love-icon"></image>
+        <text class="love-nickname" wx:for-items="{{item.loveList}}" wx:for-item="love">{{love.nickName}}</text>
+      </view>
+      <view class="comment" wx:if="{{item.commentList.length>0}}">
+        <view wx:for-items="{{item.commentList}}" wx:for-item="comment">
+          <text class="comment-nickname">{{comment.nickName}}</text>
+          <text class="comment-conetent">{{comment.content}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 评论对话框 -->
+<view class="comment-add" style="bottom:{{heightBottom !=''?heightBottom:0}}rpx" wx:if="{{showCommentAdd}}">
+  <input class="comment-input" placeholder="评论" focus="{{showCommentAdd}}" bindinput="bindInput" bindfocus="bindFocus"></input>
+  <button class="commend-send" type="primary" disabled="{{commentContent.length>0?flase:true}}" size="mini" catchtap="clickSend">发 送</button>
+</view>

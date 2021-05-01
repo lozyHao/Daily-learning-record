@@ -1,0 +1,23 @@
+<!--logs.wxml-->
+<view class="item">
+  <view class="information">
+    <view class="Inlogo">
+      <image class="Inlogoimage"
+        src="cloud://luozhihao-yun01-4ggorhbn3a8bbfc9.6c75-luozhihao-yun01-4ggorhbn3a8bbfc9-1305486583/ylbk/images/10logo/01logo.png">
+      </image>
+    </view>
+    <text class="Intipes">欢迎使用彝览百科微信小程序</text>
+  </view>
+  <!-- <view class="info">
+    <image class="infoImg" src="{{userInfo.avatarUrl}}"></image>
+    <view class="infoName">{{userInfo.nickName}}</view>
+  </view> -->
+  <view class="denglu">
+    <view class="go">
+      <text class="Godenglu">微信登录</text>
+      <text class="GogetUser">将获取您公开的信息，如头像、昵称、性别等信息</text>
+    </view>
+    <button class="inter" size="default" type="primary" open-type="getUserInfo" bindtap="getUserProfile">授权登录</button>
+  </view>
+
+</view>

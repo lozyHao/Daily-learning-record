@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8-jquery-ajax</title>
+</head>
+
+<body>
+    <button id="get">get请求</button>
+    <button id="post">post请求</button>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+        $("#get").click(function () {
+            // get请求
+            // $.get("http://www.bingjs.com:81/Grade/GetAll", function (res) {
+            //     console.log(res);
+            // })
+            // get请求,需要传参数
+            $.get("http://www.bingjs.com:81/Grade/GetAll", {
+                gradeId: 1
+            }, function (res) {
+                console.log(res);
+            })
+        })
+        $("#post").click(function () {
+            // post请求（第一个参数：地址；第二个参数：数据；第三个参数：成功之后的回调函数）
+            $.post("http://www.bingjs.com:81/Subject/Add", {
+                subjectName: "语文",
+                classHour: 100,
+                gradeId: 1
+            }, function (res) {
+                console.log(res);
+            })
+        })
+
+    </script>
+</body>
+
+</html>

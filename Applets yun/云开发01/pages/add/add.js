@@ -1,0 +1,43 @@
+// pages/add/add.js
+Page({
+  onLoad(){},
+  // 添加数据方法
+  add(){
+    wx.cloud.database().collection('goods')
+    .add({
+      data:{//添加数据
+        name:'车厘子',
+        price:100
+      }
+    }).then(res=>{
+      console.log('添加数据成功',res);
+    }).catch(res=>{
+      console.log('添加数据失败',res);
+    })
+  },
+  // 更新修改数据
+  update(){
+    wx.cloud.database().collection('goods')
+    .doc('28ee4e3e606970530e1533486c9404de')
+    .update({
+      data:{
+        price:200
+      }
+    }).then(res=>{
+      console.log('修改成功',res);
+    }).catch(res=>{
+      console.error('修改失败',res);
+    })
+  },
+  //删除单条数据
+  remove(){
+    wx.cloud.database().collection('goods')
+      .doc('28ee4e3e606abef50e342ac76ad18690')
+      .remove()
+      .then(res=>{
+        console.log('删除成功',res);
+      }).catch(res=>{
+        console.error('删除失败',res);
+      })
+  } 
+})

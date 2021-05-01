@@ -1,0 +1,9 @@
+<!--pages/list/publish.wxml-->
+<view class="weui-cells">
+  <view class="weui-cell">
+    <view class="weui-cell_bd">
+      <textarea class="weui-textarea" placeholder="这一刻的想法" style="height: 3.3em" maxlength="200" bindinput="bindInput" />
+      <view class="weui-textarea-counter">{{textLength}}/200</view>
+    </view>
+  </view>
+</view>

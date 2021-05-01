@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1-jQuery初识</title>
+</head>
+<style>
+    div {
+        width: 200px;
+        height: 50px;
+    }
+</style>
+
+<body>
+    <div id="dom1"></div>
+    <div id="dom2"></div>
+    <!-- 1.jQuery简介:
+        jQuery 是一个高效、精简并且功能丰富的 JavaScript 工具库。
+        它提供的 API 易于使用且兼容众多浏览器，
+        这让诸如 HTML 文档遍历和操作、事件处理、动画和 Ajax 操作更加简单。 -->
+    <!-- 2.jquery文档引入：<script src="./js/jquery.js"></script>-->
+    <!-- 3.可以直接引入外网资源：<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+        //js中的dom操作：
+        let dom1 = document.getElementById("dom1");
+        dom1.innerHTML = "Hello World！";
+        dom1.style.background = "lightblue";
+        dom1.style.color = "red";
+        dom1.style.border = "1px solid blue";
+        dom1.onclick = function () {
+            this.innerHTML = "你好世界！";
+        }
+
+        //jquery中：
+        //$("#dom2")用于获取dom2元素，并转为jQuery对象；html()用于设置dom元素的内容，等价于innerHTML
+        //css()方法 用于设置dom元素样式---该方法有两种用法：1.css("样式属性,"属性值").css()...;2.css({样式属性:"属性值",...})
+        //click()方法 给定dom元素点击事件，等价于onclick
+        $("#dom2").html("Hello World!")
+            .css({ backgroundColor: "lightblue", color: "red", border: "1px solid blue" })
+            .click(function () {
+                $(this).html("你好世界！")
+            })
+
+        //jquery对象的方法，可以反复点出新的方法，继续操作dom对象，设计原理如下：
+        let obj = {
+            a() {
+                console.log("我是a");
+                return this;
+                //在方法的末尾，返回了调用该方法的对象return this
+            },
+            b() {
+                console.log("我是b");
+                return this;
+            },
+            c() {
+                console.log("我是c");
+                return this;
+            }
+        }
+        obj.a();
+        obj.b();
+        obj.c();
+        obj.a().b().c().b();
+
+
+    </script>
+
+
+</body>
+
+</html>

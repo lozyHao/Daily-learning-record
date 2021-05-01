@@ -1,0 +1,14 @@
+<!--pages/index/index.wxml-->
+<view class="indexContainer">
+  <image class="avatarUrl" src="{{userInfo.avatarUrl}}"></image>
+  <button bindgetuserinfo="handleGetUserInfo" open-type="getUserInfo">获取用户信息</button>
+  <text class="userName">{{userInfo.nickName}}</text>
+  <!-- 测试事件绑定 -->
+  <!-- <view class="goStudy" catchtap="handleParent">
+    <text catchtap="handleChild">Hello World</text>
+  </view> -->
+
+  <view class="goStudy" catchtap="toLogs">
+    <text>Hello World</text>
+  </view>
+</view>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15-生态生成div</title>
+</head>
+<style>
+    div {
+        position: absolute;
+    }
+</style>
+
+<body>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+        $(document).click(function (e) {
+            let div = $("<div/>")
+            let ys = Math.round(Math.random() * 4) + 1
+            let wh = Math.random() * 100 + "px"
+            div.css({
+                left: e.pageX + "px",
+                top: e.pageY + "px",
+                height: wh,
+                width: wh,
+                background: `url("img/qp${ys}.png")`
+            })
+            div.css("background-size", "100%")
+            let timer = setInterval(() => {
+                // 获取top、left值
+                let top = div.offset().top
+                let left = div.offset().left
+                if (top < 0) { //当div超过界面时
+                    div.remove() //删除div
+                    clearInterval(timer) //清除定时器
+                }
+                div.css({
+                    top: (top - 20) + "px",
+                    left: Math.round(Math.random()) === 0 ? (left - 20) + "px" : (left + 20) + "px"
+                })
+            }, 100)
+
+            $("body").append(div)
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+/* pages/demo1-1/demo1-1.wxss */
+input{
+  width: 80%;
+  margin: 10rpx auto;
+  height: 60rpx;
+  border: 1rpx solid rgb(189, 189, 189);
+  border-radius: 20rpx;
+}
+button{
+  margin-top: 10rpx;
+}
