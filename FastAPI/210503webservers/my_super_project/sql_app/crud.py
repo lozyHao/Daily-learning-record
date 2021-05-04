@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 # 导入models（SQLAlchemy模型）和schemas（Pydantic模型/模式）。
 import models, schemas
 
-# 通过ID和电子邮件读取单个用户
+# 通过用户ID和电子邮件读取单个用户
 def get_user(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.id == user_id).first()
 
