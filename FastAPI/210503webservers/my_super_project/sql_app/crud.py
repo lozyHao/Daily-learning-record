@@ -3,7 +3,7 @@
 # Session从导入sqlalchemy.orm，这将允许您声明db参数的类型，并在函数中进行更好的类型检查和完成。
 from sqlalchemy.orm import Session
 # 导入models（SQLAlchemy模型）和schemas（Pydantic模型/模式）。
-from . import models, schemas
+import models, schemas
 
 # 通过ID和电子邮件读取单个用户
 def get_user(db: Session, user_id: int):

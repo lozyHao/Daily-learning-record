@@ -2,12 +2,12 @@
 
 
 from typing import List
-from . import crud,models,schemas
+import crud,models,schemas
 # from crud import get_user,get_user_by_email,get_users,create_user,get_items,create_user_item
 # from models import User,Item
 # from schemas import ItemBase,ItemCreate,Item,User, UserBase,UserCreate
 from fastapi import FastAPI, Depends,Response,status,Query,Body, HTTPException  #导入FastAPI
-from .database import get_session,SessionLocal, engine
+from database import get_session,SessionLocal, engine
 from sqlalchemy.orm import Session
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -33,9 +33,7 @@ def read_user(user_id: int, db: Session = Depends(get_session)):
     return db_user
 
 @app.post("/users/{user_id}/items/", response_model=schemas.Item)
-def create_item_for_user(
-    user_id: int, item: schemas.ItemCreate, db: Session = Depends(get_session)
-):
+def create_item_for_user(user_id: int, item: schemas.ItemCreate, db: Session = Depends(get_session)):
     return crud.create_user_item(db=db, item=item, user_id=user_id)
 
 @app.get("/items/", response_model=List[schemas.Item])

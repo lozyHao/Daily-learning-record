@@ -8,7 +8,7 @@ from sqlalchemy.orm import sessionmaker
 
 # 2.为SQLAlchemy创建数据库URL
 #   数据库路径
-SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./db/sql_app.db"
 
 # 3.创建SQLAlchemy engine
 #   第一步是创建一个SQLAlchemy“引擎”。
