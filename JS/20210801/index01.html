@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1-JavaScript初识/定义变量</title>
+</head>
+<style>
+    div {
+        width: 300px;
+        height: 100px;
+        font-size: 60px;
+        margin: 20px auto;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 100px;
+        color: white;
+        transition: 1s;
+    }
+
+    div:hover {
+        background: rgb(2, 65, 65);
+        cursor: pointer;
+        user-select: none;
+    }
+</style>
+
+<body>
+    <!-- 2021.8.1 -->
+    <div>JavaScript</div>
+    <script>
+        // 1.定义变量
+        var a = 10;
+        var b = a;
+        b = 20;
+        console.log(a, b);// 10 20
+
+
+        // 2.基本数据类型
+        // 2.1 Number类型
+        var a = 1;
+        console.log(a, typeof a);//1 "number"
+        // 2.2 String类型
+        var b = "2";
+        console.log(b, typeof b);//2 string
+        // 2.3 undefined类型
+        var c;
+        console.log(c, typeof c);//undefined "undefined"
+        // 2.4 空类型，也是对象类型
+        var d = null;
+        console.log(d, typeof d);//null "object"
+        // 2.5 Boolean类型
+        var e = true;
+        console.log(e, typeof e);//true "boolean"
+        // 2.6 Array数组类型，也是对象类型
+        var f = [1, 2, 3, 4, 5];
+        console.log(f, typeof f);//[1, 2, 3, 4, 5] "object"
+        // 2.7 Object对象类型
+        var g = {
+            name: '大大',
+            age: '24'
+        };
+        console.log(g, typeof g);//{name: "大大", age: "24"} "object"
+        // 2.8 Symbol数据类型--ES6新增，用于确定一个唯一的数据，通常用于给对象添加唯一的属性或方法。
+        var h = Symbol()
+        console.log(h, typeof h);//Symbol() "symbol"
+
+
+    </script>
+</body>
+
+</html>
