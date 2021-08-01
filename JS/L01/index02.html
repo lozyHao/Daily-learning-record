@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2-实现两变量值的互换</title>
+</head>
+<style>
+    div {
+        width: 300px;
+        height: 100px;
+        font-size: 60px;
+        margin: 20px auto;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 100px;
+        color: white;
+        transition: 1s;
+    }
+
+    div:hover {
+        background: rgb(2, 65, 65);
+        cursor: pointer;
+        user-select: none;
+    }
+</style>
+
+<body>
+    <!-- 2021.8.1 -->
+    <div>JavaScript</div>
+    <script>
+        // 1.变量是基本数据类型
+        var a=123
+        var b=456
+        var c;
+        c=b;
+        b=a;
+        console.log(a);//123
+        console.log(b);//123
+        console.log(c);//456
+
+        // 2.变量为对象数据类型。对象是引用数据类型，赋值是地址赋值，原对象属性会随赋值的变量变化而变化
+        var x = {
+            name: "萌音",
+            age: 17
+        }
+        var y = x;
+        y.name = "灵梦";
+        console.log("x对象值=",x, "y对象值=",y);//x对象值= {name: "灵梦", age: 17} y对象值= {name: "灵梦", age: 17}
+    </script>
+</body>
+
+</html>

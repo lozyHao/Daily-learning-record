@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1-JavaScript初识/定义变量</title>
+</head>
+<style>
+    div {
+        width: 300px;
+        height: 100px;
+        font-size: 60px;
+        margin: 20px auto;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 100px;
+        color: white;
+        transition: 1s;
+    }
+
+    div:hover {
+        background: rgb(2, 65, 65);
+        cursor: pointer;
+        user-select: none;
+    }
+</style>
+
+<body>
+    <!-- 2021.8.1 -->
+    <div>JavaScript</div>
+    <script>
+        var a = 123;
+        // typeof展示变量的数据类型
+        console.log(a, typeof a);//123 "number"  1.数值类型
+        var b = "JavaScript";
+        console.log(b, typeof b);//JavaScript string  2.字符串类型
+        console.log(a + b, typeof (a + b));//123JavaScript string
+        var c = true;
+        console.log(c, typeof c);//true "boolean"  3.布尔类型
+        var d;
+        console.log(d, typeof d);//undefined "undefined"  4.未定义类型
+        var e = null;
+        console.log(e, typeof e);//null "object"  5.null数据类型，空类型，空对象，占位
+        var f = {
+            a: "LU",
+            b: "PG"
+        }
+        console.log(f, typeof f);//{a: "LU", b: "PG"}a: "LU"b: "PG"[[Prototype]]: Object "object"  6.对象object数据类型
+        var g = [1, 2, 3, 4, 5]
+        console.log(g, typeof g);//[1, 2, 3, 4, 5] "object"  7.数组类型Array，object
+        var h = Symbol()
+        console.log(h, typeof h);//Symbol() "symbol"  ES6新增，用于确定一个唯一的数据，通常用于给对象添加唯一的属性或方法。
+
+
+        // 注意：对象是引用数据类型，赋值是地址赋值，原对象属性会随赋值的变量变化而变化
+        var x = {
+            name: "萌音",
+            age: 17
+        }
+        var y = x;
+        y.name = "灵梦";
+        console.log("x对象值=",x, "y对象值=",y);//x对象值= {name: "灵梦", age: 17} y对象值= {name: "灵梦", age: 17}
+    </script>
+</body>
+
+</html>
