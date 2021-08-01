@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5-算术运算符的简写</title>
+</head>
+<style>
+    div {
+        width: 300px;
+        height: 100px;
+        font-size: 60px;
+        margin: 20px auto;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 100px;
+        color: white;
+        transition: 1s;
+    }
+
+    div:hover {
+        background: rgb(2, 65, 65);
+        cursor: pointer;
+        user-select: none;
+    }
+</style>
+
+<body>
+    <!-- 2021.8.1 -->
+    <div>JavaScript</div>
+    <script>
+        // 1.运算符简写
+        var a = 100;
+        var b = 10;
+        b += a; // b=b+a
+        console.log(b);
+        b -= a; // b=b-a
+        console.log(b);
+        b *= a; // b=b*a
+        console.log(b);
+        b /= a; // b=b/a
+        console.log(b);
+        b %= a; // b=b%a
+        console.log(b);
+
+        // 2.++ --
+        console.log(a++);//先取a，再加  100
+        console.log(++a);//先加，再去a  102
+
+    </script>
+</body>
+
+</html>
