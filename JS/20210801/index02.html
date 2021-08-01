@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2-实现两个变量值互换</title>
+</head>
+<style>
+    div {
+        width: 300px;
+        height: 100px;
+        font-size: 60px;
+        margin: 20px auto;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 100px;
+        color: white;
+        transition: 1s;
+    }
+
+    div:hover {
+        background: rgb(2, 65, 65);
+        cursor: pointer;
+        user-select: none;
+    }
+</style>
+
+<body>
+    <!-- 2021.8.1 -->
+    <div>JavaScript</div>
+    <script>
+        // 1.基本数据类型
+        var x=3;
+        var y=5;
+        var z;
+        z=y;
+        y=x;
+        console.log(x);//3
+        console.log(y);//5
+        console.log(z);//5
+
+        // 2.引用数据类型
+        var m={
+            name:'李华',
+            sex:'男',
+            age:'22'
+        }
+        var n=m;
+        n.name='小明';
+        console.log(m,n);//{name: "小明", sex: "男", age: "22"} {name: "小明", sex: "男", age: "22"}
+
+    </script>
+</body>
+
+</html>
