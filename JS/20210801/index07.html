@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7-逻辑运算符和逻辑表达式</title>
+</head>
+<style>
+    div {
+        width: 300px;
+        height: 100px;
+        font-size: 60px;
+        margin: 20px auto;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 100px;
+        color: white;
+        transition: 1s;
+    }
+
+    div:hover {
+        background: rgb(2, 65, 65);
+        cursor: pointer;
+        user-select: none;
+    }
+</style>
+
+<body>
+    <!-- 2021.8.1 -->
+    <div>JavaScript</div>
+    <script>
+        var num1 = 100;
+        var num2 = 50;
+        var num3 = 100;
+        // 1.&& 与(并且)  同真为真
+        console.log(num1 == num3 && num1 != num2); //turn
+        console.log(num1 == num3 && num1 == num2); //false
+        // 2.|| 或(或者)  只要有一个为真即为真
+        console.log(num1 == num3 || num1 != num2); //turn
+        // 3.！ 非(取反)  假为真，真为假
+        console.log(num1 == num3); //turn
+
+        // 4.运算符优先级：() > ! > 算术运算符 > 关系运算符 > && > ||
+        console.log(100 > 200 - 50 || 50 < 100 && 100 >= 100); //turn
+
+    </script>
+</body>
+
+</html>
