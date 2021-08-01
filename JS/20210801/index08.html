@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8-变量命名规范</title>
+</head>
+<style>
+    div {
+        width: 300px;
+        height: 100px;
+        font-size: 60px;
+        margin: 20px auto;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 100px;
+        color: white;
+        transition: 1s;
+    }
+
+    div:hover {
+        background: rgb(2, 65, 65);
+        cursor: pointer;
+        user-select: none;
+    }
+</style>
+
+<body>
+    <!-- 2021.8.1 -->
+    <div>JavaScript</div>
+    <script>
+        // 变量声明规范：通俗易懂，见名知意，不能使用关键字、保留字
+        //   1.只能使用：字母 、数字 、_ 、$
+        var a=7;
+
+        //   2.不能以数字开头
+        // var 12a=7;会报错
+
+        //   3.不能使用js关键字
+        // var var=7;会报错
+
+        // 多个单词结合，可以采用驼峰命名法：
+        var myDate=1999;
+        var MyDate=2000;
+    </script>
+</body>
+
+</html>
