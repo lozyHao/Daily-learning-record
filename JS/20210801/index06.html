@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6-比较运算符和比较表达式</title>
+</head>
+<style>
+    div {
+        width: 300px;
+        height: 100px;
+        font-size: 60px;
+        margin: 20px auto;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 100px;
+        color: white;
+        transition: 1s;
+    }
+
+    div:hover {
+        background: rgb(2, 65, 65);
+        cursor: pointer;
+        user-select: none;
+    }
+</style>
+
+<body>
+    <!-- 2021.8.1 -->
+    <div>JavaScript</div>
+    <script>
+        // 比较运算符：> >= < <= == != ===(全等于，恒等于) !==(恒不等于)
+        var num1 = 100;
+        var num2 = 200;
+        var num3 = 100;
+        var num4 = "100";
+        console.log(num1>num2); //false
+        console.log(num1>=num3); //true
+        console.log(num1==num3); //true
+        // 注意：采用==比较两份数据是否相等，只比较值，不比较类型
+        console.log(num1==num4); //true
+        console.log(num1!=num4); //false
+        // 注意：采用===比较两份数据是否相等，比较数据类型和值
+        console.log(num1===num4); //false
+        console.log(num1!==num4); //true
+    </script>
+</body>
+
+</html>
