@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript的组成</title>
+</head>
+<style>
+    div {
+        width: 300px;
+        height: 100px;
+        font-size: 60px;
+        margin: 20px auto;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 100px;
+        color: white;
+        transition: 1s;
+    }
+
+    div:hover {
+        background: rgb(2, 65, 65);
+        cursor: pointer;
+        user-select: none;
+    }
+</style>
+
+<body>
+    <!-- 2021.8.1 -->
+    <div>JavaScript</div>
+    <script>
+        // JavaScript的组成
+        //   1.ESMAScript  核心语法（标准规范） -->ES6
+
+        //   2.BOM 浏览器对象模型，其实就是window对象，该对象可以操作浏览器，其方法可以省略window
+        console.log(window);
+        // 消息框  alert
+        window.alert("我是消息框！");
+        alert("我也是消息框！");
+        // 输入框  prompt  （默认将输入的东西转换为字符串）
+        var money=window.prompt("请输入金额：");
+        console.log(money);//打印输入的金额
+        console.log(parseInt(money));
+        console.log(parseFloat(money));//如果有多个点，只识别第一个点
+
+        // 是否删除对话框 confirm
+        var b=confirm("确定删除吗？");
+        console.log(b);
+
+
+        //   3.DOM 文档对象模型，其实就是document，概对象可以操作页面里面的所有元素
+        
+    </script>
+</body>
+
+</html>
