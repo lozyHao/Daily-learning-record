@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>if条件判断语句的多重嵌套</title>
+</head>
+<style>
+    div {
+        width: 300px;
+        height: 100px;
+        font-size: 60px;
+        margin: 20px auto;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 100px;
+        color: white;
+        transition: 1s;
+    }
+
+    div:hover {
+        background: rgb(2, 65, 65);
+        cursor: pointer;
+        user-select: none;
+    }
+</style>
+
+<body>
+    <!-- 2021.8.1 -->
+    <div>JavaScript</div>
+    <script>
+    //    输入 年 月 输出该月有多少天
+    // 闰年公式：年能被4整除，不能被100整除；或者年份能被400整除，闰年的2月份是29天，平均2月是28天。
+    var year=parseInt(prompt("请输入年份："));
+    var month=parseInt(prompt("请输入月份："));
+    var day=0;
+    if(month==1||month==3||month==5||month==7||month==8||month==10||month==12){
+        day=31
+    }else if(month==4||month==6||month==9||month==11){
+        day=30
+    }else{
+        if(year%4===0&&year%100!==0||year%400===0){
+            day=29
+        }else{
+            day=28
+        }
+    }
+    console.log(year+'年'+month+'月，有'+day+'天');
+    
+    </script>
+</body>
+
+</html>
