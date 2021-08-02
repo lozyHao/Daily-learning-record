@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>if条件判断语句</title>
+</head>
+<style>
+    div {
+        width: 300px;
+        height: 100px;
+        font-size: 60px;
+        margin: 20px auto;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 100px;
+        color: white;
+        transition: 1s;
+    }
+
+    div:hover {
+        background: rgb(2, 65, 65);
+        cursor: pointer;
+        user-select: none;
+    }
+</style>
+
+<body>
+    <!-- 2021.8.1 -->
+    <div>JavaScript</div>
+    <script>
+        // 利用输入框输入成绩
+        // var score = parseFloat(prompt("请输入成绩："));
+
+        //1. if-else / if-else if 条件判断语句
+        // if (score >= 0 && score < 60) {
+        //     console.log("成绩为:" + score, "不及格！！！");
+        // } else if (score >= 60 && score < 70) {
+        //     console.log("成绩为:" + score, "及格70！！！"); 89
+        // } else if (score >= 70 && score < 80) {
+        //     console.log("成绩为:" + score, "中！！！");
+        // } else if (score >= 80 && score < 90) {
+        //     console.log("成绩为:" + score, "良！！！"); 89
+        // } else if (score >= 90 && score <= 100) {
+        //     console.log("成绩为:" + score, "优秀！！！");
+        // } else {
+        //     console.log("成绩错误！！！");
+        // }
+
+        // 2.if嵌套语句
+        //   例子1
+        // if (score >= 60) {
+        //     console.log("晋级成功...");
+        //     if (score >= 60&&score<90) {
+        //         console.log("亚军！！！");
+        //     }else if(score>=90){
+        //         console.log("冠军！！！");
+        //     }
+        // }else{
+        //     console.log("直接淘汰！！！");
+        // }
+        //   例子2  会员/非会员
+        var ishy = prompt("是否会员吗（y / n)");
+        var money = parseInt(prompt("请输入消费金额:"));//判断是否是会员
+        if (ishy === 'y') {
+            //判断会员的消费金额是否满100
+            if (money >= 100) {
+                money = money * 0.6//的6折
+            } else {
+                money = money * 0.8//打8折
+            }
+        } else {
+            if (money >= 200)
+                money = money * 0.9 // 打9折
+        }
+        console.log("本次消费金额为："+money);
+
+    </script>
+</body>
+
+</html>
