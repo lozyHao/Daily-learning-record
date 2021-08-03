@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模板字符串</title>
+</head>
+
+<style>
+    .title{
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+    .title:hover{
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        let name="周杰伦";
+        let age="22";
+        let sex="男";
+        let job="大学生";
+        console.log('大家好！我叫'+name+'，今年'+age+'，性别是'+sex+'，现在是'+job);//大家好！我叫罗志豪，今年22，性别是男，现在是大学生
+
+        // 模板字符串表示 ``(ES6新增)
+        console.log(`大家好！我叫${name}，今年${age}岁，性别是${sex}，现在是${job}`);//大家好！我叫罗志豪，今年22，性别是男，现在是大学生
+        console.log('======');
+
+        // 1.如果字符串采用双引号""包裹，里面可以定义单引号''
+        console.log("'大家好！我叫周杰伦！'");//'我叫周杰伦！'
+
+        // 2.如果字符串采用''包裹，里面可以定义双引号""
+        console.log('"大家好！我叫周杰伦！"');//"我叫周杰伦！"
+
+        // 3.如果字符串中既有单引号''又有双引号""，可以采用转义字符，也可以使用模板字符串
+        console.log("'大家好'！\"我叫周杰伦！\"");// 采用转义字符\
+        console.log(`'大家好'！"我叫周杰伦！"`);// 采用模板字符串
+
+    </script>
+</body>
+
+</html>
