@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>while循环结构</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        let a = 0
+        while (a < 10) {
+            console.log(`第${a + 1}行，好好学习，天天向上！`);
+            // 注意：
+            a++;
+        }
+        console.log(`第${a + 1}行，END`);
+
+        // 练习1：找出100以内能被3整除的数。
+        let b = 1;
+        let c = 0;
+        while (b < 100) {
+            if (b % 3 == 0) {
+                console.log(b);
+                c++;
+            }
+            b++;
+        }
+        console.log(`1-${b}总共有${c}个数能被3整除`);
+
+        // 练习2：找出21世纪中所有的闰年
+        let year = 2000;
+        let count = 0;
+        while (year < 2100) {
+            // 判断是否是闰年
+            if (year % 4 === 0 && year % 100 !== 0 || year % 400 === 0) {
+                console.log(year);
+                count++;
+            }
+            year++;
+        }
+        console.log(`21世纪总共有${count}个闰年`);
+
+        // 练习3：输入 年 月 日 ，算出改天是全年的第几天
+        let y = parseInt(prompt("请输入年份:"));
+        let m = parseInt(prompt("请输入月份:"));
+        let d = parseInt(prompt('请输入日期:'));
+        let sum = 0;//用于表示总天数
+
+        // 整月天数+当月当前天数（考虑闰月）
+        let i = 1;//月份
+        while (i < m) {
+            if (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12) {
+                sum += 31;
+            } else if (m == 4 || m == 6 || m == 9 || m == 11) {
+                sum += 30;
+            } else {
+                if (year % 4 === 0 && year % 100 !== 0 || year % 400 === 0) {
+                    sum += 29;
+                } else {
+                    sum += 28;
+                }
+            }
+            i++;
+        }
+        sum += d;//加上当前月天数2021
+        console.log(`${y}-${m}-${d} 是全年的第 ${sum} 天`)
+
+    </script>
+</body>
+
+</html>
