@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>do-while循环</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        let i = 0;
+        do {
+            console.log(i);
+            i++;
+        } while (i < 10);
+        // 先执行在判断，至少会执行一次
+
+        // do-while练习1
+        //系统菜单:输入1.添加学生，2.修改学生，3.查询学生，4.删除学生，e.退出系统let no = e;
+        do {
+            no = parseInt(prompt('请选择菜单: 1.添加 ⒉修改 3.查询 4.删除 0.退出'))
+            switch (no) {
+                case 1:
+                    console.log('成功添加一条学生信息');
+                    break;
+                case 2:
+                    console.lpg('成功修改一条学生信息');
+                    break;
+                case 3:
+                    console.log('成功查询一条学生信息');
+                    break;
+                case 4:
+                    console.log('成功删除一条学生信息');
+                    break;
+            }
+        } while (no !== 0)
+        console.log('成功退出系统!');
+
+        // do-while练习2
+        // 小型ATM机系统
+        let money = 10000//表示当前账户金额
+        let mo = 0//定义一个循环变量，用于表示操作类型
+        do {
+            console.log('*******************欢迎使用MINI-ATM机系统*******************');
+            mo = parseInt(prompt('请输入操作类型: 1.存款 ⒉.取款 3.查询余额 0.退出系统'))//判断用户的操作类型
+            switch (mo) {
+                case 1:
+                    let m1 = parseInt(prompt('请输入存款金额:'))//累加账户余额
+                    money += m1
+                    console.log('存款成功!'); break;
+                case 2:
+                    let m2 = parseInt(prompt('前输入取款金额:')) // 注意: 取款金额，必须要小于或等于当前余额
+                    if (m <= money) {
+                        money -= m2 // 从账户余额里面扣除取款金额console.log('取款成功! ');
+                    } else {
+                        console.error('余额不足! ');
+                    }
+                    break; case 3:
+                    console.log('当前余额为:' + money + '元');
+                    break;
+            }
+        } while (mo !== 0)
+
+
+    </script>
+</body>
+
+</html>
