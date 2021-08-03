@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>switch选择结构</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        // 实现例子：输入名次获得不同奖励
+        // var m=parseInt(prompt("请输入名次："));
+        // if(m>0 && m<=100){
+        //     switch(m){
+        //     case 1:
+        //         console.log("奖励笔记本电脑一台！");        
+        //         break;
+        //     case 2:
+        //         console.log("奖励手机一部！");
+        //         break;
+        //     case 3:
+        //         console.log("奖励行李箱一个");
+        //         break;
+        //     default:
+        //         console.log("奖励帆布袋一个！");
+        // }
+        // }else{
+        //     console.log("名次错误！");
+        // }
+
+        // 通常使用break表示结束
+        
+        // 不需要使用break实例如下：（没有break，程序会跳过前面知道遇到break为止，前面的程序都会执行）
+        var m = parseInt(prompt("请输入名次："));
+        if (m > 0 && m <= 100) {
+            switch (m) {
+                case 4:
+                case 3:
+                    console.log("奖励笔记本电脑一台！");
+                    console.log("奖励手机一部！");
+                    break;
+                case 2:
+                case 1:
+                    console.log("奖励行李箱一个");
+                    console.log("奖励蓝牙耳机一幅");
+                    break;
+                default:
+                    console.log("奖励帆布袋一个！");
+            }
+        } else {
+            console.log("名次错误！");
+        }
+
+
+    </script>
+</body>
+
+</html>
