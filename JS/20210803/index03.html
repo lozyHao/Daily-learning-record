@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Var\let\const的区别</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+
+        // 1.使用var关键字定义的变量名可以重复，会覆盖前面的
+        var a = 10;
+        console.log(a);//10
+        var a = 20;
+        console.log(a);//20
+        console.log("------");
+
+        // 2.var定义的变量，会被统一提升到 全局作用域 顶端定义，然后在指定的地方赋值
+        console.log(b);//undefined
+        var b = 100;
+
+        c = 200;
+        console.log(c);//200
+        var c;
+
+        d = 30
+        console.log(d);//30
+        if (1) {
+            // var定义的变量，即使在指定的代码块中，任然会被提升到 全局作用域 的顶端
+            var d;
+            console.log(d);//
+        }
+        console.log("------");
+
+
+        // 3.let定义变量
+        // 使用let定义变量在同一作用域不能同时定义相同的多个变量。
+        let e = 10;
+        console.log(e);
+        // let e=20;//报错
+
+        // console.log(f);
+        // let f=10;//报错  不能在初始化变量之前使用该变量（块级作用域中也是如此）
+
+        // let不存在变量提升
+        let f = 10;
+        console.log(f);
+
+
+        // 4.const定义常量(定义之后不能对其赋值)
+        // const g;//报错 定义时必须赋值
+        const g = 20;
+        console.log(g);//20
+        // g = 831;//报错  不能被赋值
+
+    </script>
+</body>
+
+</html>
