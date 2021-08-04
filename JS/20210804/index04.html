@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>continue&break</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        // continue
+        for (var i = 0; i < 5; i++) {  //i=0, i=1 i=2 i=3 i=4
+            for (var j = 0; j < 5; j++) { // 5*5个1
+                if (i == 2 && j == 2) {
+                    break;//直接跳出当前循环
+                }
+                console.log("123");
+            }
+        }
+
+        // break
+        for (var i = 0; i < 5; i++) {  //i=0, i=1 i=2 i=3 i=4
+            for (var j = 0; j < 5; j++) { // 5*5个1
+                if (i == 2 && j == 2) {
+                    continue; //这一次的循环直接结束，调到下一个循环中(不会跳出当前循环)
+                }
+                console.log("456");
+            }
+        }
+
+        // 实例：猜数小游戏
+        let num = parseInt(Math.random() * 100) + 1//返回1-100之间的随机数
+        for (let ii = 4; ii >= 0; ii--) {
+            let no = parseInt(prompt('请猜一个数:'))
+            if (no > num) {
+                alert('您猜大了!')
+            } else if (no < num) {
+                alert('您猜小了!')
+            } else if (no === num) {
+                alert('牛逼，你猜对了！')
+                break
+            }
+            if (ii === 0) {
+                alert('很遗憾，你没猜对！！！正确数为：' + num)
+            } else {
+                alert(`你还剩下${ii}次机会`)
+            }
+        }
+
+    </script>
+</body>
+
+</html>
