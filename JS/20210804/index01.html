@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>while循环练习1--输出三位数的水仙花数</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        // 找出所有三位数的水仙花数
+        console.log("实例1：输出三位数的水仙花数：");
+        let i = 100;
+        while (i < 1000) {
+            let bai = parseInt(i / 100);
+            let shi = parseInt(i % 100 / 10);
+            let ge = parseInt(i % 10);
+
+            let ji = bai * bai * bai + shi * shi * shi + ge * ge * ge;//水仙花数条件
+
+            if (i == ji) {
+                console.log(i + " 是水仙花数！");
+            }
+            i++;
+        }
+        console.log("=============");
+    </script>
+</body>
+
+</html>

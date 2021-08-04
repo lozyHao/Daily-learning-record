@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>while循环练习2--算出你当前活了多少天</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        // 输入出生日期和当前日期的年月日， 算出你活了多少天
+        console.log("实例2：计算你当前总共活了多少天：");
+        // 1.输入相关信息
+        let year1 = parseInt(prompt('请输入你的出生年份(1900)：'));
+        let month1 = parseInt(prompt('请输入你的出生月份: '));
+        let day1 = parseInt(prompt('请输入你的出生日期:'));
+        let year2 = parseInt(prompt('请输入当前年份:'));
+        let month2 = parseInt(prompt('请输入当前月份:'));
+        let day2 = parseInt(prompt('请输入当前日期:'));
+        let sum = 0//表示总天数
+        // 2.先算出出生那年还剩下多少天
+        // 2.1计算出生当月之前的天数
+        let sum1 = 0;
+        let ii = 1;
+        while (ii < month1) {
+            if (month1 == 1 || month1 == 3 || month1 == 5 || month1 == 7 || month1 == 8 || month1 == 10) {
+                sum1 += 31;
+            } else if (month1 == 4 || month1 == 6 || month1 == 9 || month1 == 11) {
+                sum1 += 30;
+            } else {
+                if (year1 % 4 === 0 && year1 % 100 !== 0 || year1 % 400 === 0) {
+                    sum1 += 29;
+                } else {
+                    sum1 += 28;
+                }
+            }
+            ii++;
+        }
+        sum1 += day1;
+        // 2.2计算出生当年剩下的天数
+        if (year1 < year2) {
+            if (year1 % 4 === 0 && year1 % 100 !== 0 || year1 % 400 === 0) {
+                sum = 366 - sum1;
+            } else {
+                sum = 365 - sum1;
+            }
+        }
+        // 3.再计算出生第二年到当前的前一年中间总天数
+        let j = year1 + 1;
+        while (j < year2) {
+            if (j % 4 === 0 && j % 100 !== 0 || j % 400 === 0) {
+                sum += 366;
+            } else {
+                sum += 365;
+            }
+            j++;
+        }
+        // 4.计算出当年已过天数
+        let iii = 1;
+        while (iii < month2) {
+            if (month2 == 1 || month2 == 3 || month2 == 5 || month2 == 7 || month2 == 8 || month2 == 10) {
+                sum += 31;
+            } else if (month2 == 4 || month2 == 6 || month2 == 9 || month2 == 11) {
+                sum += 30;
+            } else {
+                if (year2 % 4 === 0 && year2 % 100 !== 0 || year2 % 400 === 0) {
+                    sum += 29;
+                } else {
+                    sum += 28;
+                }
+            }
+            iii++;
+        }
+        sum += day1;
+        // 判断出生年份和当前年份不同
+        if (year1===year2) {
+            sum=sum-sum1;
+        }
+        // 5.输出
+        console.log(`你一共活了${sum}天，如果人生有30000天，你还剩下${30000 - sum}天`);
+        console.log("=============");
+
+        // 3.
+    </script>
+</body>
+
+</html>

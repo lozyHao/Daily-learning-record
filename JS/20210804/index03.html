@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>while循环练习3--计算指定日期是第几周</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用Vue!</div>
+
+    <script>
+        let y = parseInt(prompt('请输入年份：'));
+        let m = parseInt(prompt('请输入月份: '));
+        let d = parseInt(prompt('请输入日期:'));
+        // 计算该日期到1900-1-1（该天为星期一）有多少天
+        let sum = 0;
+        let i = 1900;
+        // 计算整月天数
+        while (i < y) {
+            if (y % 4 === 0 && y % 100 !== 0 || y % 400 === 0) {
+                sum += 366;
+            } else {
+                sum += 365;
+            }
+            i++;
+        }
+        // 累加当前年份已近过去的天数
+        let j = 1;
+        while (j < m) {
+            if (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12) {
+                sum += 31;
+            } else if (m == 4 || m == 6 || m == 9 || m == 11) {
+                sum += 30;
+            } else {
+                if (y % 4 === 0 && y % 100 !== 0 || y % 400 === 0) {
+                    sum += 29;
+                } else {
+                    sum += 28;
+                }
+            }
+            j++;
+        }
+        sum += d;
+
+        console.log('总天数：' + sum);
+        let week = sum % 7;
+        switch (week) {
+            case 1:
+                console.log("星期一");
+                break;
+            case 2:
+                console.log("星期二");
+                break;
+            case 3:
+                console.log("星期三");
+                break;
+            case 4:
+                console.log("星期四");
+                break;
+            case 5:
+                console.log("星期五");
+                break;
+            case 6:
+                console.log("星期六");
+                break;
+            default:
+                console.log("星期日");
+                break;
+        }
+
+    </script>
+</body>
+
+</html>
