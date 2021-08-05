@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>for循环实例</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        // 1.鸡兔同笼：有25个头，94只脚，请问鸡和兔各有多少只？(鸡两只脚、兔有4只脚)
+        console.log('\n\n===1.鸡兔同笼===');
+        // 方法一
+        let m = 0;
+        let n = 0;
+        for (let i = 2; i < 94; i += 2) {
+            m++;// 鸡数量累加
+            if ((94 - i) % 4 == 0) {// 判断剩下的脚数量能够被4整除就是兔子数量
+                if ((25 - m) == (94 - i) / 4) {// 判断兔子数量是否等于剩下头数量
+                    console.log(`有 ${m} 只鸡， 有 ${25 - m} 只兔子`);// 有 3 只鸡， 有 22 只兔子
+                }
+            }
+        }
+        // 方法二
+        // 最多25只鸡
+        for (let i = 0; i < 25; i++) {
+            // 最多23只兔子
+            for (let j = 0; j < 23; j++) {
+                if (i + j == 25 && i * 2 + j * 4 == 94) {
+                    console.log(`有 ${i} 只鸡， 有 ${j} 只兔子`);// 有 3 只鸡， 有 22 只兔子
+                }
+            }
+
+        }
+
+        // 2.打印三角形
+        console.log('\n\n===2.打印三角形===');
+        for (let i = 0; i < 10; i++) {
+            let str = '*';
+            for (let j = 1; j <= i; j++) {
+                str += '*';
+            }
+            console.log(str);
+        }
+
+        // 3.打印九九乘法表
+        console.log('\n\n===3.打印九九乘法表===');
+        for (let i = 1; i < 10; i++) {
+            let str = ' ';
+            for (let j = 1; j <= i; j++) {
+                if (i * j < 10) {
+                    str += i + '×' + j + '=' + i * j + '  ';
+                } else {
+                    str += i + '×' + j + '=' + i * j + ' ';
+                }
+            }
+            console.log(str);
+        }
+
+        // 4.打印等腰三角形
+        console.log('\n\n===4.打印等腰三角形===');
+        for (let i = 1; i <= 5; i++) {
+            let str = '';
+            for (let m = 5 - i; m > 0; m--) {
+                str += ' ';
+            }
+            for (let j = 1; j <= i * 2 - 1; j++) {
+                str += '*';
+            }
+            console.log(str);
+        }
+
+        // 5.打印倒等腰三角形
+        console.log('\n\n===5.打印倒等腰三角形===');
+        for (let i = 5; i > 0; i--) {
+            let str = '';
+            for (let m = 0; m < 5 - i; m++) {
+                str += ' ';
+            }
+            for (let j = 1; j <= i * 2 - 1; j++) {
+                str += '*';
+            }
+            console.log(str);
+        }
+
+        // 6.打印杨辉三角
+        console.log('\n\n===6.打印杨辉三角===');
+        for (let i = 1; i <= 5; i++) {
+            let str = '';
+            for (let m = 5 - i; m > 0; m--) {
+                str += ' ';
+            }
+            for (let j = 1; j <= i; j++) {
+                str += j;
+            }
+            for (let k = i - 1; k > 0; k--) {
+                str += k;
+
+            }
+            console.log(str);
+        }
+
+        // 7.找出100以内的质数--只能 被1 和 自身 整除的数
+        console.log('\n\n===7.找出100以内的质数===');
+        let str = '';
+        let con = 0;
+        for (let i = 2; i <= 100; i++) {
+            let count = 0;// 任何数都有至少两次能够被整除，只有整除次数为2的就是质数
+
+            for (let j = 0; j <= i; j++) {
+                if (i % j == 0) {
+                    count++;
+                }
+
+            }
+            if (count == 2) {
+                str += i+' \\ ';
+                con++;
+            }
+        }
+        console.log('1-100有：'+con+'个质数');
+        console.log('所有质数为：'+str);
+
+
+    </script>
+</body>
+
+</html>

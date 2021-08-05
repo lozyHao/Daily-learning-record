@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>for循环结构</title>
+</head>
+
+<style>
+    .title{
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+    .title:hover{
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        // 1.for实现九九乘法表
+        for(let i=0;i<10;i++){
+            for(let j=1;j<=i;j++){
+                let m=i*j;
+                console.log(`${i}×${j}=${m}`);
+            }
+        }
+
+        // 2.有三个班级，每个班级有四名学生。计算每个班级平均分
+        for(let i=1;i<=3;i++){
+            console.log("<===="+i+" 班级成绩如下====>");
+            let sum=0;
+            for(let j=1;j<=4;j++){
+                let score=parseInt(prompt("请输入 "+i+" 班第 "+j+" 个学生成绩"));
+                console.log(i+" 班第 "+j+" 个学生成绩为："+score);
+                sum+=score;
+            }
+            console.log(i+" 班总成绩为："+sum+"；平均分为："+sum/4);
+        }
+    </script>
+</body>
+
+</html>
