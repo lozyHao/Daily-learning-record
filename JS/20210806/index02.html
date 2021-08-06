@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>字符串应用</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        // 1.验证邮箱格式是否正确
+        // 正确格式abc@abc.com  abc@abc.com.cn
+        console.log('\n== 1.验证邮箱格式是否正确 ==');
+        let email = '1722357025@qq.com';
+        let index1 = email.indexOf('@');
+        let index2 = email.indexOf('.');
+        if (index1 > 0 && index1 + 1 < index2 && index2 < email.length - 1) {
+            console.log(email + ' 邮箱格式正确');
+        } else {
+            console.log('邮箱格式错误，正确格式应为 ××××××××@××.com');
+        }
+        console.log('==========');
+
+        // 2.验证输入账户格式（登录名长度为2-4位，密码长度为6-10位，用户名不能全是数字）
+        console.log('\n== 1.验证邮箱格式是否正确 ==');
+        let username=prompt('请输入账户名（2-4位，不能全是数字）: ');
+        let len1=username.length;
+        let password=prompt('请输入密码（4-10位）: ');
+        let len2=password.length;
+        if(len1>=2 && len1<=4 && len2>=6 && len2<=10){
+            if(isNaN(username)){  //isNaN（x）检验参数x是否存在非数字，如果存在，则返回true
+                console.log('验证通过');
+            }else{
+                console.log('登录失败，登录名不能是全数字');
+            }
+        }else{
+            console.log('登录失败，登录名长度为2-4位，密码长度为6-10位');
+        }
+        console.log('==========');
+
+        // 3.验证手机号码的格式是否正确
+        console.log('\n== 3.验证手机号码的格式是否正确 ==');
+        let tel = prompt('请输入手机号码：');
+        if (tel.length === 11) {
+            let first = tel.charAt(0);
+            let surplus = tel.substring(1);//截取从第2位开始后面所有字符
+            if (first == '1') {
+                if (!isNaN(surplus) && surplus.indexOf('.') == -1) {
+                    console.log(tel + ' 手机号码格式正确');
+                } else {
+                    console.log(tel + ' 手机号必须为数字，不能为其它非法字符');
+                }
+            } else {
+                console.log('手机号的第一位必须是1');
+            }
+        } else {
+            console.log('手机号必须是11位');
+        }
+        console.log('==========');
+
+    </script>
+</body>
+
+</html>

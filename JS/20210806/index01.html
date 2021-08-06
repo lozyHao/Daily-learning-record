@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>字符串的常用方法</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        // 1.length获取字符串长度
+        console.log('\n\n==1.length获取字符串长度==');
+        let str = 'ABCDEFG';
+        console.log("字符串的长度为：" + str.length);//长度为：7 为字符串的长度
+        let str1 = 'sahFjaYFaf';
+        if (str1.length >= 6 && str1.length <= 10) {
+            console.log("合法密码：" + str1);
+        } else {
+            console.log("不合法密码：" + str1);
+        }
+        console.log('=========');
+
+        // 2.charAt()方法，返回字符串对应下标的该字符
+        console.log('\n\n==2.charAt()方法，返回字符串对应下表的该字符==');
+        let i = 3;
+        let str2 = str1.charAt(i);
+        console.log("字符串 " + str1 + " 的第 " + (i + 1) + " 位为 " + str2);
+        console.log('=========');
+
+        // 3.charCodeAt()方法，返回字符串对应下表的该字符,Unicode编码值
+        console.log('\n\n==3.charAt()方法，返回字符串对应下表的该字符Unicode编码值==');
+        let str3 = str1.charCodeAt(i);
+        console.log("字符串 " + str1 + " 的第 " + (i + 1) + " 位为 " + str3); // 字符串 sahFjaYFaf 的第 4 位为 70
+        console.log('=========');
+
+        // 4.concat()方法，连接多个字符串
+        console.log('\n\n==4.concat()方法，连接多个字符串==');
+        console.log(str1.concat(str, str1));//sahFjaYFafABCDEFGsahFjaYFaf
+        console.log('=========');
+
+        // 5.indexOf()方法，返回字符在字符串中第一次出现的位置索引，找不到返回-1
+        console.log('\n\n==5.indexOf()方法，返回字符在字符串中第一次出现的出现的位置索引==');
+        let k = 'a';
+        console.log(k + " 在字符串" + str1 + "中第一个索引为： " + str1.indexOf(k)); // 1
+        console.log('=========');
+
+        // 6.lastIndexOf()方法，返回字符在字符串中最后一次出现的位置索引，找不到返回-1
+        console.log('\n\n==6.lastIndexOf()方法，返回字符在字符串中最后一次出现的位置索引==');
+        console.log(k + " 在字符串" + str1 + "中最后一个索引为： " + str1.lastIndexOf(k)); // 8
+        console.log('=========');
+
+        // 7.截取字符串中的某一段(下标)，负数为从后往前取
+        let m = 1;
+        let n = 4;
+        console.log('\n\n==7.截取字符串中的某一段(下标)，负数为从后往前取==');
+        console.log(" 在字符串" + str1 + "中从 " + m + " 到 " + n + " 之间字符串为： " + str1.slice(m, n)); // ahF
+        console.log(" 在字符串" + str1 + "中从 " + -m + " 到 " + -n + " 之间字符串为： " + str1.slice(-n, -m)); // YFa
+        console.log('=========');
+
+        // 8.toLowerCase()方法，用于返回字符串转的小写版本，注意:不是改自身let a1 = 'aBcDeFg"
+        console.log('\n\n==8.toLowerCase()方法，用于返回字符串转的小写版本==');
+        let str4 = str1.toLowerCase();
+        console.log("原字符串： " + str1);
+        console.log("小写版本： " + str4); // 小写版本： sahfjayfaf
+
+        // 9.toUpperCase()方法，用于返回字符串的大写版本，注意:不是改自身
+        console.log('\n\n==9.toUpperCase()方法，用于返回字符串的大写版本==');
+        let str5 = str1.toUpperCase();
+        console.log("原字符串： " + str1);
+        console.log("大写版本： " + str5); // 大写版本： SAHFJAYFAF
+
+        // 10.trim()方法，用于去除字符串两端空格
+        console.log('\n\n==10.trim()方法，用于去除字符串两端空格==');
+        let str6 = ' Hello ';
+        console.log("原字符串长度： " + str6.length);//注意:长度是7，因为空格也是字符串
+        console.log("去除空格后长度： " + str6.trim().length);//通过trim()方法，去除掉字符串两端的空格
+
+    </script>
+</body>
+
+</html>
