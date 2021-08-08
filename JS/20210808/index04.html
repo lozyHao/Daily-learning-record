@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组练习1--学生管理系统</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        // 定义四个数组，分别存储学生的学号，姓名，年龄，性别
+        let nos = ['1001', '1002', '1003'];
+        let names = ['小明', '李华', '汤姆'];
+        let ages = [20, 22, 18];
+        let genders = ['男', '男', '女'];
+
+        while (true) {
+            let num = prompt('*********学生管理系统********** 1 查询学生; 2 添加学生; 3 修改学生; 4 删除学生; 0 退出系统;');
+            if (num == '1') {
+                // 1.查询学生信息
+                let str = '';
+                for (let i = 0; i < nos.length; i++) {
+                    str +=nos[i] + '  ' + names[i] + '   ' + ages[i] + '    ' + genders[i] + '\n';
+                }
+                alert(` 学号  姓名  年龄  性别\n${str}`);
+            } else if (num == '2') {
+                // 2.添加学生信息
+                let no=prompt("请输入学号：");
+                let name=prompt("请输入姓名：");
+                let age=prompt("请输入年龄：");
+                let gender=prompt("请输入性别：");
+                nos.push(no);
+                names.push(name);
+                ages.push(age);
+                genders.push(gender);
+                alert('添加数据成功！');
+            } else if (num == '3') {
+                // 3.修改学生数据
+                let no=prompt("请输入需要修改的学生的学号：");
+                let index=nos.indexOf(no);
+                if(index===-1){
+                    alert('对不起，不存在该学号学生！');
+                    continue;
+                }else{
+                    nos[index]=prompt("请输入该学生学号：");
+                    names[index]=prompt("请输入该学生姓名：");
+                    ages[index]=prompt("请输入该学生年龄：");
+                    genders[index]=prompt("请输入该学生性别：");
+                    alert('修改成功！');
+                }
+
+            } else if (num == '4') {
+                // 4.删除学生数据
+                let no=prompt("请输入需要删除的学生的学号：");
+                let index=nos.indexOf(no);
+                if(index===-1){
+                    alert('对不起，不存在该学号学生！');
+                    continue;
+                }else{
+                    nos.splice(index,1);
+                    names.splice(index,1);
+                    ages.splice(index,1);
+                    genders.splice(index,1);
+                    alert('删除成功！');
+                }
+
+            } else if(num=='0'){
+                alert('退出系统成功！');
+                break;
+            }
+        }
+
+    </script>
+</body>
+
+</html>

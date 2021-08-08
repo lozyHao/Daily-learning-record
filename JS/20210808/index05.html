@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组练习2--双色球</title>
+</head>
+
+<body>
+    <script>
+        //随机生成一组双色球号码，存放到数组中
+        //双色球号码的规则是:前六组号码是1-32之间不重复的随机数，第七组号码是1-16之间的随机数
+        let nums =[];
+        //循环并生成前六组号码
+        for (let i = 0; i < 6; i++) {
+            //随机生成1-32之间的数
+            let num = parseInt(Math.random() * 32) + 1//判断这个数，在数组中是否已经存在
+            if (nums.includes(num)) {
+                //如果存在，i--，就表示这一次循环，不算，再来一次
+                i--;
+            } else {
+                //如果不存在，添加到数组中
+                nums.push(num);
+            }
+        }
+        //生成数组中的最后一位号码
+        nums[6] = parseInt(Math.random() * 16) + 1
+        console.log(nums);
+
+    </script>
+</body>
+
+</html>

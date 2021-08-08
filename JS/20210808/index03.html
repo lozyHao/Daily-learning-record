@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>反转字符串</title>
+</head>
+<body>
+    <script>
+        let str='abcdefg';
+        console.log(str); //abcdefg
+        // split('') 将字符串转换成数组
+        let arr=str.split('');
+        console.log(arr); //["a", "b", "c", "d", "e", "f", "g"]
+        // reverse() 再将数组反转，再转换成字符串
+        let str2=arr.reverse().join('');
+        console.log(str2); //gfedcba
+
+        let str3='123456789';
+        // 字符串和数组的所有方法，都可以链式调用
+        console.log(str3.split('').reverse().join('')); //987654321
+    </script>
+</body>
+</html>
