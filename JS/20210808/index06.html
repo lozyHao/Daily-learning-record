@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>排序算法</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        let arr = [11, 5, 9, 31, 4, 7, 3, 50, 6];
+        console.log(arr);
+        // sort() 用于对数组排序（根据数组元素的首字符排序）
+        console.log(arr.sort()); //[11, 3, 31, 4, 5, 50, 6, 7, 9]
+
+        // 1.冒泡排序算法
+        console.log('\n<=== 1.冒泡排序算法 ===>');
+        for (let i = 0; i < arr.length - 1; i++) {
+            for (let j = 0; j < arr.length - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    let temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+        console.log(arr); //[3, 4, 5, 6, 7, 9, 11, 31, 50]
+
+        // 2.选择排序算法
+        console.log('\n<=== 2.选择排序算法 ===>');
+        arr1 = [8, 6, 3, 45, 945, 12, 45, 7, 356, 12, 4];
+        for (let i = 0; i < arr1.length - 1; i++) {
+            for (let j = i + 1; j < arr1.length; j++) {
+                if (arr1[i] > arr1[j]) {
+                    let temp = arr1[i];
+                    arr1[i] = arr1[j];
+                    arr1[j] = temp;
+                }
+            }
+        }
+        console.log(arr1); //[3, 4, 6, 7, 8, 12, 12, 45, 45, 356, 945]
+
+    </script>
+</body>
+
+</html>
