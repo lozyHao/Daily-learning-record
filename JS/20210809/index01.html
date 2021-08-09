@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Math对象方法</title>
+</head>
+
+<style>
+    .title{
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+    .title:hover{
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        // Math对象 提供的方法可以解决数学算术问题
+        // 1 Math.random() 返回0-1的随机数
+        console.log("\n<=== 1 Math.random() 返回0-1的随机数 ===>");
+        console.log(Math.random()); //0.05237062701847672
+
+        // 2 Math.round(x) 四舍五入
+        console.log("\n<=== 2 Math.round(x) 四舍五入 ===>");
+        let a=5.4;
+        let b=6.8;
+        console.log(a+" 四舍五入后为："+Math.round(a)); //5.4 四舍五入后为：5
+        console.log(b+" 四舍五入后为："+Math.round(b)); //6.8 四舍五入后为：7
+
+        // 3 Math.floor(x) 对x进行下舍入
+        console.log("\n<=== 3 Math.floor(x) 对x进行下舍入 ===>");
+        let c=4.3;
+        let d=8.7;
+        console.log(c+" 向下舍入为："+Math.floor(c)); //4
+        console.log(d+" 向下舍入为："+Math.floor(d)); //8
+
+        // 4 Math.ceil(x) 对x进行上舍入
+        console.log("\n<=== 4 Math.ceil(x) 对x进行上舍入 ===>");
+        let e=4.3;
+        let f=8.7;
+        console.log(e+" 向上舍入为："+Math.ceil(e)); //5
+        console.log(f+" 向上舍入为："+Math.ceil(f)); //9
+
+        // 5 Math.max（x,y,z...） 返回最大值
+        console.log("\n<=== 5 Math.max（x,y,z...） 返回最大值 ===>");
+        console.log("最大值为："+Math.max(a,b,c,d,e,f)); //8.7
+
+    </script>
+</body>
+
+</html>
