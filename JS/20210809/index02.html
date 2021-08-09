@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dath对象</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        // 日期对象用于处理日期和时间
+        // 1.创建一个日期，返回当前日期
+        console.log("\n<=== 1.创建一个日期，返回当前日期 ===>");
+        let date1 = new Date();
+        console.log(date1); //Mon Aug 09 2021 16:37:10 GMT+0800 (中国标准时间)
+
+        // 2.更具指定日期返回一个日期对象
+        console.log("\n<=== 2.更具指定日期返回一个日期对象 ===>");
+        let date2 = new Date("1999-08-21");
+        console.log(date2); //Sat Aug 21 1999 08:00:00 GMT+0800 (中国标准时间)
+
+        // 3.日期格式化（分别获取日期的年getFullYear，月getMonth，日getDate，小时，分，秒）
+        console.log("\n<=== 3.日期格式化（分别获取日期的年getFullYear，月getMonth，日getDate，小时，分，秒） ===>");
+        console.log("getFullYear() 返回 年份：" + date1.getFullYear()); //年份：2021
+        console.log("getMonth()    返回 月份：" + date1.getMonth()); //月份：7
+        console.log("getDate()     返回 日份：" + date1.getDate()); //日份：9
+        console.log("getHours()    返回 小时：" + date1.getHours()); //小时：16
+        console.log("getMinutes()  返回   分：" + date1.getMinutes()); //分：37
+        console.log("getSeconds()  返回   秒：" + date1.getSeconds()); // 秒：10
+        console.log("getDay()      返回   周：星期 " + date1.getDay()); // 秒：10
+        console.log("      格式化之后的日期为： " + date1.getFullYear() + "-" + date1.getMonth() + "-" + date1.getDate() + "  " + date1.getHours() + ":" + date1.getMinutes() + ":" + date1.getSeconds()); //格式化之后的日期为：2021-7-9 16:37:10
+    
+        // 4.getYear() 返回1900年到当前年份的年数
+        console.log("1900 年到 "+date1.getFullYear()+" 年总共有："+date1.getYear()+" 年"); //1900 年到 2021 年总共有：121 年
+    
+    
+    </script>
+</body>
+
+</html>
