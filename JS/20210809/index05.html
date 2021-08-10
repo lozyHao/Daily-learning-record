@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>使用函数实现-->字符串方法</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        // 1.charAt()方法，返回字符串对应下标的该字符
+        console.log('\n<=== 1.函数实现charAt()方法，返回字符串对应下标的该字符 ===>');
+        function charAt(str, index) {
+            if (index > str.length || index < 0) {
+                return " ";
+            } else {
+                return str[index];
+            }
+        }
+        let str1 = 'abcdefgh';
+        console.log(charAt(str1, 2)); //c
+        console.log(charAt(str1, 4)); //e
+        console.log(charAt(str1, 10)); // 
+
+        // 2.indexOf()方法，返回字符在字符串中第一次出现的位置索引，找不到返回-1
+        console.log('\n<=== 2.函数实现indexOf()方法，返回字符在字符串中第一次出现的位置索引，找不到返回-1 ===>');
+        function indexOf(str1, str2) {
+            let len1 = str1.length;
+            let len2 = str2.length;
+            for (let i = 0; i <= len1 - len2; i++) {
+                // 每次截取指定长度的代码比较
+                let str3 = '';
+                for (let j = i; j < len2 + i; j++) {
+                    str3 += str1[j];
+                }
+                // console.log(str3);
+                if (str3 === str2) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+        console.log(indexOf(str1, 'e')); //4
+        console.log(indexOf(str1, 'de')); //3
+    </script>
+</body>
+
+</html>

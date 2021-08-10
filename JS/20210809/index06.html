@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>使用函数实现-->数组方法</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        // 1.函数实现 splice()方法，删除数组中指定区间元素，改变的是元素组，返回的是删除部分
+        console.log('\n<=== 1.函数实现 splice()方法，从数组中添加或删除元素 ===>');
+        function splice(arr1, index, len) {
+            let arr2 = []; //保存数组中删除后剩余部分
+            for (let i = 0; i < arr1.length; i++) {
+                if (i < index) {
+                    arr2[i] = arr1[i];
+                }else if (i >= index + len) {
+
+                    arr2[i - len] = arr1[i];
+                }
+            }
+            return arr2;
+        }
+        let arr1 = [1, 23, 3, 5, 623, 35, 3]
+        console.log(arr1); // [1, 23, 3, 5, 623, 35, 3]
+        console.log(splice(arr1, 2, 3)); // [1, 23, 35, 3]
+
+
+    </script>
+</body>
+
+</html>
