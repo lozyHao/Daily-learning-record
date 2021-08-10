@@ -48,13 +48,13 @@
         // 3.日期格式化（分别获取日期的年getFullYear，月getMonth，日getDate，小时，分，秒）
         console.log("\n<=== 3.日期格式化（分别获取日期的年getFullYear，月getMonth，日getDate，小时，分，秒） ===>");
         console.log("getFullYear() 返回 年份：" + date1.getFullYear()); //年份：2021
-        console.log("getMonth()    返回 月份：" + date1.getMonth()); //月份：7
+        console.log("getMonth()    返回 月份：" + (date1.getMonth()+1)); //月份：8
         console.log("getDate()     返回 日份：" + date1.getDate()); //日份：9
         console.log("getHours()    返回 小时：" + date1.getHours()); //小时：16
         console.log("getMinutes()  返回   分：" + date1.getMinutes()); //分：37
         console.log("getSeconds()  返回   秒：" + date1.getSeconds()); // 秒：10
         console.log("getDay()      返回   周：星期 " + date1.getDay()); // 秒：10
-        console.log("      格式化之后的日期为： " + date1.getFullYear() + "-" + date1.getMonth() + "-" + date1.getDate() + "  " + date1.getHours() + ":" + date1.getMinutes() + ":" + date1.getSeconds()); //格式化之后的日期为：2021-7-9 16:37:10
+        console.log("      格式化之后的日期为： " + date1.getFullYear() + "-" + (date1.getMonth()+1) + "-" + date1.getDate() + "  " + date1.getHours() + ":" + date1.getMinutes() + ":" + date1.getSeconds()); //格式化之后的日期为：2021-7-9 16:37:10
     
         // 4.getYear() 返回1900年到当前年份的年数
         console.log("1900 年到 "+date1.getFullYear()+" 年总共有："+date1.getYear()+" 年"); //1900 年到 2021 年总共有：121 年

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>高阶函数--回调函数</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        let arr1 = [12, 5654, 78, 231, 15, 674, 56, 45, 13];
+        // 1.基本实现
+        // 输出数组中所有的数
+        for (let i = 0; i < arr1.length; i++) {
+            console.log(arr1[i]);
+        }
+        // 输出数组中所有的奇数
+        for (let i = 0; i < arr1.length; i++) {
+            if (arr1[i] % 2 == 1) {
+                console.log(arr1[i]);
+            }
+        }
+        // 输出数组中所有的偶数
+        for (let i = 0; i < arr1.length; i++) {
+            if (arr1[i] % 2 == 0) {
+                console.log(arr1[i]);
+            }
+        }
+
+        // 2.回调函数实现
+        console.log('\n<== 回调函数实现 ==>');
+        // 2.1 主函数
+        function bingFor(arr, callback) {
+            for (let i = 0; i < arr1.length; i++) {
+                if (callback(arr1[i])) {
+                    console.log(arr1[i]);
+                }
+            }
+        }
+        // 2.2 返回所有的数
+        console.log('\n<== 回调函数实现--返回所有的数 ==>');
+        bingFor(arr1,val=>true);//使用箭头函数，简洁
+        // 2.3 返回奇数
+        console.log('\n<== 回调函数实现--返回奇数 ==>');
+        bingFor(arr1,val=>val % 2 == 1);
+        // 2.4 返回偶数
+        console.log('\n<== 回调函数实现--返回偶数 ==>');
+        bingFor(arr1,val=>val % 2 == 0);
+        // 2.5 能被3整除
+        console.log('\n<== 回调函数实现--能被3整除 ==>');
+        bingFor(arr1,val=>val % 3 == 0);
+    </script>
+</body>
+
+</html>
