@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>箭头函数</title>
+</head>
+
+<style>
+    .title{
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+    .title:hover{
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        // 箭头函数--ES6 推出的定义函数的简写方式
+        let fun1=()=>{
+            console.log("你好呀！！！");
+        }
+        fun1(); //你好呀！！！
+
+        let fun2=(num1,num2)=>{
+            return num1+num2;
+        }
+        console.log(fun2(100,200)); //300
+
+        // 在箭头函数中，如果方法只有一个，可以省略（）；如果方法体只有一条语句，并且该语句为返回语句，省略{}、return
+        let fun3=num1=>num1*200;
+        console.log(fun3(100)); //20000
+
+    </script>
+</body>
+
+</html>

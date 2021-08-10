@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>定义几个方法</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+    <!-- 外部引入js文件 -->
+    <script src="./bing.js"></script>
+    <script>
+        // 1.判断指定年份是否是闰年，是闰年返回true
+        console.log('\n<=== 1.判断指定年份是否是闰年，是闰年返回true ===>');
+        console.log(isLeepYear(2021)); //false
+        console.log(isLeepYear(2000)); //true
+
+        // 2.定义一个补零是方法，如果是个位数，在前面加0
+        console.log('\n<=== 2.定义一个补零是方法，如果是个位数，在前面加0 ===>');
+        console.log(repair(5)); //05
+        console.log(repair(10)); //10
+
+        // 3.定义一个方法，将日期转换成 xxxx-xx-xx
+        console.log('\n<=== 3.定义一个方法，将日期转换成 xxxx-xx-xx ===>');
+        let date=new Date();
+        console.log(date);
+        console.log(getMiniDate(date));
+
+        // 4.定义一个方法，返回中国日期 xxxx-xx-xx xx:xx:xx 星期(2021-08-10 14:25:30 星期二)
+        console.log('\n<=== 4.定义一个方法，返回中国日期 xxxx-xx-xx xx:xx:xx 星期(2021-08-10 14:25:30 星期二) ===>');
+        console.log(getChaineseDate(date));
+
+        // 4.5.定义一个方法，将字符串翻转
+        console.log('\n<=== 5.定义一个方法，将字符串翻转 ===>');
+        console.log(reverseStr('12456789')); //98765421
+
+    </script>
+</body>
+
+</html>

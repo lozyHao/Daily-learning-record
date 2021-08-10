@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>高阶函数</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+    <script>
+        // 1.高阶函数---函数的参数是函数，函数的返回值是函数（满足其中一个）
+        // 计算器方法1
+        console.log('\n<== 计算器方法1--原始 ==>');
+        function clac(num1, num2, type) {
+            switch (type) {
+                case '+':
+                    console.log(num1 + num2);
+                    break;
+                case '-':
+                    console.log(num1 - num2);
+                    break;
+            }
+        }
+        let num1 = 200;
+        let num2 = 50;
+        clac(num1, num2, '+'); //250
+        clac(num1, num2, '-'); //150
+
+        // 2.开闭原则：对扩展是开放的，对于修改是封闭的（对于引入的库函数没有你需要的方法，就可以通过扩展来满足自己的需求）
+        function myclac(num1, num2, type) {
+            switch (type) {
+                case '+':
+                    console.log(num1 + num2);
+                    break;
+                case '-':
+                    console.log(num1 - num2);
+                    break;
+                case '*':
+                    console.log(num1 * num2);
+                    break;
+                case '/':
+                    console.log(num1 / num2);
+                    break;
+                case '%':
+                    console.log(num1 % num2);
+                    break;
+            }
+        }
+        myclac(num1, num2, '/'); //4
+        myclac(num1, num2, '%'); //0
+
+        // 3.开闭原则实现
+        // 计算器算法2
+        console.log('\n<== 计算器方法2--开闭原则 ==>');
+        function clac1(num1, num2, callback) { //callback为回调函数，传入一个函数（方法）
+            callback(num1, num2);
+        }
+        // 加法
+        let add = (num1, num2) => console.log(num1 + num2);
+        // 减法
+        let sub = (num1, num2) => console.log(num1 - num2);
+        clac1(num1, num2, add); //250
+        clac1(num1, num2, sub); //150
+        // 乘法
+        let chen = (num1, num2) => console.log(num1 * num2);
+        // 除法
+        let chu = (num1, num2) => console.log(num1 / num2);
+        clac1(num1, num2, chen); //10000
+        clac1(num1, num2, chu); //4
+
+    </script>
+</body>
+
+</html>
