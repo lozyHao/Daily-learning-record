@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>高阶函数--闭包函数</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        // 闭包函数，函数嵌套
+        console.log('<=== 方式一 ===>');
+        function a() {
+            let i = 100
+            console.log(i);
+            return ()=>{
+                let j = 200
+                i+=100
+                console.log(i);
+            }
+        }
+        let c = a() //100
+        c() //200
+        c() //300
+        c() //400
+
+        console.log('<=== 方式二 ===>');
+        let d=(()=>{
+            let i = 100
+            console.log(i);
+            return ()=>{
+                let j = 200
+                console.log(i=i+j);
+            }
+        })() //100
+        d() //300
+        d() //500
+    </script>
+</body>
+
+</html>

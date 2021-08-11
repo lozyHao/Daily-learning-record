@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>闭包函数应用</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <button type="button" onclick="myFunction()"> 计数 </button>
+    <p id="demo">0</p>
+
+    <script>
+        // 1.计数器
+        let add = (function () {
+            let counter = 0;
+            return () => counter += 1;
+        })();
+        function myFunction() {
+            document.getElementById("demo").innerHTML = add();
+        }
+
+        // 2.计算器
+        // 2.1 不稳定情况(变量容易被中途修改)
+        let num1 = 123;
+        let num2 = 456;
+        (add = () => {
+            console.log(`加法：${num1}+${num2}=${num1 + num2}`);
+        })();
+        let num3 = 789;
+        (sub = () => {
+            console.log(`减法：${num1}-${num2}=${num1 - num2}`);
+        })();
+
+        // 2.2 闭包函数--实现优化，保证数据安全性(需要时再传参进行运算)
+        function calc(n3, n4, type) {
+            let num3 = n3;
+            let num4 = n4;
+            switch (type) {
+                case '+':
+                    return () => console.log(`加法：${num3}+${num4}=${num3 + num4}`);
+                    break;
+                case '-':
+                    return () => console.log(`加法：${num3}-${num4}=${num3 - num4}`);
+                    break;
+                case '*':
+                    return () => console.log(`加法：${num3}*${num4}=${num3 * num4}`);
+                    break;
+                case '/':
+                    return () => console.log(`加法：${num3}/${num4}=${num3 / num4}`);
+                    break;
+                default:
+                    break;
+            }
+        }
+        (calc(100, 200,'+'))();
+        (calc(100, 2,'-'))();
+        
+
+    </script>
+</body>
+
+</html>
