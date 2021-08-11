@@ -28,6 +28,7 @@ public class HotelManager {
 
 //	初始化
 	public void init() {
+		System.out.println("\n\t\t\t<=== 酒 店 房 间 管 理 系 统 ===>");
 //		a 创建集合
 		rooms = new ArrayList<>();
 //		b 创建房间对象
@@ -56,9 +57,10 @@ public class HotelManager {
 			}
 		}
 
-		for (Room room : rooms) {
-			System.out.println(room.id + " , " + room.type+"/"+HotelManager.ROOM_TYPE[room.type]);
-		}
+//		for (Room room : rooms) {
+//			System.out.println("房间编号：" + room.id + " , 房间类型" + room.type + "/" + HotelManager.ROOM_TYPE[room.type]
+//					+ " , 房间状态" + room.state + "/" + HotelManager.ROOM_STATE[room.state]);
+//		}
 	}
 
 //	添加房间
@@ -80,7 +82,7 @@ public class HotelManager {
 		Room room = null;
 		for (Room rm : rooms) {
 			if (id == rm.id) {
-				room=rm;
+				room = rm;
 				break;
 			}
 		}
@@ -98,7 +100,7 @@ public class HotelManager {
 		Room room = null;
 		for (Room rm : rooms) {
 			if (id == rm.id) {
-				room=rm;
+				room = rm;
 				break;
 			}
 		}
@@ -119,4 +121,95 @@ public class HotelManager {
 		}
 		return null;
 	}
+
+//	订房
+
+//	查询所有的空闲房间
+	public ArrayList<Room> queryByAllFree() {
+//		2.创建一个集合保存空闲房间对象
+		ArrayList<Room> freeRooms = new ArrayList<>();
+//		1.遍历集合
+		for (Room room : rooms) {
+			if (room.state == Room.ROOM_STATE_FREE) {
+				freeRooms.add(room);
+			}
+		}
+		return freeRooms;
+	}
+
+//	订房间-->已入住
+	public boolean book(int id) {
+		for (Room room : rooms) {
+			if (room.id == id) {
+				room.state = Room.ROOM_STATE_IN;
+				return true;
+			}
+		}
+		return false;
+	}
+
+//	退房
+	public boolean out(int id) {
+		for (Room room : rooms) {
+			if (room.id == id) {
+				room.state = Room.ROOM_STATE_FREE;
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return false;
+	}
+
+//	换房
+	public boolean change(int srcId, int desId) {
+//		1.退房间
+		boolean isOut = out(srcId);
+//		2.订房间
+		boolean isBook = book(desId);
+//		3.判断
+		return isOut && isBook;
+	}
+
+//	入住率
+	public double inRate() {
+//		1.总房间数
+		int all = rooms.size();
+//		2.入住房间数
+		int sum = 0;
+		for (Room room : rooms) {
+			if (room.state == Room.ROOM_STATE_IN) {
+				sum++;
+			}
+		}
+//		3.返回入住率
+		return sum * 1.0 / all;
+	}
+
+//	空闲率
+	public double freeRate() {
+//		1.总房间数
+		int all = rooms.size();
+//		2.空闲房间数
+		int sum = 0;
+		for (Room room : rooms) {
+			if (room.state == Room.ROOM_STATE_FREE) {
+				sum++;
+			}
+		}
+//		3.返回入住率
+		return sum * 1.0 / all;
+	}
+
+//	统计营业额
+	public double total() {
+		double moneys = 0.0;
+		for (Room room : rooms) {
+			if (room.state == Room.ROOM_STATE_IN) {
+				moneys += HotelManager.ROOM_PRICES[room.type];
+			}
+		}
+		return moneys;
+	}
+
 }
