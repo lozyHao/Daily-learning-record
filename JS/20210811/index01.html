@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组高阶方法</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        let arr = [23, 456, 789, 89, 7, 456, 56];
+        // 1.forEach()方法，用于循环遍历整个数组
+        console.log('\n<=== 1.forEach()方法，用于循环遍历整个数组 ===>');
+        arr.forEach(function (currentValue, index, arr) {
+            console.log(currentValue); // 依次输出 23 456 789 89 7 456 56
+            console.log(index); //依次输出 0 1 2 3 ...
+            console.log(arr); //[23, 456, 789, 89, 7, 456, 56]
+        });
+
+        // 2.filter()方法，过滤数组中的元素
+        console.log('\n<=== 2.filter()方法，过滤数组中的元素 ===>');
+        let arr2 = arr.filter(function (currentValue, index, arr) {
+            return currentValue % 2 != 0;
+        })
+        console.log(arr2); //[23, 789, 89, 7]
+
+        // 3.find()方法，返回通过测试（函数内判断）的数组的第一个元素的值
+        console.log('\n<=== 3.find()方法，返回通过测试（函数内判断）的数组的第一个元素的值 ===>');
+        let arr3 = arr.find(function (currentValue, index, arr) {
+            return currentValue % 2 != 0;
+        })
+        console.log(arr3); //23
+
+        // 4.some()方法，用于检测数组中的元素是否满足指定条件（函数提供）
+        console.log('\n<=== 4.some()方法，用于检测数组中的元素是否满足指定条件（函数提供） ===>');
+        let arr4 = arr.some(function (currentValue, index, arr) {
+            return currentValue % 3== 0;
+        })
+        console.log(arr4); //true
+
+        // 5.every()方法，用于检测数组所有元素是否都符合指定条件（通过函数提供）
+        console.log('\n<=== 5.every()方法，用于检测数组所有元素是否都符合指定条件（通过函数提供） ===>');
+        let arr5 = arr.every(function (currentValue, index, arr) {
+            return currentValue % 3== 0;
+        })
+        console.log(arr5); // false
+
+        // 6.map()方法，返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值
+        console.log('\n<=== 6.map()方法，返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值 ===>');
+        let arr6 = arr.map(function (currentValue, index, arr) {
+            return currentValue * 3;
+        })
+        console.log(arr6); // [69, 1368, 2367, 267, 21, 1368, 168]
+        let arr7 = arr.map(currentValue=>currentValue/2)
+        console.log(arr7); // [11.5, 228, 394.5, 44.5, 3.5, 228, 28]
+
+    </script>
+</body>
+
+</html>
