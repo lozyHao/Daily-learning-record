@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>call()的this指向</title>
+</head>
+
+<body>
+    <script>
+        // call()方法，就是一个对象调用另外一个对象的方法
+        let obj1 = {
+            name: "小明",
+            age: 17,
+            sayName: function () {
+                console.log('我是：' + this.name);
+            },
+            add: function (num1, num2) {
+                console.log(this.age + num1 + num2);
+            }
+        }
+        let obj2 = {
+            name: "小红",
+            age: 15,
+            sayAge: function () {
+                console.log('我是：' + this.name + '，今年：' + this.age + ' 岁');
+            },
+        }
+        obj1.sayName(); //我是：小明
+        obj2.sayAge(); //我是：小红，今年：15 岁
+
+        // obj2 调用 obj1的方法(方法含有参数，参数放在call中)
+        obj1.add.call(obj2, 45, 56); //116
+
+        // obj1 调用 obj2的方法
+        obj2.sayAge.call(obj1); //我是：小明，今年：17 岁
+    </script>
+</body>
+
+</html>
