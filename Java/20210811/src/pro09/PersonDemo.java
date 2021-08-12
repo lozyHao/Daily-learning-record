@@ -1,4 +1,4 @@
-package pro9;
+package pro09;
 
 public class PersonDemo {
 
