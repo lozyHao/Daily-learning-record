@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>arguments</title>
+</head>
+
+<style>
+    .title{
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+    .title:hover{
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        function fun1(a,b,c) {
+            console.log(arguments); //[100, 200, 300, 400, 800, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+            console.log(arguments[2]); //300
+            console.log(arguments[4]); //800
+            // arguments也可以被赋值
+            arguments[5]=456;
+            console.log(arguments[5]); //456
+
+            console.log(arguments); //[100, 200, 300, 400, 800, 5: 456, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+            console.log(arguments.length); //5
+
+            console.log(arguments.callee); //输出为这个方法本身（arguments方法中的callee就是指向方法本身）
+        }
+        fun1(100,200,300,400,800);
+
+
+        // callee方法指向本身，就与递归方法相关
+        // 例子：计算20以内所有整数之和
+        let num=(function calc(num) {
+            if(num==1){
+                return num
+            }
+            // let sum=num+calc(num-1); //原方法
+            let sum=num+arguments.callee(num-1); //运用callee方法指向本身的特性来直接调用本身(防止方法名修改后原方法递归失效)
+            return sum
+        })(20)
+        console.log(num); //210
+
+
+    </script>
+</body>
+
+</html>
