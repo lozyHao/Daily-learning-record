@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>对象</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        // 对象，拥有一组属性和方法的集合
+        // 1.定义对象
+        // 1.1 自变量赋值的方式
+        let Person = {
+            name: '小华',
+            age: '22',
+            gender: '男',
+            score: {
+                yuwen: 80,
+                shuxue: 90,
+                waiyu: 85,
+            },
+            fangfa:function() {
+                console.log(this.name + ": 你好呀");
+            }
+        }
+        let Person1={
+            name: '小明',
+            age: '20',
+            gender: '女',
+            score: {
+                yuwen: 88,
+                shuxue: 92,
+                waiyu: 86,
+            },
+            fangfa() {
+                console.log(this.name + ": 我很好");
+            }
+        };
+
+        // 2.对象的属性和方法调用
+        console.log(Person); //{name: "小华", age: "22", gender: "男", score: {…}, fangfa: ƒ}
+        // 2.1 获取对象的属性
+        console.log(Person.name); // 小华  (方式一 对象.属性名)
+        console.log(Person['name']); // 小华 （方式二 对象['属性名']）
+        console.log(Person.score); // {yuwen: 80, shuxue: 90, waiyu: 85}
+        console.log(Person.score.yuwen); // 80
+        // 2.2 获取对象的方法
+        Person.fangfa(); //小华: 你好呀
+        Person1.fangfa(); //小明: 我很好
+        console.log(Person.fangfa); //ƒ fangfa(){console.log(this.name+": 你好呀");} (调用对象的方法，不加括号就是当做属性打印)
+
+        // 3.实例--计算器对象
+        let calc = {
+            num1: 0,
+            num2: 0,
+            add: function () {
+                console.log(`${this.num1}+${this.num2}=${this.num1 + this.num2}`)
+            },
+            sub: function () {
+                console.log(`${this.num1}-${this.num2}=${this.num1 - this.num2}`)
+            },
+        }
+        calc.num1 = 100;
+        calc.num2 = 200;
+        calc.add(); //100+200=300
+        calc.sub(); //100-200=-100
+
+        
+    </script>
+</body>
+
+</html>

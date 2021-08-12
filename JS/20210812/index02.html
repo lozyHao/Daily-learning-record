@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象----构造函数方式new一个对象</title>
+</head>
+<body>
+    <script>
+        let xh = {
+            name: '小华',
+            age: '22',
+            gender: '男',
+            out:function() {
+                console.log('大家好，我叫'+this.name+'，性别：'+this.gender+'，今年 '+this.age+' 岁！');
+            }
+        }
+        let xm = {
+            name: '小名',
+            age: '24',
+            gender: '男',
+            out:function() {
+                console.log('大家好，我叫'+this.name+'，性别：'+this.gender+'，今年 '+this.age+' 岁！');
+            }
+        }
+        let xs = {
+            name: '小宋',
+            age: '20',
+            gender: '女',
+            out:function() {
+                console.log('大家好，我叫'+this.name+'，性别：'+this.gender+'，今年 '+this.age+' 岁！');
+            }
+        }
+        xh.out() //大家好，我叫小华，性别：男，今年 22 岁！
+        xm.out() //大家好，我叫小名，性别：男，今年 24 岁！
+        xs.out() //大家好，我叫小宋，性别：女，今年 20 岁！
+
+        console.log('\n==========');
+
+        // 以上方式，三个对象的代码几乎相似，代码冗余高
+        // 优化：采用构造函数的方式new一个对象
+        function Student(name,gender,age) {
+            // 添加属性
+            this.name=name;
+            this.gender=gender;
+            this.age=age;
+            // 添加方法
+            this.out=function(){
+                console.log('大家好，我叫'+this.name+'，性别：'+this.gender+'，今年 '+this.age+' 岁！');
+            }
+            // 扩展新方法，所有对象都有的公共方法
+            this.public=function(time){
+                console.log('大家好，我叫'+this.name+'，我每天学习'+time+'小时！');
+            }
+        }
+        let dm=new Student('大明','男',40);
+        dm.out(); //大家好，我叫大明，性别：男，今年 40 岁！
+        let zm=new Student('字母','女',20);
+        zm.out(); //大家好，我叫字母，性别：女，今年 20 岁！
+        let sm=new Student('树莓','女',10);
+        sm.out(); //大家好，我叫树莓，性别：女，今年 10 岁！
+        sm.public(5); //大家好，我叫树莓，我每天学习5小时！
+    </script>
+</body>
+</html>

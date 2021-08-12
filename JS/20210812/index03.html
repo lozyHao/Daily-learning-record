@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象练习</title>
+</head>
+
+<body>
+    <script>
+        // 定义一个棋子类（构造函数)
+        // 1.里面有四个属性,分别是:名称，颜色，X轴位置，Y轴位置
+        //   比如:红色的马，当前位置是(X=15,Y=11)
+        //   里面有两个方法:分别是:1.显示当前棋子在什么位置
+        // 2.移动方法，该方法，需要传两个参数，就是x轴和Y轴的新坐标
+        //   移动方法执行完后，在方法的最下面，调用一次显示当前位置的方法。
+        // 定义一个棋子类
+        function Chess(name, color) {
+            this.name = name;
+            this.color = color;
+            this.x = 0;
+            this.y = 0;
+            // 显示位置的方法
+            this.show = function () {
+                console.log(`${this.color} ${this.name} 当前位置为--X轴:${this.x} / Y轴:${this.y}`);
+            }
+            // 移动的方法
+            this.move = function (x, y) {
+                console.log('移动中...');
+                this.x = x;
+                this.y = y;
+                // 重新显示位置
+                this.show();
+            }
+        }
+        // 创建红色马
+        let redHorse = new Chess('马', '红色');
+        console.log('\n<===创建 ' + redHorse.color + redHorse.name);
+        redHorse.show();
+        redHorse.move(10, 15);
+        redHorse.move(8, 5);
+        // 创建白色车
+        let whiteCur = new Chess('车', '白色');
+        console.log('\n<===创建 ' + whiteCur.color + whiteCur.name);
+        whiteCur.show();
+        whiteCur.move(5, 6);
+    </script>
+</body>
+
+</html>
