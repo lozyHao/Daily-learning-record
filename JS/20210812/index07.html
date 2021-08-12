@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字符串转对象应用---统计字符串中每个字符出现的次数</title>
+</head>
+<body>
+    <script>
+        let str='axsasdxzxzadzsdxdxzdazsaszaxzazz';
+        let obj={};
+        let arr=str.split(''); //将字符串拆分成数组
+        console.log(arr);
+        arr.forEach(r=>{
+            if (obj[r]) { //判断该属性obj[r]是否存在
+                // 对象中，有该属性，该属性 +1
+                obj[r]++;
+            }else{
+                // 对象中没有该属性，添加该属性
+                obj[r]=1;
+            }
+        })
+        console.log(obj); //{a: 7, x: 6, s: 5, d: 5, z: 9}
+
+        // 找出出现次数最多的字符
+        let max={
+            name:'',
+            count:0,
+        }
+        Object.keys(obj).forEach(key=>{
+            if(max.count<obj[key]){
+                max.name=key;
+                max.count=obj[key];
+            }
+        })
+        console.log(max); //{name: "z", count: 9}
+    </script>
+</body>
+</html>

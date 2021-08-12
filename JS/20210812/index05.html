@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>将一个对象转换成字符串</title>
+</head>
+
+<body>
+    <script>
+
+        // forEach() 数组每个元素都执行一次回调函数
+        // push() 向数组的末尾添加一个或更多元素，并返回新的长度
+        // join() 把数组的所有元素放入一个字符串
+        let phone = {
+            name:'华为Nova7',
+            color:'奇境森林',
+            size:'6.72英寸',
+            prize:'3299',
+        }
+        console.log(phone);
+        // 1.for in 循环，可以循环出对象里面的所有key，就是属性值
+        console.log('\n<=== 1.for in方式遍历输出 ===>');
+        for(let key in phone){
+            console.log(key+': '+phone[key]); //依次输出 name: 华为Nova7  color: 奇境森林 ...
+        }
+
+        // 2.Object.keys()方法，在ES6中，新增获取对象所有key的方法
+        console.log('\n<=== 2.Object.keys()方法获取 ===>');
+        Object.keys(phone).forEach(key=>{
+            console.log(key+': '+phone[key]); //依次输出 name: 华为Nova7  color: 奇境森林 ...
+        });
+
+        // 3.Object.values()方法 获取指定对象的所有values，返回是一个数组
+        console.log('\n<=== 3.Object.values()方法 获取指定对象的所有values，返回是一个数组 ===>');
+        console.log(Object.values(phone)); // ["华为Nova7", "奇境森林", "6.72英寸", "3299"]
+
+        console.log('\n=================');
+        // 转换成：name=华为Nova7&color=奇境森林&size=6.72英寸&prize=3299
+        // 首先转换成数组["name=华为Nova7","color=奇境森林","size=6.72英寸","prize=3299"]，再用 & 拼接
+        console.log('\n<=== 4.实现 ===>');
+        let arr1=[];
+        Object.keys(phone).forEach(key=>{
+            arr1.push([key,phone[key]].join('='));
+        });
+        console.log(arr1); // ["name=华为Nova7", "color=奇境森林", "size=6.72英寸", "prize=3299"]
+        let str1=arr1.join('&');
+        console.log(str1); // name=华为Nova7&color=奇境森林&size=6.72英寸&prize=3299
+        console.log('-----简化-----');
+        let str2=Object.keys(phone).map(key=>[key,phone[key]].join('=')).join('&');
+        console.log(str2); //name=华为Nova7&color=奇境森林&size=6.72英寸&prize=3299
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>将字符串转成对象</title>
+</head>
+<body>
+    <script>
+        // name=华为Nova7&color=奇境森林&size=6.72英寸&prize=3299
+        //转换成=>>> {
+        //     name:'华为Nova7',
+        //     color:'奇境森林',
+        //     size:'6.72英寸',
+        //     prize:'3299',
+        // }
+
+        // split() 把字符串分割为子字符串数组
+        // forEach() 数组每个元素都执行一次回调函数
+        let str='name=华为Nova7&color=奇境森林&size=6.72英寸&prize=3299';
+        let obj={};
+        str.split('&').forEach(item=>{
+            // 将字符串打散成数组
+            let kv=item.split('=');
+            console.log(kv); //依次输出 ["name", "华为Nova7"]  ["color", "奇境森林"]...
+            obj[kv[0]]=kv[1] // 对象赋值 (循环赋值)
+        });
+        console.log(obj); // {name: "华为Nova7", color: "奇境森林", size: "6.72英寸", prize: "3299"}
+    </script>
+</body>
+</html>
