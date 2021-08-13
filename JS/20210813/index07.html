@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解构赋值</title>
+</head>
+<body>
+    <script>
+        // 1.数组的解构赋值
+        let arr1=[12,12,1,2,1231,23,123,1,231,456,1];
+        let [a,b,c,d,e]=arr1;
+        console.log(a,b,c,d,e); //12 12 1 2 1231
+        
+        // 2.对象的解构赋值
+        let obj1={
+            name:'鹿晗',
+            age:30,
+            gender:'男',
+            job:'歌手',
+        }
+        let age=31;
+        let {name,age:age1,gender,job}=obj1;
+        console.log(name,age,gender,job); //鹿晗 31 男 歌手
+
+        let myname='小明';
+        let myage=10;
+        let mygender='男';
+        let myjob='程序员';
+        let obj2={
+            myname,
+            myage,
+            mygender,
+            myjob,
+        }
+//      当对象中属性和属性值相同时，属性值可以省略不写
+        console.log(obj2); //{myname: "小明", myage: 10, mygender: "男", myjob: "程序员"}
+
+        // 3.字符串的解构赋值
+
+        // 4.数值和布尔值的解构赋值
+
+        // 5.函数的解构赋值
+    </script>
+</body>
+</html>
