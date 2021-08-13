@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js库的封装</title>
+</head>
+
+<body>
+    <!-- 引入js库文件 -->
+    <script src="./bing.js"></script>
+    <script>
+        // 自己封装的js库的调用
+        console.log('\n<=== ** 自己封装的js库的调用 ** ===>');
+
+        // 1.个位补0
+        console.log('\n<=== 1.个位补0 ===>');
+        console.log($Luo.repair(5));
+
+        // 2.返回日期格式
+        console.log('\n<=== 2.返回日期格式 ===>');
+        let date1 = new Date();
+        console.log($Luo.getMiniDate(date1));
+        console.log($Luo.getChaineseDate(date1));
+
+//      3.分页方法
+        console.log('\n<=== 3.分页方法 ===>');
+        let arr1=[];
+        for (let i = 1; i <= 100; i++) {
+            arr1.push(i);
+        }
+        // console.log(arr1);
+        console.log($Luo.pageData(arr1, 3, 10)); //{data: Array(10), totalPage: 10}  (返回的是对象)
+        console.log('该页数据：'+$Luo.pageData(arr1, 3, 10).data);// [21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+        console.log('总页数：'+$Luo.pageData(arr1, 3, 10).totalPage+' 页');// 10
+
+        // 4.对象转字符串
+        console.log('\n<=== 4.对象转字符串 ===>');
+        let phone = {
+            name:'华为Nova7',
+            color:'奇境森林',
+            size:'6.72英寸',
+            prize:'3299',
+        }
+        console.log($Luo.getStrByObj(phone,'&&&')); //name=华为Nova7&&&color=奇境森林&&&size=6.72英寸&&&prize=3299
+
+        // 5.字符串转对象
+        console.log('\n<=== 5.字符串转对象 ===>');
+        let str='name=华为Nova7&color=奇境森林&size=6.72英寸&prize=3299';
+        console.log($Luo.getObjByStr(str)); // {name: "华为Nova7", color: "奇境森林", size: "6.72英寸", prize: "3299"}
+        let str1='name=华为Nova7@color=奇境森林@size=6.72英寸@prize=3299';
+        console.log($Luo.getObjByStr(str1,'@')); // {name: "华为Nova7", color: "奇境森林", size: "6.72英寸", prize: "3299"}
+    </script>
+</body>
+
+</html>
