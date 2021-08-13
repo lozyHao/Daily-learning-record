@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自执行函数</title>
+</head>
+
+<style>
+    .title{
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+    .title:hover{
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        // 1.自执行方式一
+        (function fun1(params) {
+            console.log('123'); //123
+        })();
+        (()=>{
+            console.log('456'); //456
+        })()
+
+        // 2.自执行方式二 (+,-,!,~)取代了前面的括号也可以让匿名函数自执行
+        !function fun2(params) {
+            console.log('798'); //789
+        }();
+        ~function fun3(params) {
+            console.log('951'); //951
+        }();
+        +function(){
+            console.log('753'); //753
+        }()
+    </script>
+</body>
+
+</html>
