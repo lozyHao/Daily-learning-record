@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>对象数组</title>
+</head>
+
+<style>
+    .title {
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+
+    .title:hover {
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        let str = ''
+
+        // 定义一个学校对象
+        let school = {
+            // 该数组保存学生信息
+            stus: [{
+                no: 1001,
+                name: '小明',
+                age: 20,
+                gender: '男'
+            }, {
+                no: 1002,
+                name: '小红',
+                age: 22,
+                gender: '女'
+            }, {
+                no: 1003,
+                name: '小华',
+                age: 19,
+                gender: '男'
+            }],
+            // 添加学生的方法
+            add: function () {
+                let obj = {};
+                obj.no = Number.parseInt(prompt("请输入学号："));
+                obj.name = prompt("请输入姓名：");
+                obj.age = Number.parseInt(prompt("请输入年龄："));
+                obj.gender = prompt("请输入性别：");
+                this.stus.push(obj);
+                alert('添加成功~~~');
+            },
+            // 显示学生信息
+            show() {
+                console.log('\n==================学生信息==================');
+                console.log('         学号 \t 姓名 \t 年龄\t性别');
+                this.stus.forEach(s => {
+                    console.log(`         ${s.no}    ${s.name}     ${s.age}      ${s.gender}`);
+                })
+            },
+            // 菜单方法
+            menu() {
+                let no = Number.parseInt(prompt(`欢迎使用学生管理系统: 1.添加学生 2.查看学生 0.退出系统`));
+                switch (no) {
+                    case 1:
+                        this.add();
+                        break;
+                    case 2:
+                        this.show();
+                        break;
+                    case 0:
+                        alert('下次再来~~~')
+                        return;
+                }
+                // arguments.callee 指向本身，加上（）执行
+                // 但是第二次递归时arguments没有add()...这些方法，就需要加上 call(this)，用于改变方法中this的指向
+                // 此时this就是指向 school对象，是的递归一直指向school对象里面的方法
+                arguments.callee.call(this);
+            }
+        }
+        school.menu();
+    </script>
+</body>
+
+</html>
