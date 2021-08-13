@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rest参数</title>
+</head>
+<body>
+    <script>
+        // ...args  就是rest参数
+        (function fun1(a,b,c,...args) {
+            console.log(a,b,c); //5 2 5
+            // arguments 是一个类数组对象，结构长得像数组，其实是一个object对象
+            console.log(arguments); //Arguments(10) [5, 2, 5, 6, 8, 8, 45, 4, 5, 45, callee: (...), Symbol(Symbol.iterator): ƒ]
+            // rest参数 是一个数组对象，可以直接使用数组的方法
+            console.log(args); //[6, 8, 8, 45, 4, 5, 45]
+        })(5,2,5,6,8,8,45,4,5,45);
+    </script>
+</body>
+</html>
