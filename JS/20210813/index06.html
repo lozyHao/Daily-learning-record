@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Es6扩展方法--展开运算符 ...</title>
+</head>
+<body>
+    <script>
+        // 1.展开运算符 ...
+        let arr1=[123,456,789];
+        let arr2=[159,483,726,124,357,689];
+        let arr3=[...arr1,...arr2];
+        console.log(arr3); //[123, 456, 789, 159, 483, 726, 124, 357, 689]
+        console.log(...arr3); //123 456 789 159 483 726 124 357 689
+
+        let lh={
+            name:'鹿晗',
+            age:30,
+            gender:'男',
+            job:'歌手',
+            sag:function(){
+                console.log(this.name);
+            },
+            car:function(){
+                console.log('宝马');
+            }
+        }
+        let gxt={
+            name:'关晓彤',
+            age:22,
+            gender:'女',
+            address:'北京',
+            sag:function(){
+                console.log(this.name);
+            }
+        }
+        // 1.展开运算符可以将一个对象成员克隆各另外一个对象
+        console.log(lh); //{name: "鹿晗", age: 30, gender: "男", job: "歌手"}
+        let obj1={...lh}
+        console.log(obj1); //{name: "鹿晗", age: 30, gender: "男", job: "歌手"}
+        obj1.name='小明';
+        obj1.age=12;
+        obj1.job='学生'
+        console.log(obj1); //{name: "小明", age: 12, gender: "男", job: "学生"}
+
+//      2. 两个以上对象展开成一个对象时， 后面的相同属性和方法会覆盖前面的属性和方法
+        let obj2={...lh,...gxt};
+        console.log(obj2); //{name: "关晓彤", age: 22, gender: "女", job: "歌手", sag: ƒ, car: f,…}
+
+    </script>
+</body>
+</html>
