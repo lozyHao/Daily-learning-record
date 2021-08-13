@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this指向</title>
+</head>
+
+<style>
+    .title{
+        width: 90%;
+        height: 70px;
+        background: darkcyan;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 70px;
+        margin: 20px auto;
+        font-size: 40px;
+        letter-spacing: 4px;
+        color: white;
+        transition: 1s;
+        user-select: none;
+    }
+    .title:hover{
+        background: rgb(3, 61, 61);
+        cursor: pointer;
+    }
+</style>
+<body>
+    <div class="title">欢迎使用 JavaScript!</div>
+
+    <script>
+        console.log(window); //Window {window: Window, self: Window, document: document, name: "", location: Location, …}
+        var myName='嘿嘿';
+        var age=20;
+        // sayHi()定义为全局方法，会自动成为window对象的方法
+        function sayHi(){
+            // 1.谁调用sayHi()方法，this就指向谁
+            console.log(this.myName+this.age);
+            console.log(this);
+        }
+        let zs={
+            myName:'张三',
+            age:30,
+        }
+        zs.sayHi=sayHi;
+        console.log(zs); //{myName: "张三", age: 30, sayHi: ƒ}
+        zs.sayHi(); // 张三30 (this 指向 sayHi 打印{myName: "张三", age: 30, sayHi: ƒ})
+        console.log('<\n==========>');
+        let ls={
+            myName:'李四',
+            age:18,
+            // 做饭方法
+            cook(){
+                let that=this; //(解决this指向不同)方法一：备份this
+                // console.log(this); //{myName: "李四", age: 18, cook: ƒ}
+                return{
+                    chineseFood(){
+                        // console.log(this); //{chineseFood: ƒ, westFood: ƒ}
+                        // arguments对象是所有（非箭头）函数中都可用的局部变量。你可以使用arguments对象在函数中引用函数的参数。此对象包含传递给函数的每个参数，第一个参数在索引 0 处。
+                        console.log(arguments); //["汉堡", "面包", callee: ƒ, Symbol(Symbol.iterator): ƒ]
+                        console.log('我叫 '+that.myName+' ，今年 '+that.age+" 岁，做中餐");
+                    },
+                    // (解决this指向不同)方法二：使用箭头函数（没有this指向），this指向就是该方法外层函数
+                    westFood:()=>{
+                        // 箭头函数里面的arguments不能获取函数的参数，因为箭头函数没有this指向，不能指向该方法
+                        console.log(arguments); //[callee: ƒ, Symbol(Symbol.iterator): ƒ]
+                        console.log('我叫 '+this.myName+' ，今年 '+this.age+" 岁，做西餐");
+                    }
+                }
+            }
+        }
+        ls.cook().chineseFood('汉堡','面包');
+        ls.cook().westFood('汉堡','面包');
+
+    </script>
+</body>
+
+</html>
