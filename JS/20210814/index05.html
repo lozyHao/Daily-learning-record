@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6中定义类（构造方法）的新方法</title>
+</head>
+
+<body>
+    <script>
+        // 定义一个Person类型
+        class Person {
+            // 构造方法
+            constructor(name, gender, age) {
+                this.name = name;
+                this.gender = gender;
+                this.age = age;
+            }
+            // 给类添加一个方法
+            sayHi=function(){
+                console.log(this.name,this.age,this.gender);
+            }
+            // 此类声明方式的方法是存储在原型对象中
+            sayHello(){
+                console.log(this.name,this.age,this.gender);
+            }
+        }
+        let p1 = new Person('张三', 22, '男');
+        console.log(p1); //Person {name: "张三", gender: 22, age: "男", sayHi: ƒ}
+    </script>
+</body>
+
+</html>

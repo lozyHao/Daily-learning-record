@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>构造函数（类）</title>
+</head>
+
+<body>
+    <script>
+        function Person(name, age, gender) {
+            // 添加属性
+            this.name = name;
+            this.age = age;
+            this.gender = gender;
+            // 添加方法
+            this.sayHi=function(){
+                console.log(this.name,this.gender,this.age);
+            }
+        }
+
+        // 函数有两个属性：prototype, _proto_
+        // 函数(对象)有个属性叫做prototype,这个属性指向自己的原型对象
+        // 函数有另外一个属性叫做_proto_。这个属性指向上级(Object)的原型对象.这个上级是Object,也有一个属性叫做_proto_.指向null
+        console.log(Person.prototype); //{constructor: ƒ}
+        
+        // ***通常，我们将类的方法定义在原型对象中，这样能提高代码利用率
+        Person.prototype.sayHello=function(){
+            console.log('你好呀！！！');
+        }
+
+        let obj1=new Person('张三',22,'男');
+        console.log(obj1); //{name: "张三", age: 22, gender: "男", sayHi: ƒ}
+        obj1.sayHi(); //张三 男 22
+        obj1.sayHello(); //你好呀！！！
+
+        console.log(obj1.__proto__); //{sayHello: ƒ, constructor: ƒ}
+    </script>
+</body>
+
+</html>
