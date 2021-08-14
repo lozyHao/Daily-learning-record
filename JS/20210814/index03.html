@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>箭头函数中this指向</title>
+</head>
+
+<body>
+    <script>
+        // 1.箭头函数中的this指向外层，此时箭头函数中的this就指向全局window
+        (() => {
+            console.log(this);
+        })(); //Window
+
+        // 2.对象中箭头函数应用
+        let obj = {
+            name: '张三',
+            age: 20,
+            sayHi: function(){
+                console.log(this); // a {name: "张三", age: 20, sayHi: ƒ}
+                return {
+                    sayHello:()=>{
+                        console.log(this); // b {name: "张三", age: 20, sayHi: ƒ} （因为外层就有方法sayHi()，所以就是该方法中的this）
+                        console.log(this.name, this.age); // c 张三 20
+                    }
+                }
+            },
+            say:()=>{
+                console.log(this); // d Window (因为外层没有方法，所以再外层就是全局)
+            },
+            girl:{
+                sayHello:function(){
+                    console.log(this); 
+                    console.log(this.name,this.age);
+                }
+            }
+        }
+        obj.sayHi().sayHello();
+        obj.say();
+        obj.girl.sayHello(); // e {sayHello: ƒ}  undefined undefined（this指向自己所在层）
+        obj.girl.sayHello.call(obj); // f {name: "张三", age: 20, girl: {…}, sayHi: ƒ, say: ƒ}  张三 20（应用call()方法改变this指向为obj）
+    </script>
+</body>
+
+</html>
