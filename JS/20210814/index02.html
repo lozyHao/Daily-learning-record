@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>值类型和引用类型</title>
+</head>
+<body>
+    <script>
+        // 1.值类型（基本数据类型 number、string、boolean）
+        //  值类型的变量，直接将数据保存到栈空间中
+        let num1=100;
+        let num2=num1;
+        num2=200;
+        console.log(num1,num2); //100 200
+
+        // 2.引用类型（引用数据类型 对象、数组）
+        //  引用类型的变量，将数据保存在堆中，然后将堆的地址保存在到栈中。
+        // 2.1 对象
+        let obj1={
+            name:'张三',
+            age:'20'
+        }
+        let obj2=obj1; //地址赋值，指向同一个地址
+        obj2.name='李四'; //修改属性值，是修改该地址中的属性值（两个对象指向的同一个地址，地址中的属性值该变了，所以两个对象是一样的）
+        console.log(obj1,obj2); //{name: "李四", age: "20"} {name: "李四", age: "20"}
+        // 2.2 数组
+        let arr1=[12,23,45,56,78];
+        let arr2=arr1;
+        arr2[2]=0;
+        console.log(arr1,arr2); //[12, 23, 0, 56, 78]  [12, 23, 0, 56, 78]
+        arr2=[89,79,46,13]; // 此时重新指向新的数组，地址该变，所以arr2和arr1不再指向同一个地址
+        console.log(arr1,arr2); //[12, 23, 0, 56, 78]  [89, 79, 46, 13]
+    </script>
+</body>
+</html>
