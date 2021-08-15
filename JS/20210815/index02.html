@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6定义类和继承</title>
+</head>
+
+<body>
+    <script>
+        // 1.定义一个Person类
+        class Person {
+            constructor(name, age, gender) {
+                this.name = name;
+                this.age = age;
+                this.gender = gender;
+            }
+            eat() {
+                console.log(`我叫${this.name}，我在吃饭...`);
+            }
+            say() {
+                console.log(`我叫${this.name}，今年岁${this.age}，性别${this.gender}`);
+            }
+        }
+        let p1 = new Person('小明', 20, '男'); //我叫小明，今年岁20，性别男
+        console.log(p1); //{name: "小明", age: 20, gender: "男"}
+        p1.say(); //我叫小明，今年岁20，性别男
+        p1.eat(); //我叫小明，我在吃饭...
+        let p2 = new Person('小华', 24, '女');
+        console.log(p2);
+        p2.say();
+        p2.eat();
+
+        // 2.继承 extends
+        class Student extends Person{
+            constructor(name, age, gender, no) {
+                super(name, age, gender); //调用父类的构造方法进行赋值
+                this.no = no;
+            }
+            study() {
+                console.log(`我叫${this.name}，我在好好学习天天向上`);
+            }
+        }
+
+        let p3 = new Student('小画', 22, '男', 2001);
+        console.log(p3); //Student {name: "小画", age: 22, gender: "男", no: 2001}
+        p3.say(); //我叫小画，今年岁22，性别男 (父类的方法)
+        p3.study(); //我叫小画，我在好好学习天天向上
+    </script>
+</body>
+
+</html>

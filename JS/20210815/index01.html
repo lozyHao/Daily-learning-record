@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类的继承</title>
+</head>
+
+<body>
+    <script>
+        // Student学生类和Person人类存在大部分相同的代码，并且学生类包含了人类的属性和方法。
+        // 此时相当于可以Student类继承Person的属性和方法。Student类再扩展自己独有的属性和方法。
+
+        // 定义一个人类
+        function Person(name, age, gender) {
+            this.name = name;
+            this.age = age;
+            this.gender = gender;
+        }
+        Person.prototype.eat = function () {
+            console.log(`我叫${this.name}，我在吃饭...`);
+        }
+        Person.prototype.say = function () {
+            console.log(`我叫${this.name}，今年岁${this.age}，性别${this.gender}`);
+        }
+        let p1 = new Person('小明', 20, '男'); //我叫小明，今年岁20，性别男
+        p1.say();
+        p1.eat();
+        // 定义一个学生类
+        function Student(name, age, gender, no) {
+            this.no = no;
+            // this.name = name;
+            // this.age = age;
+            // this.gender = gender;
+            Person.call(this,name, age, gender); //继承Person的东西，call（this）就是指向学生类
+        }
+        Student.prototype=new Person();
+        Student.prototype.study = function () {
+            console.log(`我叫${this.name}，我在好好学习天天向上`);
+        }
+        let p2=new Student('小华', 22, '男',2001)
+        console.log(p2);
+        p2.say(); //我叫小华，今年岁22，性别男 (父类的方法)
+        p2.study(); //我叫小华，我在好好学习天天向上
+    </script>
+</body>
+
+</html>
