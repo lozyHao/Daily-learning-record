@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宠物商店</title>
+</head>
+
+<body>
+    <script>
+        // 1.创建宠物类
+        class Pet {
+            constructor(name, type, gender, health, love, master) { //昵称 类型 性别 健康值 亲密度 主人
+                this.name = name;
+                this.type = type;
+                this.gender = gender;
+                this.health = health;
+                this.love = love;
+                this.master = master;
+            }
+            sayHi() {
+                if (this.master != null) {
+                    console.log(`我是一只${this.type}，我叫${this.name}，我是${this.gender ? '男生' : '女生'}，我的主人是：${this.master.username}`);
+                }
+            }
+            eat() {
+                // 判断健康值
+                if (this.health < 100) {
+                    console.log(`我正在吃东西~~~`);
+                    this.health += 5;
+                } else {
+                    console.log('我现在很饱，不需要吃东西！！！');
+                }
+            }
+            play() {
+                if (this.health > 30) {
+                    console.log(`我正在做游戏~~~`);
+                    this.health -= 5;
+                    this.love += 3;
+                } else {
+                    console.log('我太累了，需要吃东西！！！');
+                }
+            }
+        }
+
+        // 2.用户类
+        function User(username, password, pet = null) {
+            this.username = username;
+            this.password = password;
+            this.pet = pet;
+        }
+
+
+        // 3.定义一个宠物商店
+        let petShop = {
+            // 1.对象实例化
+            pets: [
+                new Pet('球球', '小狗', 0, 85, 30),
+                new Pet('当当', '小狗', 1, 85, 30),
+                new Pet('旺旺', '小狗', 0, 85, 30),
+                new Pet('花花', '小猫', 1, 85, 30),
+                new Pet('毛毛', '小猫', 1, 85, 30),
+                new Pet('团子', '小狗', 0, 85, 30),
+                new Pet('贝贝', '小猫', 0, 85, 30)
+            ],
+            users: [
+                new User('小天', '123456'),
+                new User('吴华', '456789'),
+                new User('唐玉', '789123')
+            ],
+            currentUser: null,
+            // 2.用户登录
+            login: function () {
+                let username = prompt('<===** 用户登录 **===>\n请输入登录名:');
+                let password = prompt('<===** 用户登录 **===>\n请输入密码:');
+                let user = this.users.find(u => u.username == username && u.password == password);
+                // 判断账户是否注册，并判断正确性
+                if (user) {
+                    alert('登陆成功！！！');
+                    // 登陆成功，跳转到商店界面菜单
+                    this.currentUser = user;
+                    this.shopMenu();
+                } else {
+                    alert('登录失败，用户名/密码不正确，请重新登录！！！');
+                }
+            },
+            // 3.用户注册方法
+            register: function () {
+                let username = prompt('<===** 用户注册 **===>\n请输入登录名:');
+                if (this.users.find(u => u.username == username)) {
+                    alert('用户已存在，请重新输入');
+                    return;
+                } else {
+                    let password = prompt('<===** 用户注册 **===>\n请输入密码:');
+                    if (password.length < 6) {
+                        alert('密码不能小于6位，请重新输入');
+                        return;
+                    } else {
+                        let user = new User(username, password);
+                        this.users.push(user);
+                        console.log(user);
+                        alert('注册成功！！！');
+                    }
+                }
+            },
+            // 4.查看宠物情况
+            showPet() {
+                console.log('========== 宠物信息 ============');
+                console.log('昵称  类型  性别  健康值  亲密度  主人');
+                this.pets.forEach(p => {
+                    console.log(`${p.name}  ${p.type}  ${p.gender == 0 ? '男生' : '女生'}    ${p.health}    ${p.love}    ${p.master == null ? '暂无' : p.master.username}`);
+                })
+            },
+            pet:null,
+            // 5.领养宠物
+            buyPet() {
+                
+                // 判断当前登录用户是否领养过宠物
+                if (this.pets.some(p => p.master == this.currentUser)) {
+                    pet = this.pets.find(p => p.master == this.currentUser);
+                    alert('你已经领养过宠物，不能再领养！！！');
+                } else {
+                    while (true) {
+                        let name = prompt('<===** 宠物领养 **===>\n请输入宠物昵称:');
+                        pet = this.pets.find(p => p.name == name && p.master == null);
+                        if (pet) {
+                            pet.master = this.currentUser;
+                            this.users.find(u => u.pet = pet);
+                            alert('成功领养一直宠物！！！');
+                            break;
+                        } else {
+                            alert('该宠物不存在，或者被别人领养，请重新选择！！！')
+                        }
+                    }
+
+                }
+                console.log(pet);
+                alert(`你领养的宠物信息：\n
+                昵称  类型  性别  健康值  亲密度  主人\n
+                ${pet.name}  ${pet.type}  ${pet.gender == 0 ? '男生' : '女生'}     ${pet.health}      ${pet.love}     ${pet.master == null ? '暂无' : pet.master.username}`)
+            },
+            // 用户登录界面菜单控制
+            usermenu: function () {
+                let no = parseInt(prompt('<===** 萝茗宠物商店登录界面 **===>\n\n【1】登录  【2】注册  【3】退出'));
+                switch (no) {
+                    case 1:
+                        // 登录方法
+                        this.login();
+                        break;
+                    case 2:
+                        // 注册方法
+                        this.register();
+                        break;
+                    case 3:
+                        alert('退出成功！欢迎下次继续使用！');
+                        return;
+                    default:
+                        alert('输入错误，请重新输入！！！');
+                        break;
+                }
+                // this.menu();
+                arguments.callee.call(this);
+            },
+            // 商店界面菜单控制
+            shopMenu: function () {
+                let no = parseInt(prompt('<===** 萝茗宠物商店个人中心 **===>\n\n1/查看宠物  2/领养宠物  3/管理宠物  0/退出'));
+                switch (no) {
+                    case 1:
+                        // 查看宠物
+                        this.showPet();
+                        break;
+                    case 2:
+                        // 领养宠物
+                        this.buyPet();
+                        break;
+                    case 3:
+                        // 宠物管理
+                        this.petMenu(pet);
+                        break;
+                    case 0:
+                        alert('退出成功！欢迎下次继续使用！');
+                        return;
+                    default:
+                        alert('输入错误，请重新输入！！！');
+                        break;
+                }
+                // this.menu();
+                arguments.callee.call(this);
+            },
+            // 管理宠物菜单
+            petMenu: function (pet) {
+                while (true) {
+                    let no = parseInt(prompt('<===** 个人宠物管理 **===>\n\n1/叫一个  2/喂食物  3/陪玩  0/退出'));
+                    switch (no) {
+                        case 1:
+                            // 叫一个
+                            pet.sayHi();
+                            break;
+                        case 2:
+                            // 喂食物
+                            pet.eat();
+                            break;
+                        case 3:
+                            // 陪玩
+                            pet.play();
+                            break;
+                        case 0:
+                            alert('退出至个人中心！！！');
+                            return;
+                        default:
+                            alert('输入错误，请重新输入！！！');
+                            break;
+                    }
+                }
+            },
+        }
+        petShop.usermenu();
+    </script>
+</body>
+
+</html>
