@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浏览器BOM</title>
+</head>
+<a href="./index02.html">跳转至 index02</a>
+<button id="but">回到index02</button>
+<body>
+    <script>
+        console.log(window.screen);
+        // 按照时间循环的定时器
+        let i = 0;
+        // let a=setInterval(function(){
+        //     console.log('123');
+        //     i++;
+        //     if(i==100){
+        //         clearInterval(a);
+        //     }
+        // },50);
+
+        console.log(location.host);//拿到服务器名称+端口号
+        console.log(location.port);//拿到端口号
+        console.log(location.href); //直接拿到网址
+
+        setTimeout(function(){
+            // window.history.back();//回退
+            // window.history.forward(); //前进
+            // window.history.go(-1); // 后退/前进
+        },1000)
+
+        let a=document.getElementById('but');
+        a.onclick=function(){
+            window.history.go(1);
+        }
+    </script>
+</body>
+
+</html>
