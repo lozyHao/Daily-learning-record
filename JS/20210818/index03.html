@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM-获取标签元素</title>
+</head>
+
+<body>
+    <div class="one">ONE</div>
+    <div class="one">ONE</div>
+    <div class="one">ONE</div>
+    <div id="two">TWO</div>
+    <div id="two">TWO</div>
+    <p name='china'>China1</p>
+    <p name='china'>China2</p>
+    <p name='English'>English</p>
+    <ul>
+        <li class="ds dq">电视机</li>
+        <li class="wbl dq">微波炉</li>
+        <li id="bx">电冰箱</li>
+        <li id="bx">小电冰箱</li>
+    </ul>
+    <div last='last'>123456789</div>
+    <div last='last'>123456789</div>
+    <script>
+        // 1.JS获取HTML节点方法二：通过  class  进行获取 (得到一个集合)
+        let one = document.getElementsByClassName('one');
+        console.log(one); //HTMLCollection(3) [div.one, div.one, div.one]
+
+        // 2.JS获取HTML节点方法一：通过  id  进行获取(最推荐使用的方法，因为id只能有一个，所以只能获取第一个id的标签)
+        let two = document.getElementById('two');
+        console.log(two);
+
+        // 3.JS获取HTML节点方法三：通过  标签名  进行获取 (得到一个集合)
+        let three = document.getElementsByTagName('div');
+        console.log(three); //HTMLCollection(5) [div.one, div.one, div.one, div#two, div#two, two: div#two]
+
+        // 4.JS获取HTML节点方法四：通过  name  进行获取 (得到一个集合)
+        let p1 = document.getElementsByName("china");
+        console.log(p1); //NodeList(2) [p, p]
+        console.log(p1[1].innerHTML); //China2
+        let p2 = document.getElementsByName("English");
+        console.log(p2); //NodeList [p]
+        console.log(p2[0].innerHTML); //English
+
+        // 5.JS获取HTML节点方法五：通过  选择器1  (经常用到，使用的次数和id获取次数相同)
+        let ds = document.querySelector(".ds"); 
+        console.log(ds); //li.ds.dq
+        let wbl = document.querySelector(".wbl"); 
+        console.log(wbl); //li.wbl.dq
+        let dq = document.querySelectorAll(".dq"); //(得到一个集合)
+        console.log(dq); //NodeList(2) [li.ds.dq, li.wbl.dq]
+        let dq1=[...dq]; //运用展开运算符转换成数组
+        console.log(dq1); //(2) [li.ds.dq, li.wbl.dq]
+
+        // 6.JS获取HTML节点方法五：通过  选择器2  (经常用到，使用的次数和id获取次数相同)
+        let bx = document.querySelector("#bx"); 
+        console.log(bx); //li#bx
+        let bx1 = document.querySelectorAll("#bx"); //(得到一个集合)
+        console.log(bx1); //NodeList(2) [li#bx, li#bx]
+
+        // 7.根据后代选择器获取标签元素
+        let ds2=document.querySelectorAll('ul li');
+        console.log(ds2); //NodeList(4) [li.ds.dq, li.wbl.dq, li#bx, li#bx]
+
+        // 8.根据属性选择器获取网页元素
+        let one2=document.querySelectorAll('div[last]'); //(得到一个集合)
+        console.log(one2); //NodeList(2) [div, div]
+
+        // 9.根据并集选择器获取网页元素
+        let one3=document.querySelectorAll('div,p');
+        console.log(one3); //NodeList(8) [div.one, div.one, div.one, div#two, div#two, p, p, p]
+    </script>
+</body>
+
+</html>
