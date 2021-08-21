@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>增加和删除实例--学生信息表格形式</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    table {
+        border-collapse: collapse;
+        margin: 20px auto;
+    }
+
+    th,
+    td {
+        border: 1px solid #ccc;
+        padding: 5px 10px;
+        text-align: center;
+    }
+
+    .add {
+        width: 240px;
+        height: 150px;
+        border: 2px solid #ccc;
+        margin: 20px auto;
+    }
+
+    .add p {
+        padding: 2px 5px;
+    }
+
+    .add input {
+        outline: none;
+    }
+
+    .add button {
+        display: block;
+        width: 60px;
+        height: 30px;
+        margin: 5px auto;
+        background: seagreen;
+        border: none;
+        color: white;
+    }
+</style>
+
+<body>
+    <div class="add">
+        <p>学号：<input type="text" id='no'></p>
+        <p>姓名：<input type="text" id='name'></p>
+        <p>年龄：<input type="text" id='age'></p>
+        <p>性别：<input type="radio" name='gender' value="男" checked>男<input type="radio" name='gender' value="女">女</p>
+        <p>
+            <button id="btnAdd">添加</button>
+        </p>
+    </div>
+
+    <script>
+        let stus = [
+            {
+                no: '1001',
+                name: '张三',
+                age: '20',
+                gender: '男'
+            },
+            {
+                no: '1002',
+                name: '李四',
+                age: '19',
+                gender: '男'
+            },
+            {
+                no: '1003',
+                name: '小华',
+                age: '20',
+                gender: '女'
+            },
+            {
+                no: '1004',
+                name: '王五',
+                age: '22',
+                gender: '男'
+            },
+            {
+                no: '1005',
+                name: '唐六',
+                age: '18',
+                gender: '女'
+            }
+        ]
+
+        // 封装一个创建元素方法
+        function $c(togname) {
+            return document.createElement(togname);
+        }
+
+        // 封装一个返回元素方法
+        function $r(selecter) {
+            return document.querySelector(selecter);
+        }
+
+        // 封装一个添加行的方法
+        function $add(stu) {
+            let tr = document.createElement('tr');
+            let td1 = $c('td');
+            let td2 = $c('td');
+            let td3 = $c('td');
+            let td4 = $c('td');
+            let td5 = $c('td');
+            td1.innerHTML = stu.no;
+            td2.innerHTML = stu.name;
+            td3.innerHTML = stu.age;
+            td4.innerHTML = stu.gender;
+            td5.innerHTML = '删除';
+            // 鼠标移入--变色
+            td5.onmouseenter = function () {
+                td5.style.backgroundColor = 'red';
+                td5.style.color = 'white';
+                // 鼠标变为手指
+                td5.style.cursor = 'pointer';
+            }
+            // 鼠标移出--变色
+            td5.onmouseleave = function () {
+                td5.style.backgroundColor = 'white';
+                td5.style.color = 'black';
+            }
+            // 增加点击事件--删除内容
+            td5.onclick = () => {
+                if (confirm('是否删除？')) {
+                    tr.remove();
+                }
+            }
+
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
+            tr.appendChild(td5);
+            table.appendChild(tr);
+        }
+
+        // 1.数据展示
+        let table = $c('table');
+        // 创建表头第一行
+        let tr1 = $c('tr');
+        // 创建表头列
+        let th1 = $c('th');
+        let th2 = $c('th');
+        let th3 = $c('th');
+        let th4 = $c('th');
+        let th5 = $c('th');
+        th1.innerHTML = '学号';
+        th2.innerHTML = '姓名';
+        th3.innerHTML = '年龄';
+        th4.innerHTML = '性别';
+        th5.innerHTML = '操作';
+        tr1.appendChild(th1);
+        tr1.appendChild(th2);
+        tr1.appendChild(th3);
+        tr1.appendChild(th4);
+        tr1.appendChild(th5);
+        table.appendChild(tr1);
+
+        // 将内容展示
+        stus.forEach((stu, index) => {
+            $add(stu);
+        })
+
+        document.body.appendChild(table);
+
+
+        // 2.添加窗口
+        $r('#btnAdd').onclick = function () {
+            let stu = {
+                no: $r('#no').value,
+                name: $r('#name').value,
+                age: $r('#age').value,
+                // 获取被选中性别
+                gender: [...document.querySelectorAll("input[name='gender']")].find(r => r.checked).value
+            }
+            if (confirm('是否添加？')) {
+                stus.push(stu);
+                $add(stu);
+            }
+
+        }
+        // 鼠标按下--变色
+        $r('#btnAdd').onmousedown = function () {
+            $r('#btnAdd').style.backgroundColor = 'red';
+        }
+        // 鼠标抬起--变色
+        $r('#btnAdd').onmouseup = function () {
+            $r('#btnAdd').style.backgroundColor = 'seagreen';
+        }
+        // 鼠标移入--鼠标变为手指
+        $r('#btnAdd').onmouseenter = function () {
+            $r('#btnAdd').style.cursor = 'pointer';
+        }
+    </script>
+</body>
+
+</html>
