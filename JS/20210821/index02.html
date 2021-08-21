@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简易轮播图</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    #lunbo {
+        width: 400px;
+        height: 250px;
+        /* background: red; */
+        margin: 50px auto;
+    }
+
+    img {
+        width: 400px;
+        height: 250px;
+    }
+</style>
+
+<body>
+    <div id="lunbo">
+        <img src="https://img0.baidu.com/it/u=1683875907,3878209846&fm=26&fmt=auto&gp=0.jpg" alt="">
+    </div>
+
+    <script>
+        // 将所有图片保存在数组中
+        let imgs = ['https://img0.baidu.com/it/u=1683875907,3878209846&fm=26&fmt=auto&gp=0.jpg',
+            'https://img2.baidu.com/it/u=2653205749,1468909540&fm=26&fmt=auto&gp=0.jpg',
+            'https://img2.baidu.com/it/u=2567819142,1760482683&fm=26&fmt=auto&gp=0.jpg',
+            'https://img0.baidu.com/it/u=1404828057,1073888307&fm=26&fmt=auto&gp=0.jpg'];
+        let img=document.querySelector('img');
+        let i=0;
+        setInterval(() => {
+            if (i++>imgs.length-1) {
+                i=0;
+            }
+            img.src=imgs[i];
+        }, 3000);
+    </script>
+</body>
+
+</html>
