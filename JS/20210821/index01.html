@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM-操作标签元素</title>
+</head>
+<style>
+    .main{
+        font-size: 50px;
+    }
+</style>
+<body>
+    <div id="a">123456</div>
+    <div id="b">123456</div>
+    <script>
+        // 1.设置标签内容
+        // innerHTML会把字符串中的内容当做HTML文本进行解析
+        // innerText不会把字符串解析为HTML代码而是直接作为文本返回
+        let a = document.querySelector('#a');
+        a.innerHTML = '<div>123456789</div>'; //123456789
+        document.querySelector('#b').innerText = '<div>123456789</div>'; //<div>123456789</div>
+
+        // 2.setAttribute:可以给元素节点设置属性
+        setTimeout(()=>{
+            a.setAttribute('class','main'); //两秒后，改标签添加上main属性
+        },1000);
+        a.setAttribute('name','张三');
+        a.setAttribute('age','30');
+
+        // 3.removeAttribute：删除元素的属性
+        setTimeout(()=>{
+            a.removeAttribute('class'); //两秒后，改标签是删除main属性
+        },2000);
+
+        // 4.设置网页标题
+        document.title='123456789';
+    </script>
+</body>
+
+</html>
