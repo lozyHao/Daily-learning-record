@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鼠标事件</title>
+</head>
+<style>
+    .one{
+        width: 200px;
+        height: 200px;
+        background: salmon;
+        margin: 20px 20px;
+        text-align: center;
+        line-height: 200px;
+        font-size: 30px;
+        color: white;
+    }
+    .two{
+        width: 200px;
+        height: 40px;
+        background: rgb(230, 230, 230);
+        margin: 20px 20px;
+        text-align: center;
+        line-height: 40px;
+        font-size: 30px;
+        letter-spacing: 10px;
+    }
+    .two:hover{
+        cursor: pointer;
+    }
+</style>
+<body>
+    <div class="one">HELLO</div>
+    <div class="two">点我</div>
+    <script>
+        let one=document.querySelector('.one');
+        let two=document.querySelector('.two');
+
+        // 1.点击事件click
+        two.onclick=function(){
+            one.style.background='red';
+            console.log('1');
+        }
+
+        // 2.双击事件dblclick
+        two.ondblclick=function(){
+            one.style.background='blue';
+            console.log('2');
+        }
+
+        // 3.鼠标按下和抬起事件mousedown/mouseup
+        two.onmousedown=function(){
+            one.innerHTML='hello';
+            console.log('3.1');
+        }
+        two.onmouseup=function(){
+            one.innerHTML='HELLO';
+            console.log('3.2');
+        }
+
+        // 4.移入/移出事件mouseenter/mouseleave
+        one.onmouseenter=function(){
+            one.style.background='red';
+            console.log('4.1');
+        }
+        one.onmouseleave=function(){
+            one.style.background='blue';
+            console.log('4.2');
+        }
+
+
+    </script>
+</body>
+
+</html>
