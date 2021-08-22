@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>复选框全选功能</title>
+</head>
+
+<body>
+    <p><input type="checkbox" id="ckAll">全选</p>
+    <p><input type="checkbox" class="ck">北京</p>
+    <p><input type="checkbox" class="ck">上海</p>
+    <p><input type="checkbox" class="ck">广州</p>
+    <p><input type="checkbox" class="ck">深圳</p>
+
+    <script>
+        let ckAll = document.querySelector('#ckAll');
+        let cks = document.querySelectorAll('.ck');
+
+        // 全选复选框点击事件
+        ckAll.onclick = function () {
+            cks.forEach(ck => {
+                // 将全选复选框的状态给所有的其他复选框
+                ck.checked = ckAll.checked;
+            })
+        }
+
+        // 其他复选框的点击事件
+        cks.forEach(ck => {
+            ck.onclick = function () {
+                // 只要有一个没被选中，全选复选框就为非选中
+                if ([...cks].some(r => r.checked == false)) {
+                    ckAll.checked = false;
+                }
+                // 所有复选框为选中状态时，将全选复选框设置为选中状态
+                if ([...cks].every(r => r.checked)) {
+                    ckAll.checked = true;
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>
