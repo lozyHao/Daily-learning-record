@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购物车</title>
+</head>
+<style>
+    body {
+        background: rgb(230, 230, 230);
+    }
+
+    #box {
+        width: 690px;
+        border: 3px solid #ccc;
+        padding-bottom: 20px;
+        margin: 20px auto;
+        background: white;
+    }
+
+    table {
+        border-collapse: collapse;
+        margin: 20px auto;
+
+    }
+
+    th,
+    td {
+        border: 1px solid #ccc;
+        padding: 5px 10px;
+        text-align: center;
+    }
+
+    input {
+        outline: none;
+        width: 25px;
+        margin: 0 5px;
+    }
+
+    .bot {
+        width: 660px;
+        height: 50px;
+        border: 1px solid #ccc;
+        margin: 0 auto;
+        text-align: right;
+        line-height: 50px;
+        padding-right: 10px;
+    }
+</style>
+
+<body>
+    <div id="box">
+
+    </div>
+    <script>
+        // 存储商品信息的数组
+        let goods = [
+            {
+                isck: true,
+                name: '耐克运动鞋',
+                img: 'https://img1.baidu.com/it/u=3517738267,31287258&fm=26&fmt=auto&gp=0.jpg',
+                price: 255,
+                count: 3
+            },
+            {
+                isck: false,
+                name: '阿迪达斯运动鞋',
+                img: 'https://img1.baidu.com/it/u=1505275069,1099268137&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=500',
+                price: 205,
+                count: 1
+            },
+            {
+                isck: false,
+                name: '特步运动鞋',
+                img: 'https://img1.baidu.com/it/u=1245064370,4197287715&fm=26&fmt=auto&gp=0.jpg',
+                price: 185,
+                count: 2
+            },
+            {
+                isck: false,
+                name: '李宁运动鞋',
+                img: 'https://img2.baidu.com/it/u=2144176991,18198891&fm=26&fmt=auto&gp=0.jpg',
+                price: 125,
+                count: 5
+            },
+            {
+                isck: false,
+                name: '安踏运动鞋',
+                img: 'https://img0.baidu.com/it/u=345285025,3850111544&fm=26&fmt=auto&gp=0.jpg',
+                price: 225,
+                count: 2
+            }
+        ]
+        // 表头信息数组
+        let heads = ['商品', '图片', '单价', '数量', '小计', '操作'];
+
+        // 封装一个创建标签元素的方法
+        function $c(tagName) {
+            return document.createElement(tagName);
+        }
+
+        // 创建一个表格对象
+        let table = $c('table');
+
+        // 创建总计栏
+        let div = $c('div');
+
+
+
+        // 循环表头数组生成表头
+        let tr1 = $c('tr');
+
+        // 添加一个th
+        let th0 = $c('th');
+        tr1.appendChild(th0);
+        let ck_all = $c('input');
+        ck_all.type = 'checkbox';
+        ck_all.id = 'ck_all';
+        th0.appendChild(ck_all);
+        let span = $c('span');
+        span.innerHTML = '全选'
+        th0.appendChild(span)
+
+        // 全选复选框点击事件
+        ck_all.onclick = function () {
+            document.querySelectorAll('.ck').forEach(ck => {
+                // 将全选复选框的状态给所有的其他复选框
+                ck.checked = ck_all.checked;
+            })
+            setGoodsState();// 调用更新商品状态的方法
+            div.innerHTML = '总计：' + calcMoney() + ' 元'; //更新总计价格
+        }
+
+        heads.forEach(h => {
+            let th = $c('th');
+            th.innerHTML = h;
+            tr1.appendChild(th);
+        })
+        table.appendChild(tr1);
+
+        // 循环商品数组生成商品信息
+        goods.forEach(g => {
+            let tr2 = $c('tr');
+
+            // 复选框
+            let td0 = $c('td');
+            let ck = $c('input');
+            ck.type = 'checkbox';
+            ck.className = 'ck';
+            td0.appendChild(ck);
+            // 复选框吧选中状态
+            ck.checked = g.isck;
+
+            // 其他复选框的点击事件
+            ck.onclick = function () {
+                // 只要有一个没被选中，全选复选框就为非选中
+                if ([...document.querySelectorAll('.ck')].some(r => r.checked == false)) {
+                    document.querySelector('#ck_all').checked = false;
+                }
+                // 所有复选框为选中状态时，将全选复选框设置为选中状态
+                if ([...document.querySelectorAll('.ck')].every(r => r.checked)) {
+                    document.querySelector('#ck_all').checked = true;
+                }
+                setGoodsState();// 调用更新商品状态的方法
+                div.innerHTML = '总计：' + calcMoney() + ' 元'; //更新总计价格
+            }
+
+            let td1 = $c('td');
+            td1.innerHTML = g.name;
+            let td2 = $c('td');
+            let img = $c('img');
+            img.src = g.img;
+            img.style.width = '100px';
+            img.style.height = '100px';
+            td2.appendChild(img);
+            let td3 = $c('td');
+            td3.innerHTML = g.price + ' 元/件';
+
+            // 添加数量加减按钮
+            let td4 = $c('td')
+            let btu_sub = $c('button');
+            btu_sub.innerHTML = '-';
+            // 给 减 按钮增加点击事件
+            btu_sub.onclick = function () {
+                g.count--;
+                if (g.count <= 0) {
+                    g.count = 1;
+                    alert('购物车商品数量最少为1件！！！')
+                }
+                input.value = g.count; //更新数量
+                td5.innerHTML = g.price * g.count + ' 元'; //更新小计价格
+                div.innerHTML = '总计：' + calcMoney() + ' 元'; //更新总计价格
+            }
+            let input = $c('input');
+            input.value = g.count;
+            input.style.textAlign = 'center';
+            // 文本框输入事件
+            input.oninput = function () {
+                let val = input.value;
+                // 判断输入的是否为正整数
+                if (isNaN(val) || val < 1) {
+                    val = 1;
+                }
+                val = Math.floor(val);
+                // 更新数量
+                g.count = val;
+                // 更新文本框显示
+                input.value = g.count;
+                // 更新小计
+                td5.innerHTML = g.price * g.count + ' 元'; //更新价格
+                div.innerHTML = '总计：' + calcMoney() + ' 元'; //更新总计价格
+            }
+
+            let btu_add = $c('button');
+            btu_add.innerHTML = '+';
+            // 给 加 按钮增加点击事件
+            btu_add.onclick = function () {
+                g.count++;
+                if (g.count >= 16) {
+                    g.count = 15;
+                    alert('购物车商品数量最大为15件！！！');
+                }
+                input.value = g.count; //更新数量
+                td5.innerHTML = g.price * g.count + ' 元'; //更新价格
+                div.innerHTML = '总计：' + calcMoney() + ' 元'; //更新总计价格
+            }
+            td4.appendChild(btu_sub);
+            td4.appendChild(input);
+            td4.appendChild(btu_add);
+
+            let td5 = $c('td');
+            td5.innerHTML = g.price * g.count + ' 元';
+
+            // 操作
+            let td6 = $c('td');
+            td6.innerHTML = '删除';
+            // 操作--鼠标移入--变色
+            td6.onmouseenter = function () {
+                td6.style.backgroundColor = 'red';
+                td6.style.color = 'white';
+                // 鼠标变为手指
+                td6.style.cursor = 'pointer';
+            }
+            // 操作--鼠标移出--变色
+            td6.onmouseleave = function () {
+                td6.style.backgroundColor = 'white';
+                td6.style.color = 'black';
+            }
+            // 操作--点击事件--删除内容
+            td6.onclick = () => {
+                if (confirm('是否删除？')) {
+                    // 查找对应商品的索引
+                    let index = goods.findIndex(goods => goods.name == g.name);
+                    // 根据索引删除数组中的对应商品信息（不删除总计是不会变的）
+                    goods.splice(index, 1);
+                    // 页面更新
+                    tr2.remove();
+                    div.innerHTML = '总计：' + calcMoney() + ' 元'; //更新总计价格
+                }
+            }
+            tr2.appendChild(td0);
+            tr2.appendChild(td1);
+            tr2.appendChild(td2);
+            tr2.appendChild(td3);
+            tr2.appendChild(td4);
+            tr2.appendChild(td5);
+            tr2.appendChild(td6);
+            table.appendChild(tr2);
+        })
+
+        // 获取大div
+        let box = document.querySelector('#box');
+
+        // 表格放在div中
+        box.appendChild(table);
+
+        // 总计所有放在大div中
+        // className加一个样式/classList加多个样式
+        div.classList.add('bot');
+        div.innerHTML = '总计：' + calcMoney() + ' 元';
+        box.appendChild(div);
+
+        // 给复选框注册 状态isck 改变的事件
+        function setGoodsState() {
+            [...document.querySelectorAll('.ck')].forEach((ck,index)=>{
+                goods[index].isck=ck.checked;
+            })
+        }
+
+        // 计算总计
+        function calcMoney() {
+            let money = 0;
+            goods.filter(r=>r.isck).forEach(g => {
+                money += g.price * g.count;
+            })
+            return money;
+        }
+    </script>
+</body>
+
+</html>
