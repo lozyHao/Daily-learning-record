@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>焦点事件</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<body>
+    邮箱：<input id="search" type="text" placeholder="请输入邮箱地址">
+    <span id="msg"></span>
+
+    <script>
+        let search=document.querySelector('#search');
+        let msg=document.querySelector('#msg');
+        // 获取焦点事件
+        search.onfocus=function(){
+            search.placeholder=''
+        }
+        // 失去焦点事件
+        search.onblur=function(){
+            search.placeholder='请输入邮箱地址';
+            let val=this.value.trim();
+            console.log(val);
+            if (val!=='') {
+                let index1=val.indexOf('@');
+                let index2=val.lastIndexOf('.');
+                if(index1>0&&index2<val.length-1&&index2-1>index1){
+                    msg.innerHTML='邮箱格式正确';
+                    msg.style.color='green';
+                }else{
+                    msg.innerHTML='邮箱格式错误';
+                    msg.style.color='red';
+                }
+            }
+
+        }
+    </script>
+</body>
+
+</html>
