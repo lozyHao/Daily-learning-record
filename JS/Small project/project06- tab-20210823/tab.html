@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选项卡效果</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    #box {
+        width: 400px;
+        height: 500px;
+        border: 2px solid #ccc;
+        margin: 10px;
+    }
+
+    .tabs {
+        width: 400px;
+        height: 50px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .tab {
+        width: 40px;
+        height: 30px;
+        border: 1px solid #ccc;
+        margin: 10px 0;
+        margin-left: 70px;
+        float: left;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+    }
+
+    .tabs .active {
+        background: coral;
+        color: white;
+        border: 1px solid coral;
+    }
+
+    .content {
+        width: 390px;
+        height: 440px;
+        background: #ccc;
+        margin: 5px;
+    }
+
+    .content .item {
+        display: none;
+        width: 390px;
+        height: 440px;
+    }
+    .content .item img{
+        width: 370px;
+        height: 420px;
+        margin: 10px;
+    }
+
+    .content .show {
+        display: block;
+    }
+</style>
+
+<body>
+    <div id="box">
+        <div class="tabs">
+            <div class="tab active">手机</div>
+            <div class="tab">电脑</div>
+            <div class="tab">相机</div>
+        </div>
+        <div class="content">
+            <div class="item show">
+                <img src="https://img1.baidu.com/it/u=3216098076,2541921497&fm=26&fmt=auto&gp=0.jpg" alt="">
+            </div>
+            <div class="item">
+                <img src="https://img1.baidu.com/it/u=2991263365,3228654340&fm=26&fmt=auto&gp=0.jpg" alt="">
+            </div>
+            <div class="item">
+                <img src="https://img0.baidu.com/it/u=3429971170,1982024214&fm=26&fmt=auto&gp=0.jpg" alt="">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let tab=document.querySelectorAll('.tab');
+        let item=document.querySelectorAll('.item');
+
+        tab.forEach((t,i)=>{
+            t.onclick=function(){
+                // 找到具有active样式的标签并清除样式
+                document.querySelector('.tabs .active').classList.remove('active');
+                t.classList.add('active');
+                // 找到具有show样式的标签并清除样式
+                document.querySelector('.content .show').classList.remove('show');
+                item[i].classList.add('show');
+            }
+        })
+    </script>
+</body>
+
+</html>
