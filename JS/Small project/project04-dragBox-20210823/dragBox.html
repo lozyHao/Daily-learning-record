@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拖动框效果</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    #box {
+        width: 200px;
+        height: 200px;
+        border: 1px solid #ccc;
+        position: absolute;
+        top: 100px;
+        left: 100px;
+    }
+
+    #title {
+        height: 30px;
+        display: flex;
+        justify-content: space-between;
+        line-height: 30px;
+        background: skyblue;
+        color: white;
+        user-select: none;
+    }
+
+    #title .text {
+        padding-left: 10px;
+        flex: 1;
+    }
+
+    #title .close {
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+        text-align: center;
+        border-radius: 50%;
+        background: lightsalmon;
+        margin-right: 5px;
+        margin-top: 2.5px;
+    }
+</style>
+
+<body>
+    <div id="box">
+        <div id="title">
+            <span class="text">标题</span>
+            <span class="close">X</span>
+        </div>
+    </div>
+
+    <script>
+        let box = document.querySelector('#box');
+        let title = document.querySelector('#title');
+
+        ismove = false;
+
+        let box_left = box.offsetLeft; //获取box距离左边的值
+        let box_top = box.offsetTop; //获取box距离顶部的值
+        console.log(box_left, box_top);
+
+        let x = 0; //鼠标点击处距离做边框距离
+        let y = 0; //鼠标点击处距离做边框距离
+
+        // 获取窗口的可移动距离
+        let box_max_left = window.innerWidth - box.offsetWidth; //窗口宽度-box宽度（包含边框）
+        let box_max_top = window.innerHeight - box.offsetHeight;
+        console.log(box_max_left);
+
+        // 鼠标按下获取鼠标的坐标
+        title.onmousedown = function (e) {
+            //解构赋值
+            // let pageX=e.pageX;
+            let { pageX, pageY } = e;
+            // console.log(pageX, pageY);
+
+            // 获取鼠标在box中的位置
+            x = pageX - box_left;
+            y = pageY - box_top;
+            // console.log(x, y);
+
+            ismove = true;//鼠标按下，可以移动
+        }
+        // 使用window对象来移动box（避免鼠标移出box）
+        window.onmousemove = function (e) {
+            if (ismove) {
+                let { pageX, pageY } = e;
+                box_left = pageX - x;
+                box_top = pageY - y;
+
+                // 判断box在窗口内
+                if (box_left < 0) {
+                    box_left = 0;
+                }
+                if (box_left > box_max_left) {
+                    box_left = box_max_left;
+                }
+                if (box_top < 0) {
+                    box_top = 0;
+                }
+                if (box_top > box_max_top) {
+                    box_top = box_max_top;
+                }
+
+                box.style.left = box_left + 'px';
+                box.style.top = box_top + 'px';
+            }
+        }
+        // 使用window对象来判断鼠标松开
+        window.onmouseup = function (e) {
+            ismove = false; //鼠标抬起，不可以移动
+        }
+        // 给window对象注册失去焦点事件（blur 失去焦点）
+        window.onblur = function () {
+            ismove = false;
+        }
+    </script>
+</body>
+
+</html>
