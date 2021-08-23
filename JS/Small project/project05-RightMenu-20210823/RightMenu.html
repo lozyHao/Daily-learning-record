@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>右键菜单</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .box {
+        width: 300px;
+        height: 300px;
+        margin: 30px 30px;
+        border: 1px solid red;
+    }
+
+    ul {
+        display: none;
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        width: 80px;
+        height: 120px;
+        border: 1px solid rgb(201, 201, 201);
+        padding-left: 0;
+        background: darkcyan;
+    }
+
+    li {
+        list-style: none;
+        height: 25px;
+        width: 50px;
+        margin: 4px auto;
+    }
+
+    li button {
+        width: 50px;
+        height: 25px;
+    }
+</style>
+
+<body>
+    <div class="box">
+        <ul>
+            <li><button>查询</button></li>
+            <li><button>添加</button></li>
+            <li><button>删除</button></li>
+            <li><button>修改</button></li>
+        </ul>
+    </div>
+
+    <script>
+        let box = document.querySelector('.box');
+        let ul = document.querySelector('ul');
+
+        let box_left = box.offsetLeft;
+        let box_top = box.offsetTop;
+
+
+        box.oncontextmenu = function (e) {
+            let { pageX, pageY } = e;
+            e.preventDefault();//阻止默认右键事件
+            ul.style.display = 'block';
+            let ul_max_left = box.offsetWidth - ul.offsetWidth;
+            let ul_max_top = box.offsetHeight - ul.offsetHeight;
+            // console.log(ul_max_left, ul_max_top);
+
+            if (ul_max_left + box_left < pageX) {
+                ul.style.left = pageX - ul.offsetWidth + 'px';
+                if (ul_max_top + box_top < pageY) {
+                    ul.style.top = pageY - ul.offsetHeight + 'px';
+                }else{
+                    ul.style.top = pageY + 'px';
+                }
+            } else if (ul_max_top + box_top < pageY) {
+                ul.style.top = pageY - ul.offsetHeight + 'px';
+                if (ul_max_left + box_left < pageX) {
+                    ul.style.left = pageX - ul.offsetWidth + 'px';
+                }else{
+                    ul.style.left = pageX + 'px';
+                }
+            } else {
+                ul.style.top = pageY + 'px';
+                ul.style.left = pageX + 'px';
+            }
+
+
+            // console.log(pageX, pageY);
+        }
+        window.onclick = function (e) {
+            ul.style.display = 'none'
+        }
+        ul.onclick = function (e) {
+            ul.style.display = 'block'
+            e.stopPropagation(); //阻止事件冒泡
+        }
+    </script>
+</body>
+
+</html>
