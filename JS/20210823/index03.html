@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>键盘事件</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .box {
+        width: 300px;
+        height: 300px;
+        border: 2px solid #ccc;
+        background: rgb(240, 240, 240);
+        margin: 20px;
+    }
+
+    #txt {
+        width: 200px;
+        height: 30px;
+        margin: 5px 0;
+        margin-left: 10px;
+        outline: none;
+    }
+
+    #btn {
+        width: 70px;
+        height: 34px;
+        color: white;
+        background: rgb(39, 161, 165);
+        border: none;
+    }
+
+    #msg {
+        width: 280px;
+        height: 240px;
+        margin: 5px auto;
+        background: white;
+        border: 1px solid rgb(90, 90, 90);
+        letter-spacing: 2px;
+    }
+</style>
+
+<body>
+    <div class="box">
+        <input id="txt" type="text">
+        <button id="btn">搜索</button>
+        <div id="msg"></div>
+    </div>
+
+
+    <script>
+        let txt = document.querySelector("#txt");
+        let msg = document.querySelector('#msg');
+        let btn = document.querySelector('#btn');
+
+        btn.onmousedown = function () {
+            btn.style.background = 'rgb(60, 180, 180)';
+        }
+        btn.onmouseup = function () {
+            btn.style.background = 'rgb(39, 161, 165)';
+        }
+
+        btn.onclick = function () {
+            if (txt.value) {
+                msg.innerHTML = txt.value;
+                console.log('正在搜索！！！');
+            } else {
+                alert('无内容，请重新输入！！！')
+                msg.innerHTML=''
+            }
+
+        }
+
+        txt.onkeydown = function () {
+            console.log('键盘按下');
+        }
+        txt.onkeypress = function () {
+            console.log('产生字符');
+        }
+        txt.onkeyup = function (e) {
+            console.log('键盘抬起');
+            console.log(e.keyCode); // e.keyCode 返回键码值
+            if (e.keyCode == '13') {
+                if (txt.value) {
+                    msg.innerHTML = txt.value;
+                    btn.click();
+                } else {
+                    alert('无内容，请重新输入！！！')
+                    msg.innerHTML=''
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>
