@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>贪食蛇小游戏</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    #bigBox {
+        width: 500px;
+        height: 550px;
+        border: 2px solid #ccc;
+        margin: 20px;
+    }
+
+    #notes {
+        width: 500px;
+        height: 50px;
+        border-bottom: 1px solid #ccc;
+        line-height: 25px;
+        text-align: center;
+        font-size: 16px;
+        letter-spacing: 3px;
+    }
+
+    #box {
+        position: relative;
+        width: 490px;
+        height: 490px;
+        background: rgb(141, 141, 141);
+        margin: 5px;
+        overflow: hidden;
+    }
+
+    .main {
+        display: none;
+        width: 20px;
+        height: 20px;
+        background-color: red;
+        position: absolute;
+        top: 235px;
+        left: 235px;
+        border-radius: 4px;
+    }
+
+    .sco {
+        display: none;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 100px;
+        height: 30px;
+        background: rgba(3, 161, 161, 0.4);
+        color: white;
+        line-height: 30px;
+        text-align: center;
+        z-index: 999;
+    }
+
+    .food {
+        width: 20px;
+        height: 20px;
+        background: white;
+        position: absolute;
+        border-radius: 50%;
+    }
+
+    .over {
+        position: absolute;
+        left: 45px;
+        top: 145px;
+        width: 400px;
+        height: 200px;
+        background: rgba(77, 8, 80, 0.4);
+        text-align: center;
+        line-height: 200px;
+        color: white;
+        font-size: 35px;
+        z-index: 99;
+        user-select: none;
+    }
+
+    .over0 {
+        position: absolute;
+        left: 45px;
+        top: 145px;
+        width: 400px;
+        height: 200px;
+        background: rgba(77, 8, 80, 0.4);
+        text-align: center;
+        line-height: 100px;
+        color: white;
+        font-size: 35px;
+        z-index: 99;
+        user-select: none;
+    }
+
+    .over1 {
+        position: absolute;
+        left: 70px;
+        top: 170px;
+        text-align: center;
+        line-height: 50px;
+        width: 350px;
+        height: 150px;
+        color: white;
+        font-size: 35px;
+        z-index: 99;
+        background: rgba(145, 0, 0, 0.6);
+        cursor: pointer;
+        user-select: none;
+    }
+</style>
+
+<body>
+    <div id="bigBox">
+        <div id="notes">贪食蛇小游戏</br>方向键控制运动(空格加速/恢复 / 回车键开始/暂停)</div>
+        <div id="box">
+            <div class="sco"></div>
+            <div class="main"></div>
+            <div class="over">回车键 — 开始游戏</div>
+        </div>
+    </div>
+
+    <script>
+        let box = document.querySelector('#box');
+        let sco = document.querySelector('.sco');
+        let main = document.querySelector('.main');
+        let over = document.querySelector('.over');
+
+        // 可选值
+        let position = 'r';
+        // 速度
+        let spend = 100;
+
+        let score = 0;
+
+        // 随机颜色方法
+        function randomColor() {
+            let str = '0123456789ABCDEFG';
+            let color = '#';
+            for (let i = 1; i <= 6; i++) {
+                color += str[parseInt(Math.random() * 17)]
+            }
+            return color;
+        }
+
+
+        window.onkeydown = function (e) {
+            // 左37  上38  右39  下40
+            let { keyCode } = e;
+            switch (keyCode) {
+                case 37:
+                    position = 'l';
+                    break;
+                case 38:
+                    position = 't';
+                    break;
+                case 39:
+                    position = 'r';
+                    break;
+                case 40:
+                    position = 'b';
+                    break;
+                case 32:
+                    // 空格加速/回复正常
+                    spend = spend == 100 ? 40 : 100;
+                    clearInterval(time1);
+                    move();
+                    break;
+                case 13:
+                    // 回车键开始/暂停
+                    over.innerHTML = `回车键 — 开始 / 暂停</br><p style='font-size:25px;'>得分：${score}</p>`;
+                    over.setAttribute('class', 'over0');
+                    if (time1 == null) {
+                        sco.innerHTML = `得分:${score} 分`;
+                        sco.style.display = 'block';
+                        over.style.display = 'none';
+                        main.style.display = 'block';
+                        move(); //移动
+                        createFood(); //生成食物
+                        check(); //检查是否与食物发生碰撞
+                    } else {
+                        over.style.display = 'block';
+                        clear(); // 清空定时器
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // 清空定时器
+        function clear() {
+            clearInterval(time1);
+            time1 = null;
+            clearInterval(time2);
+            time2 = null;
+            clearInterval(time3);
+            time3 = null;
+        }
+
+        let time1 = null;
+        // main移动的方法
+        function move() {
+            time1 = setInterval(() => {
+                let left = main.offsetLeft;
+                let top = main.offsetTop;
+
+                switch (position) {
+                    case 'l':
+                        left = (left - 10);
+                        break;
+                    case 't':
+                        top = (top - 10);
+                        break;
+                    case 'r':
+                        left = (left + 10);
+                        break;
+                    case 'b':
+                        top = (top + 10);
+                        break;
+                    default:
+                        break;
+                }
+                main.style.left = left + 'px';
+                main.style.top = top + 'px';
+
+
+            }, spend);
+        }
+
+        // 生成虫子定时器
+        let time2 = null;
+        function createFood() {
+            time2 = setInterval(() => {
+                let food = document.createElement('div');
+                food.className = 'food'
+                food.style.background = randomColor();
+                food.style.top = Math.ceil(Math.random() * 470) + 'px';;
+                food.style.left = Math.ceil(Math.random() * 470) + 'px';;
+                box.appendChild(food);
+            }, 2000);
+        }
+
+        // 检查是否与食物发生碰撞
+        let time3 = null;
+        function check() {
+            time3 = setInterval(() => {
+                let divs = document.querySelectorAll('.food');
+                divs.forEach(d => {
+                    // 发生碰撞，食物消失
+                    if (collision(d, main)) {
+                        score += 2;
+                        sco.innerHTML = `得分:${score} 分`;
+                        d.remove();
+                    }
+                })
+                geamOver(); //游戏结束
+            }, 10);
+        }
+
+        // 与食物碰撞算法
+        function collision(dom1, dom2) {
+            // 获取dom1的上下左右距离box的边距
+            let left1 = dom1.offsetLeft;
+            let top1 = dom1.offsetTop;
+            let right1 = left1 + dom1.offsetWidth;
+            let bottom1 = top1 + dom1.offsetHeight;
+            // 获取dom2的上下左右距离box的边距
+            let left2 = dom2.offsetLeft;
+            let top2 = dom2.offsetTop;
+            let right2 = left2 + dom2.offsetWidth;
+            let bottom2 = top2 + dom2.offsetHeight;
+            // 判断
+            if ((left2 > left1 && left2 < right1 || right2 > left1 && right2 < right1) && top2 > top1 && top2 < bottom1) {
+                return true;
+            } else if ((left2 > left1 && left2 < right1 || right2 > left1 && right2 < right1) && bottom2 > top1 && bottom2 < bottom1) {
+                return true;
+            } else if ((left1 > left2 && left1 < right2 || right1 > left2 && right1 < right2) && top1 > top2 && top1 < bottom2) {
+                return true;
+            } else if ((left1 > left2 && left1 < right2 || right1 > left2 && right1 < right2) && bottom1 > top2 && bottom1 < bottom2) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // 游戏结束
+        function geamOver() {
+            let left = main.offsetLeft;
+            let top = main.offsetTop;
+            let foods = document.querySelectorAll('.food').length;
+            if (left < 0 || left > 470 || top < 0 || top > 470) {
+                clear(); // 清空定时器
+                over.innerHTML = `撞墙，游戏结束~</br><p style='font-size:25px;'>点击重新开始</br>得分：${score}</p>`;
+                over.setAttribute('class', 'over1');
+                over.style.display = 'block';
+                sco.style.display = 'none';
+                score = 0;
+                sco.innerHTML = `得分:${score} 分`;
+                over.onclick = function () {
+                    over.style.display = 'none';
+                    sco.style.display = 'block';
+                    // 清空食物
+                    let foods = document.querySelectorAll('.food')
+                    foods.forEach(food => {
+                        food.remove();
+                    })
+                    main.style.top = '235px';
+                    main.style.left = '235px';
+                    spend = 100;
+                    createFood(); //生成食物
+                    move(); //移动
+                    check(); //检查是否与食物发生碰撞
+                }
+            } else if (foods >= 9) {
+                clear(); // 清空定时器
+                over.innerHTML = `食物太多，游戏结束~</br><p style='font-size:25px;'>点击重新开始</br>得分：${score}</p>`;
+                over.setAttribute('class', 'over1');
+                over.style.display = 'block';
+                sco.style.display = 'none';
+                score = 0;
+                sco.innerHTML = `得分:${score} 分`;
+                over.onclick = function () {
+                    over.style.display = 'none';
+                    sco.style.display = 'block';
+                    // 清空食物
+                    let foods = document.querySelectorAll('.food')
+                    foods.forEach(food => {
+                        food.remove();
+                    })
+                    main.style.top = '235px';
+                    main.style.left = '235px';
+                    spend = 100;
+                    createFood(); //生成食物
+                    move(); //移动
+                    check(); //检查是否与食物发生碰撞
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
