@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字母消除小游戏</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    #bigBox {
+        width: 500px;
+        height: 550px;
+        border: 2px solid #ccc;
+        margin: 20px;
+    }
+
+    #notes {
+        width: 500px;
+        height: 50px;
+        border-bottom: 1px solid #ccc;
+        line-height: 50px;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    #box {
+        position: relative;
+        width: 490px;
+        height: 490px;
+        background: black;
+        margin: 5px;
+        overflow: hidden;
+    }
+
+    .over {
+        position: absolute;
+        left: 45px;
+        top: 145px;
+        width: 400px;
+        height: 200px;
+        background: rgba(77, 8, 80, 0.4);
+        text-align: center;
+        line-height: 200px;
+        color: white;
+        font-size: 35px;
+        z-index: 99;
+        user-select: none;
+    }
+
+    .over1 {
+        position: absolute;
+        left: 45px;
+        top: 145px;
+        width: 400px;
+        height: 200px;
+        background: rgba(77, 8, 80, 0.4);
+        text-align: center;
+        line-height: 100px;
+        color: white;
+        font-size: 35px;
+        z-index: 99;
+        user-select: none;
+        cursor: pointer;
+    }
+
+    .over2 {
+        position: absolute;
+        left: 95px;
+        top: 195px;
+        text-align: center;
+        line-height: 50px;
+        width: 300px;
+        height: 100px;
+        color: white;
+        font-size: 35px;
+        z-index: 99;
+        background: rgba(145, 0, 0, 0.4);
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .zm {
+        position: absolute;
+        top: -30px;
+        left: 230px;
+        width: 30px;
+        height: 30px;
+        background: red;
+        text-align: center;
+        line-height: 30px;
+        color: white;
+        font-size: 25px;
+    }
+</style>
+
+<body>
+    <div id="bigBox">
+        <div id="notes">字母消除小游戏--按下对应字母进行消除</div>
+        <div id="box">
+            <div class="over">回车键 — 开始游戏</div>
+        </div>
+    </div>
+
+    <script>
+        let box = document.querySelector('#box');
+        let over = document.querySelector('.over');
+
+        // 给window注册键盘事件
+        window.onkeydown = function (e) {
+            if (e.keyCode == '13') {
+                over.innerHTML = "回车键 — 开始 / 暂停</br><p style='font-size:25px;'>点击重新开始</p>";
+                over.setAttribute('class', 'over1');
+                if (time1 == null && time2 == null) {
+                    creatZm();
+                    downZm();
+                    // 游戏开始，隐藏over盒子
+                    over.style.display = 'none';
+                } else {
+                    clearInterval(time1);
+                    time1 = null;
+                    clearInterval(time2);
+                    time2 = null;
+                    // 游戏暂停/结束 显示over盒子
+                    over.style.display = 'block';
+                }
+                over.onclick = function () {
+                    let zms = document.querySelectorAll('.zm');
+                    zms.forEach(zm => {
+                        zm.remove();
+                    })
+                    creatZm();
+                    downZm();
+                    // 游戏开始，隐藏over盒子
+                    over.style.display = 'none';
+
+                }
+            } else {
+                let { key } = e;
+                let zms = document.querySelectorAll('.zm');
+                zms.forEach(zm => {
+                    if (zm.innerHTML == key.toUpperCase()) {
+                        zm.remove();
+                    }
+                })
+
+            }
+        }
+
+        // 创建元素的方法
+        function $c(tagName) {
+            return document.createElement(tagName);
+        }
+
+        // 随机颜色方法
+        function randomColor() {
+            let str = '0123456789ABC';
+            let color = '#';
+            for (let i = 1; i <= 6; i++) {
+                color += str[parseInt(Math.random() * 13)]
+            }
+            return color;
+        }
+
+        // 定义一个字母列表
+        let zmList = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+        let time1 = null;
+        // 创建字母的方法
+        function creatZm() {
+            time1 = setInterval(() => {
+                let zm = $c('div');
+                zm.className = 'zm';
+                zm.innerHTML = zmList[Math.floor(Math.random() * 26)];
+                zm.style.background = randomColor();
+                zm.style.left = Math.ceil(Math.random() * 460) + 'px';
+                box.appendChild(zm);
+            }, 1000);
+        }
+
+        let time2 = null;
+        // 字母掉下的方法
+        function downZm() {
+            time2 = setInterval(() => {
+                let zms = document.querySelectorAll('.zm');
+                zms.forEach((zm, index) => {
+                    let top = zm.offsetTop;
+                    zm.style.top = top + 1 + 'px';
+                    // if(top+1>=box.offsetHeight){
+                    //     zm.remove();
+                    // }
+                    if (top + 1 >= box.offsetHeight - 30) {
+                        // alert('Game Over~');
+                        // 游戏结束，清楚定时器
+                        clearInterval(time1);
+                        clearInterval(time2);
+                        over.innerHTML = "Game Over~</br><p style='font-size:25px;'>点击重新开始</p>";
+                        over.classList = 'over2'
+                        over.style.display = 'block';
+
+                        over.onclick = function () {
+                            let zms = document.querySelectorAll('.zm');
+                            zms.forEach(zm => {
+                                zm.remove();
+                            })
+                            creatZm();
+                            downZm();
+                            // 游戏开始，隐藏over盒子
+                            over.style.display = 'none';
+
+                        }
+                    }
+                })
+            }, 10);
+        }
+
+    </script>
+</body>
+
+</html>
