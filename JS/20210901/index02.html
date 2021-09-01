@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正则表达式案例--验证表单</title>
+</head>
+
+<body>
+    <form action="">
+        <table>
+            <tr>
+                <td>学号：</td>
+                <td>
+                    <input type="text" id="no" onblur="chechNo(this.value)">
+                    <span id="no_msg" style="color:rgb(201, 201, 201);font-size:10px;"><b></b></span>
+                </td>
+            </tr>
+            <tr>
+                <td>密码：</td>
+                <td>
+                    <input type="password" id="password1" onblur="checkPassword(this.value)">
+                    <span id="password_msg" style="color:rgb(201, 201, 201);font-size:10px;"><b></b></span>
+                </td>
+            </tr>
+            <tr>
+                <td>确认密码：</td>
+                <td>
+                    <input type="password" id="password2" onblur="checkPassword2(this.value)">
+                    <span id="password2_msg" style="color:rgb(201, 201, 201);font-size:10px;"><b></b></span>
+                </td>
+            </tr>
+            <tr>
+                <td>姓名：</td>
+                <td>
+                    <input type="text" id="name" onblur="checkName(this.value)">
+                    <span id="name_msg" style="color:rgb(201, 201, 201);font-size:10px;"><b></b></span>
+                </td>
+            </tr>
+            <tr>
+                <td>性别：</td>
+                <td>
+                    <input type="radio" name="gender" id="" value="0" checked>男
+                    <input type="radio" name="gender" id="" value="1">女
+                </td>
+            </tr>
+            <tr>
+                <td>年级：</td>
+                <td>
+                    <select name="" id="grade" onchange="checkGrade(this.value)">
+                        <option value="0">请选择年级</option>
+                        <option value="1">一年级</option>
+                        <option value="2">二年级</option>
+                        <option value="3">三年级</option>
+                    </select>
+                    <span id="grade_msg" style="color:rgb(201, 201, 201);font-size:10px;"><b></b></span>
+                </td>
+            </tr>
+            <!-- <tr>
+                <td>生日：</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>邮箱：</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>电话：</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>身份证号：</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>地址：</td>
+                <td><input type="text"></td>
+            </tr> -->
+            <tr>
+                <td></td>
+                <td>
+                    <button type="submit">提交</button>
+                    <button type="reset">重置</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <script>
+        let no = document.querySelector('#no');
+
+        // 验证学号是否正确
+        function chechNo(val) {
+            // 获取学号的消息元素
+            let no_msg = document.querySelector('#no_msg');
+            // 验证学号正则表达式
+            let no_reg = /^KW40_\d{4}$/;
+            if (no_reg.test(val)) {
+                no_msg.style.color = 'green';
+                no_msg.innerHTML = '* 学号格式正确';
+                return true;
+            } else {
+                no_msg.style.color = 'red';
+                no_msg.innerHTML = '* 学号格式错误！正确格式为KW40_xxxx';
+                return false;
+            }
+        }
+        // 验证密码的方法
+        function checkPassword(val) {
+            // 获取密码消息元素
+            let password_msg = document.querySelector('#password_msg');
+            // 验证密码的正则表达式
+            let password_reg = /^\w{6,10}$/;
+            if (password_reg.test(val)) {
+                password_msg.style.color = 'green';
+                password_msg.innerHTML = '* 密码格式正确';
+                return true;
+            } else {
+                password_msg.style.color = 'red';
+                password_msg.innerHTML = '* 密码格式错误！正确格式为6-10位数字/字母/下划线';
+                return false;
+            }
+        }
+
+        // 验证确认密码的方法
+        function checkPassword2(val) {
+            // 获取确认密码消息元素
+            let password2_msg = document.querySelector('#password2_msg');
+            // 获取密码文本框中的内容
+            let password1_value = document.querySelector('#password1').value;
+            if (val == password1_value && password1_value != '') {
+                password2_msg.style.color = 'green';
+                password2_msg.innerHTML = '* 密码验证正确';
+                return true;
+            } else {
+                password2_msg.style.color = 'red';
+                password2_msg.innerHTML = '* 两次密码不相同';
+                return false;
+            }
+        }
+
+        // 验证姓名的方法
+        function checkName(val) {
+            // 获取确认密码消息元素
+            let name_msg = document.querySelector('#name_msg');
+            // 获取密码文本框中的内容
+            let name_reg = /^[\u4E00-\u9FA5]{2,4}$/;
+            if (name_reg.test(val)) {
+                name_msg.style.color = 'green';
+                name_msg.innerHTML = '* 姓名格式正确';
+                return true;
+            } else {
+                name_msg.style.color = 'red';
+                name_msg.innerHTML = '* 姓名格式错误！正确格式为2-4位中文';
+                return false;
+            }
+        }
+
+        // 验证年级的方法
+        function checkGrade(val) {
+            let grade_msg = document.querySelector('#grade_msg');
+            if (val == 0) {
+                grade_msg.style.color = 'red';
+                grade_msg.innerHTML = '* 未选择年级信息';
+                return false;
+            } else {
+                grade_msg.style.color = 'green';
+                grade_msg.innerHTML = '* 年级信息正确';
+                return true;
+            }
+        }
+
+        // 获取form
+        let form = document.querySelector('form');
+        form.onsubmit = function () {
+            // 获取表单中所有元素
+            let no = document.querySelector('#no');
+            let password = document.querySelector('#password1');
+            let password2 = document.querySelector('#password2');
+            let name = document.querySelector('#name');
+            let grade = document.querySelector('#grade');
+
+            if (chechNo(no.value) & checkPassword(password1.value) & checkPassword2(password2.value) & checkName(name.value) & checkGrade(grade.value)) {
+                return true;
+            } else {
+                return false;
+            }
+            return false
+        }
+    </script>
+</body>
+
+</html>

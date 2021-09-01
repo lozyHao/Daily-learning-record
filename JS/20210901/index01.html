@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正则表达式RegExp</title>
+</head>
+<body>
+    <script>
+        // 正则表达式：就是一种匹配规则，用于检索字符串
+
+        // 1.定义方式
+        // 1.1 直接定义
+        let reg1=/abc/;
+        // 1.2 构造函数
+        let reg2=new RegExp('abc');
+
+        // 2.test()方法，用于检查一个字符串中是有否满足匹配规则的字符串
+        let str='教师教育abc'
+        console.log(reg1.test(str)); //true
+
+        // 3.正则表达式强大之处，可以写通配符（拥有特殊含义的字符）
+        // 3.1 \w 表示：字母、数字、下划线
+        let reg3=/你\w好/;
+        console.log(reg3.test('你好大家好')); //false
+        console.log(reg3.test('你_好大家好')); //true
+        // 3.2 \W 表示：除了 字母、数字、下划线 以外的字符 等价于 [0-9a-zA-Z_]
+        let reg4=/你\W好/;
+        console.log(reg4.test('你9好大家好')); //false
+        console.log(reg4.test('你真好大家好')); //true
+        // 3.3 ^ 表示：以该符号之后的一个字符开始
+        //     $ 表示：以该符号之前的一个字符结尾
+        //     {n} 表示：重复n次
+        //     {n,m} 表示：重复n到m次
+        let reg5=/^123$/;
+        console.log(reg5.test('123')); //true
+        let reg6=/^\d{3}$/;
+        console.log(reg6.test('123')); //true
+        let reg7=/^\d{3,6}$/;
+        console.log(reg7.test('12345')); //true
+
+        // 3.4 + 表示：重复前一项1次或多次 等价于 {1,}
+        //     * 表示：重复前一项0次或多次 等价于 {0,}
+        //     ？表示：重复前一项0次或1次 等价于 {0,1}
+        let reg11=/^123\d+$/;
+        let reg12=/^123\d*$/;
+        let reg13=/^123\d?$/;
+        console.log(reg11.test('1231')); //true
+        console.log(reg11.test('12314865')); //true
+        console.log(reg11.test('1234')); //true
+        console.log(reg11.test('123')); //false
+
+        // 3.5 [xyz] 表示：其中任意一个字符
+        let reg9=/^1[3579]\d{9}$/; //(第一位是1，第二位是3、5、7、9，后面九位数字)
+        console.log(reg9.test('12589645752')); //false
+        console.log(reg9.test('15019311437')); //true
+
+        // 3.6 . 表示：出来换行符以外的任意字符
+        let reg14=/abc.abc/;
+        console.log(reg14.test('哈哈abc.abc嘿嘿')); //true
+        console.log(reg14.test('哈哈abc咦abc嘿嘿')); //true
+
+        // 3.7 验证邮箱格式 aaa@bbb.com  aaa@bbb.com.cn
+        let email=/^\w+@\w+(\.\w+){1,2}$/
+        console.log(email.test('1722357025@qq.com')); //true
+        console.log(email.test('xcc@xcc.edu.cn')); //true
+
+        // 3.8 | 表示：或者
+        let reg15=/^\d{1,2}$|^1[0-1]\d$|^120$/;
+        console.log(reg15.test('0')); //true
+        console.log(reg15.test('99')); //true
+        console.log(reg15.test('110')); //true
+
+        // 3.9 验证是否是汉字（通过Unicode编码 常用汉字编码范围 4E00-9FA5）
+        let reg16=/^[\u4E00-\u9FA5]{2,4}$/;
+        console.log(reg16.test('张杰')); //true
+        console.log(reg16.test('鹿晗')); //true
+        console.log(reg16.test('Andy')); //false
+
+    </script>
+</body>
+</html>
