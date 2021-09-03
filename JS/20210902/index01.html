@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阻止事件冒泡</title>
+
+    <style>
+        .one{
+            width: 400px;
+            height: 400px;
+            background: rgb(255, 158, 158);
+        }
+        .two{
+            width: 300px;
+            height: 300px;
+            background: rgb(185, 255, 185);
+        }
+        .three{
+            width: 200px;
+            height: 200px;
+            background: rgb(155, 155, 255);
+        }
+    </style>
+</head>
+<body>
+    <div class="one">
+        <div class="two">
+            <div class="three"></div>
+        </div>
+    </div>
+
+    <script>
+        // 事件冒泡：默认情况下，点击子元素会触发父元素的事件
+        // 通过stopPropagation()方法，阻止事件冒泡
+        let one =document.querySelector('.one');
+        one.onclick=function(e){
+            console.log('你点击了One');
+            one.style.background='red';
+        }
+        let two =document.querySelector('.two');
+        two.onclick=function(e){
+            console.log('你点击了Two');
+            e.stopPropagation();//阻止事件冒泡
+            two.style.background='green';
+        }
+        let three =document.querySelector('.three');
+        three.onclick=function(e){
+            console.log('你点击了Three');
+            e.stopPropagation();//阻止事件冒泡
+            // e.preeventDefault();//取消默认行为
+            three.style.background='blue';
+        }
+    </script>
+</body>
+</html>
