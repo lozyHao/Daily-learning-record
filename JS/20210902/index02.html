@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>添加事件的方法</title>
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .nav{
+            display: inline-block;
+            width: 50px;
+            height: 20px;
+            margin-left: 20px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .one{
+            background: blue;
+        }
+        .two{
+            background: green;
+        }
+        .three{
+            background: red;
+        }
+        .content{
+            width: 240px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="one nav" onclick="fun1()"></div>
+    <div class="two nav"></div>
+    <div class="three nav"></div>
+    <div class="content"></div>
+
+    <script>
+        // 事件绑定，添加方法
+        // 1.方式一：在元素标签中通过 'on+事件名' 的方式定义事件
+        function fun1(){
+            console.log('你点击了蓝色');
+        }
+
+        let one=document.querySelector('.one');
+        let two=document.querySelector('.two');
+        let three=document.querySelector('.three');
+        let content=document.querySelector('.content');
+        content.style.background='darkgrey';
+        // 2.方式二：绑定事件，定义方法 '元素.on+事件名'
+        one.onclick=function(){
+            content.style.background='blue';
+        } //缺点：同一个元素如果有重复添加的事件方法，后面的会覆盖前面的
+        two.onclick=function(){
+            content.style.background='green';
+        }
+        three.onclick=function(){
+            content.style.background='red';
+        }
+        content.onclick=function(){
+            content.style.background='darkgrey';
+        }
+
+        // 方式三：通过addEventListener（事件监听）方法，给元素注册事件
+        //        解决了前面方法的覆盖问题，可以重复注册相同的事件
+        three.addEventListener('click',function(){
+            console.log('你点击了红色1'); //你点击了红色1
+        })
+        three.addEventListener('click',function(){
+            console.log('你点击了红色2'); //你点击了红色2
+        })
+        function fun2(){
+            console.log('你点击了绿色');
+        }
+        two.addEventListener('click',fun2);
+        // 移除指定的事件方法
+        two.removeEventListener('click',fun2);
+    </script>
+</body>
+</html>
