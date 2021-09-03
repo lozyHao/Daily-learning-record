@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面的加载事件</title>
+</head>
+<body>
+    <script>
+        // 1.页面加载事件：该事件会在页面中的所有内容加载完成后执行（页面内容过大，就会延迟执行）
+        // 1.1 内容包括：标签结构、样式文件、图片文件、音频文件、视频文件...
+        window.onload=function(){
+            console.log('页面加载完成');
+        }
+        // 2.DOMContentLoaded页面加载事件，只要页面中的DOM结构加载完毕后，就会执行。(只能通过事件监听方式添加)
+        window.addEventListener('DOMContentLoaded',function(){
+            console.log('页面结构加载完毕');
+        })
+    </script>
+</body>
+</html>
