@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax请求JSON文件</title>
+
+    <style>
+        table{
+            border-collapse: collapse;
+        }
+        th,td{
+            border: 1px solid darkgrey;
+            padding: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>学历</th>
+            </tr>
+        </thead>
+        <tbody id="content">
+
+        </tbody>
+    </table>
+
+    <script>
+        // 第一步：创建xhr对象（原生ajax对象）
+        let xhr = new XMLHttpRequest();
+
+        // 第二步：初始化请求（get请求/post请求）
+        xhr.open('GET', './data/koubei.json', true);
+
+        // 第三步：发送请求
+        xhr.send();
+
+        // 第四步：监听事件
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // responseText 接收到JSON格式的字符串
+                let data = JSON.parse(xhr.responseText);
+                // 循环数组，转为js对象（此处为数组）
+                data.forEach(k=>{
+                    let tr=document.createElement('tr');
+                    let td1=document.createElement('td');
+                    td1.innerHTML=k.name;
+                    let td2=document.createElement('td');
+                    td2.innerHTML=k.age+'岁';
+                    let td3=document.createElement('td');
+                    td3.innerHTML=k.studies;
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    tr.appendChild(td3);
+                    document.querySelector('#content').appendChild(tr);
+                })
+            }
+        }
+    </script>
+</body>
+
+</html>

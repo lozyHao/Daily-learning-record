@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax获取一个对象</title>
+
+    <style>
+        div {
+            width: 400px;
+            height: 400px;
+            border: 1px solid darkgrey;
+        }
+    </style>
+</head>
+
+<body>
+    <button>获取数据</button>
+    <div></div>
+
+    <script>
+        let btn = document.querySelector('button');
+        let div = document.querySelector('div');
+        btn.onclick = function () {
+            // 第一步：创建xhr对象（原生ajax对象）
+            let xhr = new XMLHttpRequest();
+
+            // readyState 是读取状态：0-请求为触发 / 1-与服务器建立连接 / 2-请求已接收 / 3-请求处理中 / 4-请求已完成，且响应已就绪
+            console.log(xhr.readyState); // 0
+
+            // 第二步：初始化请求（get请求/post请求）
+            xhr.open('GET', './data/koubei.json',true);
+            // 第三步：发送请求
+            xhr.send();
+            console.log(xhr.readyState); // 1
+            // 第四步：监听事件
+            xhr.onreadystatechange = function () {
+                console.log(xhr.readyState); // 2 3 4
+                if (xhr.readyState == 4) {
+                    // status状态码：200（成功）/404（请求资源错误）/500（服务器端错误）
+                    if (xhr.status == 200) {
+                        // responseText 接收到JSON格式的字符串
+                        let data = JSON.parse(xhr.responseText);
+                        let p1=document.createElement('p');
+                        let p2=document.createElement('p');
+                        let p3=document.createElement('p');
+                        p1.innerHTML = '姓名：'+data.name;
+                        p2.innerHTML = '年龄：'+data.age;
+                        p3.innerHTML = '性别：'+data.gender;
+                        div.appendChild(p1);
+                        div.appendChild(p2);
+                        div.appendChild(p3);
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
