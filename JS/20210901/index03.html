@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正则表达式配合字符串方法</title>
+</head>
+<body>
+    <script>
+        let str1='I like apple I like banana i like orange';
+        // 1.默认情况下，replace()方法，只会替换字符串中匹配的第一段内容
+        let str2=str1.replace('like','喜欢');
+        console.log(str2); //I 喜欢 apple i like banana i like orange
+
+        // 2.使用 正则表达式，全局匹配修饰符g(匹配所有相同的)
+        let str3=str1.replace(/like/g,'喜欢');
+        console.log(str3); //I 喜欢 apple i 喜欢 banana i 喜欢 orange
+
+        // 3.大小写不敏感i（大小写都会识别）
+        let str4=str3.replace(/i/gi,'我');
+        console.log(str4); //我 喜欢 apple 我 喜欢 banana 我 喜欢 orange
+
+        // 4.search()方法，查找相匹配的值
+        let msg='i like you \n 我 不喜欢 吃鱼';
+        console.log(msg.search('喜欢')); //16
+
+        // 5.通过正则表达式模糊查找
+        console.log(msg.search(/不?喜欢/)); //15
+    </script>
+</body>
+</html>
