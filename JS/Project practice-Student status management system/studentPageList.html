@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/main.css">
-    <title>查询学生信息</title>
+    <title>处理学生信息</title>
 
     <style>
         .edit {
@@ -57,25 +57,28 @@
         }
 
         .edit .addCount tr td:first-child {
+            width: 150px;
             border: none;
-            border-bottom: 1px solid #ccc;
+            /* border-bottom: 1px solid #ccc; */
             text-align: right;
             padding: 5px 0;
         }
 
         .edit .addCount tr td:last-child {
+            width: 600px;
             border: none;
-            border-bottom: 1px solid #ccc;
+            /* border-bottom: 1px solid #ccc; */
             text-align: left;
             padding: 5px 0;
         }
 
-        .edit .btnAll{
+        .edit .btnAll {
             width: 750px;
             height: 50px;
             margin: 0 auto;
             margin-top: 20px;
         }
+
         .edit button {
             width: 100px;
             height: 40px;
@@ -95,6 +98,7 @@
             border: 1px solid #ccc;
             display: flex;
             align-items: center;
+            margin: 0 auto;
             margin-bottom: 10px;
             padding-left: 10px;
         }
@@ -109,6 +113,11 @@
             background: #ffd8d8;
         }
 
+        #content button {
+            padding: 0 5px;
+            margin: 0 5px;
+        }
+
         thead>tr:first-child {
             background: darkcyan;
             color: white;
@@ -119,7 +128,7 @@
             height: 40px;
             border: 1px solid #ccc;
             line-height: 40px;
-            margin-top: 5px;
+            margin: 5px auto;
             padding-left: 10px;
         }
 
@@ -187,7 +196,7 @@
                 <tr>
                     <td>年级编号：</td>
                     <td>
-                        <select name="gradeld">
+                        <select name="gradeId">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -233,6 +242,7 @@
                 <td>学号：</td>
                 <td>
                     <input type="text" name="studentNo" id="no">
+                    <span id="studentNo_msg"></span>
                 </td>
             </tr>
             <tr>
@@ -263,7 +273,7 @@
             <tr>
                 <td>年级编号：</td>
                 <td>
-                    <select name="gradeld" id="gradeId">
+                    <select name="gradeId" id="gradeId">
 
                     </select>
                 </td>
@@ -378,7 +388,26 @@
                         let td7 = document.createElement('td');
                         td7.innerHTML = s.Grade.GradeName == 'S1' ? '大一' : (s.Grade.GradeName == 'S2' ? '大二' : '大三');
                         let td8 = document.createElement('td');
-                        td8.innerHTML = '操作';
+                        let td8_btn1 = document.createElement('button');
+                        let td8_btn2 = document.createElement('button');
+                        td8_btn1.innerHTML = '修改';
+                        td8_btn2.innerHTML = '删除';
+
+                        // 按钮增加点击事件
+                        // 修改
+                        td8_btn1.onclick = function () {
+                            document.querySelector('.edit .title').innerHTML = '修改学生信息';
+                            edit.style.visibility = 'visible';
+                            // 根据学号查询学生信息
+                            getStudentByNo(s.StudentNo);
+                        }
+                        // 删除
+                        td8_btn2.onclick = {
+
+                        }
+
+                        td8.appendChild(td8_btn1);
+                        td8.appendChild(td8_btn2);
                         tr.appendChild(td1);
                         tr.appendChild(td2);
                         tr.appendChild(td3);
@@ -459,15 +488,52 @@
             loadData(name, sex, pageIndex, pageSize);
         }
 
+        // 修改功能实现
+        // 根据学号查询
+        function getStudentByNo(noo) {
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://www.bingjs.com:81/Student/GetStudentByNo?studentNo=' + noo);
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    let stu = JSON.parse(xhr.responseText);
+                    if (stu) {
+                        no.value = stu.StudentNo;
+                        // 学号不可修改，设置为只读属性
+                        // no.setAttribute('readonly','readonly');
+                        // 把它禁掉，不允许修改
+                        no.setAttribute('disabled', 'disabled');
+                        pwd.value = stu.LoginPwd;
+                        pwd2.value = stu.LoginPwd;
+                        document.querySelector('#stuname').value = stu.StudentName;
+                        if (stu.Sex == 'M') {
+                            document.getElementsByName('sex1')[0].checked = true;
+                        } else {
+                            document.getElementsByName('sex1')[1].checked = true;
+                        }
+                        gradeId.value = stu.GradeId;
+                        phone.value = stu.Phone;
+                        address.value = stu.Address;
+                        born.value = $b.getMiniDate(new Date(stu.BornDate))
+                        email.value = stu.Email;
+                        idCard.value = stu.IdentityCard;
+                    }
+                }
+            }
+        }
         // 添加功能实现
         // 显示添加页面
-        let edit = document.querySelector('.edit')
+        let edit = document.querySelector('.edit');
         document.querySelector('.add').onclick = function () {
-            edit.style.visibility = 'visible'
+            no.removeAttribute('disabled');
+            document.querySelector('.edit .title').innerHTML = '添加学生信息';
+            edit.style.visibility = 'visible';
         }
         // 关闭添加界面
         document.querySelector('.close').onclick = function () {
-            edit.style.visibility = 'hidden'
+            edit.style.visibility = 'hidden';
+            clearVal();
+            studentNo_msg.innerHTML = '';
         }
 
         // 加载年级信息的方法
@@ -501,14 +567,35 @@
             no.value = '';
             pwd.value = '';
             pwd2.value = '';
-            stuname.value = '';
+            document.querySelector('#stuname').value = '';
             document.getElementsByName('sex1')[0].checked = true;
-            gradeId.value = '';
+            gradeId.value = '1';
             phone.value = '';
             address.value = '';
             born.value = '';
             email.value = '';
             idCard.value = '';
+        }
+
+        // 判断学号是否存在(鼠标焦点失去事件)
+        no.onblur = function () {
+            let no = this.value;
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://www.bingjs.com:81/Student/GetStudentByNo?studentNo=' + no);
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    let stu = JSON.parse(xhr.responseText);
+                    console.log(stu);
+                    if (stu) {
+                        studentNo_msg.innerHTML = '学号重复，请重新输入！';
+                        studentNo_msg.style.color = 'red';
+                    }
+                    else {
+                        studentNo_msg.innerHTML = '';
+                    }
+                }
+            }
         }
 
         // 添加功能
@@ -536,23 +623,45 @@
                 identityCard,
             }
             console.log(stu);
-            // 转换以&拼接的成字符串格式
-            let str = $b.getStrByObj(stu);
-            console.log(str);
+            // 第一种：转换以&拼接的成字符串格式
+            // let str = $b.getStrByObj(stu);
+            // 第二种：json字符串（对象）
+            let str = JSON.stringify(stu);
             // 创建xhr对象
             let xhr = new XMLHttpRequest();
+            let url = '';
             // GET 方式的参数通过url传值，POST 的参数通过send()传值
-            xhr.open('POST', 'http://www.bingjs.com:81/Student/Add');
+            if (document.querySelector('.edit .title').innerHTML == '添加学生信息') {
+                url = 'http://www.bingjs.com:81/Student/Add'
+            } else if (document.querySelector('.edit .title').innerHTML == '修改学生信息') {
+                url = 'http://www.bingjs.com:81/Student/Update'
+            }
+            xhr.open('POST', url);
             // 设置请求头
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            // 第一种，匹配上面的 str 格式
+            // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            // 第二种，
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
             xhr.send(str);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     if (xhr.responseText == 'true') {
-                        alert('添加成功！！！');
+                        if (document.querySelector('.edit .title').innerHTML == '添加学生信息') {
+                            alert('添加成功！！！');
+                        } else if (document.querySelector('.edit .title').innerHTML == '修改学生信息') {
+                            alert('修改成功！！！');
+                        }
+
                         clearVal();
                         edit.style.visibility = 'hidden';
                         loadData(name, sex, pageIndex, pageSize);
+                    } else {
+                        if (document.querySelector('.edit .title').innerHTML == '添加学生信息') {
+                            alert('添加失败');
+                        } else if (document.querySelector('.edit .title').innerHTML == '修改学生信息') {
+                            alert('修改失败');
+                        }
                     }
                 }
             }
@@ -560,8 +669,9 @@
         // 取消功能
         document.querySelector('.cancel').onclick = function () {
             clearVal();
-            edit.style.visibility = 'hidden';
+            studentNo_msg.innerHTML = '';
         }
+
     </script>
 </body>
 

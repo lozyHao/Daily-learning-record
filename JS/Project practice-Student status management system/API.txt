@@ -46,3 +46,15 @@
           bornDate 生日
           email 邮箱
           identityCard 身份证
+
+    http://www.bingjs.com:81/Student/Update 添加学生 [POST请求]
+    参数：studentNo 学号
+          loginPwd 密码
+          studentName 姓名
+          sex 性别
+          gradeId 年级编号
+          phone 电话
+          address 地址
+          bornDate 生日
+          email 邮箱
+          identityCard 身份证

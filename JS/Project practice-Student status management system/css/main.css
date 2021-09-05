@@ -9,6 +9,7 @@
 table{
     border-collapse: collapse;
     width: 900px;
+    margin: 0 auto;
 }
 td,th{
     border: 1px solid #ccc;

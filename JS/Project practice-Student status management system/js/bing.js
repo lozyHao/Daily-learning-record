@@ -14,4 +14,16 @@ let $b = {
     getStrByObj: function (obj, split = '&') {
         return Object.keys(obj).map(key => [key, obj[key]].join('=')).join(split);
     },
+
+    // 将字符串转换成对象(JSON字符串)
+    getObjByStr:function (str,char='&') {
+        let obj={};
+        str.split(char).forEach(item=>{
+            // 将字符串打散成数组
+            let kv=item.split('=');
+            // console.log(kv); //依次输出 ["name", "华为Nova7"]  ["color", "奇境森林"]...
+            obj[kv[0]]=kv[1] // 对象赋值 (循环赋值)
+        });
+        return obj;
+    }
 }
