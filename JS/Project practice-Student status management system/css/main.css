@@ -1,0 +1,17 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    outline: none;
+    font-size: 12px;
+}
+table{
+    border-collapse: collapse;
+    width: 900px;
+}
+td,th{
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    text-align: center;
+}

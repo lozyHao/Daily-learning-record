@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main.css">
+    <title>查询学生信息</title>
+
+    <style>
+        #content>tr:nth-child(odd) {
+            background: #ffd8d8;
+        }
+
+        thead>tr:first-child {
+            background: darkcyan;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>生日</th>
+                <th>电话</th>
+                <th>邮箱</th>
+                <th>年级</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="content">
+        </tbody>
+    </table>
+
+    <script src="./js/bing.js"></script>
+    <script>
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://www.bingjs.com:81/Student/GetAll', true);
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                let stus = JSON.parse(xhr.responseText);
+                console.log(stus);
+                stus.forEach(s => {
+                    let tr = document.createElement('tr');
+                    let td1 = document.createElement('td');
+                    td1.innerHTML = s.StudentNo;
+                    let td2 = document.createElement('td');
+                    td2.innerHTML = s.StudentName;
+                    let td3 = document.createElement('td');
+                    td3.innerHTML = s.Sex == 'M' ? '男' : '女';
+                    let td4 = document.createElement('td');
+                    td4.innerHTML = $b.getMiniDate(new Date(s.BornDate));
+                    let td5 = document.createElement('td');
+                    td5.innerHTML = s.Phone;
+                    let td6 = document.createElement('td');
+                    td6.innerHTML = s.Email;
+                    let td7 = document.createElement('td');
+                    td7.innerHTML = s.Grade.GradeName == 'S1' ? '大一' : (s.Grade.GradeName == 'S2' ? '大二' : '大三');
+                    let td8 = document.createElement('td');
+                    td8.innerHTML = '操作';
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    tr.appendChild(td3);
+                    tr.appendChild(td4);
+                    tr.appendChild(td5);
+                    tr.appendChild(td6);
+                    tr.appendChild(td7);
+                    tr.appendChild(td8);
+                    document.querySelector('#content').appendChild(tr);
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

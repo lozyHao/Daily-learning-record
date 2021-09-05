@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录中心</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        body {
+            background: rgb(230, 230, 230);
+            position: relative;
+        }
+
+        .login {
+            position: absolute;
+            width: 300px;
+            height: 200px;
+            background: rgb(31, 141, 168);
+            top: 60px;
+            border-radius: 10px;
+        }
+
+        h3 {
+            display: block;
+            width: 300px;
+            height: 50px;
+            line-height: 50px;
+            color: white;
+            text-align: center;
+            letter-spacing: 3px;
+
+        }
+
+        .item {
+            width: 240px;
+            height: 40px;
+            margin: 5px auto;
+            color: white;
+            text-align: right;
+            line-height: 40px;
+        }
+
+        .item span {
+            font-weight: 600;
+        }
+
+        .item input {
+            outline: none;
+            border: none;
+            height: 25px;
+            border-radius: 5px;
+        }
+
+        .btns {
+            width: 300px;
+            height: 40px;
+            line-height: 40px;
+            margin-top: 10px;
+        }
+
+        .btns button {
+            width: 75px;
+            height: 30px;
+            margin-left: 50px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 18px;
+            color: rgb(31, 141, 168);
+            letter-spacing: 2px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login">
+        <h3>高校信息管理系统</h3>
+        <div class="item">
+            <span>登录名：</span>
+            <input id="loginId" type="text">
+        </div>
+        <div class="item">
+            <span>密码：</span>
+            <input id="password" type="password">
+        </div>
+        <div class="btns">
+            <button id="login_btn" type="submit">登录</button>
+            <button id="cancel_btn">注册</button>
+        </div>
+    </div>
+
+    <script>
+
+        // 登录框位置保持在界面中心
+        let log = document.querySelector('.login');
+        let win_width = window.innerWidth;
+        let win_height = window.innerHeight;
+        log.style.left = (win_width - 300) / 2 + 'px';
+        log.style.top = (win_height - 200) / 2 + 'px';
+        setInterval(() => {
+            win_width = window.innerWidth;
+            win_height = window.innerHeight;
+            log.style.left = (win_width - 300) / 2 + 'px';
+            log.style.top = (win_height - 200) / 2 + 'px';
+            console.log(win_width, win_height);
+        }, 200)
+
+        // 登录功能实现
+        let login_btn = document.querySelector('#login_btn');
+        login_btn.onclick = function () {
+            let loginId = document.querySelector('#loginId').value;
+            let password = document.querySelector('#password').value;
+            console.log(loginId, password);
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', `http://www.bingjs.com:81/Admin/Login?loginId=${loginId}&loginPwd=${password}`, true);
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    let userData = JSON.parse(xhr.responseText);
+                    if (userData.success) {
+                        // 页面跳转--首页
+                        location.href='./mainPage.html';
+                    } else {
+                        alert(userData.message);
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

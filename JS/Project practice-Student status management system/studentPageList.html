@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main.css">
+    <title>查询学生信息</title>
+
+    <style>
+        .edit {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            width: 100%;
+            height: 100%;
+            background: rgb(51, 146, 170);
+            z-index: 999;
+            visibility: hidden;
+        }
+
+        .edit .close {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            background: rgb(255, 255, 255);
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .edit .title {
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            font-size: 25px;
+            color: white;
+            letter-spacing: 5px;
+            font-weight: bold;
+        }
+
+        .edit .addCount {
+            width: 750px;
+            height: 350px;
+            background: rgb(255, 255, 255);
+            margin: 5px auto;
+        }
+
+        .edit .addCount tr td:first-child {
+            border: none;
+            border-bottom: 1px solid #ccc;
+            text-align: right;
+            padding: 5px 0;
+        }
+
+        .edit .addCount tr td:last-child {
+            border: none;
+            border-bottom: 1px solid #ccc;
+            text-align: left;
+            padding: 5px 0;
+        }
+
+        .edit .btnAll{
+            width: 750px;
+            height: 50px;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+        .edit button {
+            width: 100px;
+            height: 40px;
+            background: white;
+            font-size: 25px;
+            letter-spacing: 3px;
+            text-align: center;
+            line-height: 40px;
+            margin-left: 183.3px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .search {
+            width: 888px;
+            height: 40px;
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+
+        .search button {
+            width: 60px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        #content>tr:nth-child(odd) {
+            background: #ffd8d8;
+        }
+
+        thead>tr:first-child {
+            background: darkcyan;
+            color: white;
+        }
+
+        .footer {
+            width: 888px;
+            height: 40px;
+            border: 1px solid #ccc;
+            line-height: 40px;
+            margin-top: 5px;
+            padding-left: 10px;
+        }
+
+        .footer button {
+            margin: 0 5px;
+            cursor: pointer;
+            width: 50px;
+            height: 20px;
+        }
+
+        .footer button:first-of-type,
+        .footer button:last-of-type {
+            width: 30px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="search">
+        姓名：<input type="text" id="studentName" style="margin-right:10px;">
+        性别：<input type="radio" id="studentSex" name="sex" value="" checked>全部
+        <input type="radio" name="sex" value="M" style="margin-left:10px;">男
+        <input type="radio" name="sex" value="F" style="margin-left:10px;">女
+        <button class="foundBtn" style="margin-left:10px;">查询</button>
+        <button class="add" style="margin-left:10px;">添加</button>
+    </div>
+    <div class="edit">
+        <div class="close">X</div>
+        <div class="title">添加学生信息</div>
+        <!-- 最原始的表单形式默认向后台发送数据 -->
+        <!-- <form action="http://www.bingjs.com:81/Student/Add" method="POST">
+            <table class="addCount">
+                <tr>
+                    <td>学号：</td>
+                    <td>
+                        <input type="text" name="studentNo">
+                    </td>
+                </tr>
+                <tr>
+                    <td>密码：</td>
+                    <td>
+                        <input type="password" name="loginPwd">
+                    </td>
+                </tr>
+                <tr>
+                    <td>确认密码：</td>
+                    <td>
+                        <input type="password" name="loginPwd2">
+                    </td>
+                </tr>
+                <tr>
+                    <td>姓名：</td>
+                    <td>
+                        <input type="text" name="studentName">
+                    </td>
+                </tr>
+                <tr>
+                    <td>性别：</td>
+                    <td>
+                        <input type="radio" name="sex" value="M" checked>男
+                        <input type="radio" name="sex" value="F">女
+                    </td>
+                </tr>
+                <tr>
+                    <td>年级编号：</td>
+                    <td>
+                        <select name="gradeld">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>电话：</td>
+                    <td>
+                        <input type="number" name="phone">
+                    </td>
+                </tr>
+                <tr>
+                    <td>地址：</td>
+                    <td>
+                        <textarea cols="30" rows="3" name="address"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>生日：</td>
+                    <td>
+                        <input type="date" name="bornDate">
+                    </td>
+                </tr>
+                <tr>
+                    <td>邮箱：</td>
+                    <td>
+                        <input type="email" name="email">
+                    </td>
+                </tr>
+                <tr>
+                    <td>身份证：</td>
+                    <td>
+                        <input type="text" name="identityCard">
+                    </td>
+                </tr>
+            </table>
+            <button class="submit" type="submit">提交</button>
+            <button class="cancel" type="reset">取消</button>
+        </form> -->
+        <table class="addCount">
+            <tr>
+                <td>学号：</td>
+                <td>
+                    <input type="text" name="studentNo" id="no">
+                </td>
+            </tr>
+            <tr>
+                <td>密码：</td>
+                <td>
+                    <input type="password" name="loginPwd" id="pwd">
+                </td>
+            </tr>
+            <tr>
+                <td>确认密码：</td>
+                <td>
+                    <input type="password" name="loginPwd2" id="pwd2">
+                </td>
+            </tr>
+            <tr>
+                <td>姓名：</td>
+                <td>
+                    <input type="text" name="studentName" id="stuname">
+                </td>
+            </tr>
+            <tr>
+                <td>性别：</td>
+                <td>
+                    <input type="radio" name="sex1" value="M" checked>男
+                    <input type="radio" name="sex1" value="F">女
+                </td>
+            </tr>
+            <tr>
+                <td>年级编号：</td>
+                <td>
+                    <select name="gradeld" id="gradeId">
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>电话：</td>
+                <td>
+                    <input type="number" name="phone" id="phone">
+                </td>
+            </tr>
+            <tr>
+                <td>地址：</td>
+                <td>
+                    <textarea cols="30" rows="3" name="address" id="address"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>生日：</td>
+                <td>
+                    <input type="date" name="bornDate" id="born">
+                </td>
+            </tr>
+            <tr>
+                <td>邮箱：</td>
+                <td>
+                    <input type="email" name="email" id="email">
+                </td>
+            </tr>
+            <tr>
+                <td>身份证：</td>
+                <td>
+                    <input type="text" name="identityCard" id="idCard">
+                </td>
+            </tr>
+        </table>
+        <div class="btnAll">
+            <button class="submit" type="submit">提交</button>
+            <button class="cancel" type="reset">取消</button>
+        </div>
+
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>生日</th>
+                <th>电话</th>
+                <th>邮箱</th>
+                <th>年级</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="content">
+        </tbody>
+    </table>
+    <footer class="footer">
+        <tr>
+            <td>
+                <button id="first">首页</button>
+                <button id="prev">上一页</button>
+                <span id="pageIndex">1</span>
+                <span>/</span>
+                <span id="pageCount">6</span>
+                <button id="next">下一页</button>
+                <button id="last">尾页</button>
+                <span>每页条数:</span>
+                <select name="" id="pageSize">
+                    <option>10</option>
+                    <option>15</option>
+                    <option>20</option>
+                    <option>25</option>
+                    <option>30</option>
+                </select>
+            </td>
+        </tr>
+    </footer>
+
+    <script src="./js/bing.js"></script>
+    <script>
+        // 加载数据的方法
+        function loadData(studentName, sex, pageIndex, pageSize) {
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', `http://www.bingjs.com:81/Student/GetStudentsConditionPages?studentName=${studentName}&sex=${sex}&pageIndex=${pageIndex}&pageSize=${pageSize}`);
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    let { data, count, pageIndex, pageSize } = JSON.parse(xhr.responseText);
+                    //获取数据总条数，计算出总页数,并显示在页面上
+                    let pageCount = Math.ceil(count / pageSize);
+                    document.querySelector('#pageIndex').innerHTML = pageIndex;
+                    document.querySelector('#pageCount').innerHTML = pageCount;
+
+                    // 每次加载新的数据之前把页面清空
+                    document.querySelector('#content').innerHTML = '';
+                    //循环输出所有数据
+                    data.forEach(s => {
+                        let tr = document.createElement('tr');
+                        let td1 = document.createElement('td');
+                        td1.innerHTML = s.StudentNo;
+                        let td2 = document.createElement('td');
+                        td2.innerHTML = s.StudentName;
+                        let td3 = document.createElement('td');
+                        td3.innerHTML = s.Sex == 'M' ? '男' : '女';
+                        let td4 = document.createElement('td');
+                        td4.innerHTML = $b.getMiniDate(new Date(s.BornDate));
+                        let td5 = document.createElement('td');
+                        td5.innerHTML = s.Phone;
+                        let td6 = document.createElement('td');
+                        td6.innerHTML = s.Email;
+                        let td7 = document.createElement('td');
+                        td7.innerHTML = s.Grade.GradeName == 'S1' ? '大一' : (s.Grade.GradeName == 'S2' ? '大二' : '大三');
+                        let td8 = document.createElement('td');
+                        td8.innerHTML = '操作';
+                        tr.appendChild(td1);
+                        tr.appendChild(td2);
+                        tr.appendChild(td3);
+                        tr.appendChild(td4);
+                        tr.appendChild(td5);
+                        tr.appendChild(td6);
+                        tr.appendChild(td7);
+                        tr.appendChild(td8);
+                        document.querySelector('#content').appendChild(tr);
+                    });
+                }
+            }
+        }
+
+        // 获取参数值
+        let name = document.querySelector('#studentName').value; //获取姓名
+        let sex = [...document.getElementsByName('sex')].find(r => r.checked == true).value; //获取性别
+        let pageIndex = 1; //当前页码
+        let pageSize = 10; //每页数量
+
+        loadData(name, sex, pageIndex, pageSize);
+
+        //查询按钮点击事件
+        document.querySelector('.foundBtn').onclick = function () {
+            let name = document.querySelector('#studentName').value; //获取姓名
+            let sex = [...document.getElementsByName('sex')].find(r => r.checked == true).value; //获取性别
+            //当前页码重置为1
+            pageIndex = 1;
+            loadData(name, sex, pageIndex, pageSize);
+        }
+
+        // 页尾页面切换事件
+        // 首页
+        document.querySelector('#first').onclick = function () {
+            let name = document.querySelector('#studentName').value; //获取姓名
+            let sex = [...document.getElementsByName('sex')].find(r => r.checked == true).value; //获取性别
+            //当前页码重置为1
+            pageIndex = 1;
+            loadData(name, sex, pageIndex, pageSize);
+        }
+        // 上一页
+        document.querySelector('#prev').onclick = function () {
+            let name = document.querySelector('#studentName').value; //获取姓名
+            let sex = [...document.getElementsByName('sex')].find(r => r.checked == true).value; //获取性别
+            pageIndex -= 1;
+            if (pageIndex <= 1) {
+                pageIndex = 1;
+            }
+            loadData(name, sex, pageIndex, pageSize);
+        }
+        // 下一页
+        document.querySelector('#next').onclick = function () {
+            let name = document.querySelector('#studentName').value; //获取姓名
+            let sex = [...document.getElementsByName('sex')].find(r => r.checked == true).value; //获取性别
+            pageIndex += 1;
+            pageIndexMax = parseInt(document.querySelector('#pageCount').innerHTML);
+            if (pageIndex >= pageIndexMax) {
+                pageIndex = pageIndexMax;
+            }
+            loadData(name, sex, pageIndex, pageSize);
+        }
+        // 尾页
+        document.querySelector('#last').onclick = function () {
+            let name = document.querySelector('#studentName').value; //获取姓名
+            let sex = [...document.getElementsByName('sex')].find(r => r.checked == true).value; //获取性别
+            //当前页码重置为最后
+            pageIndex = parseInt(document.querySelector('#pageCount').innerHTML);
+            loadData(name, sex, pageIndex, pageSize);
+        }
+        // 页数变化
+        document.querySelector('#pageSize').onchange = function () {
+            // 获取数据数量
+            pageSize = parseInt(this.value);
+            let name = document.querySelector('#studentName').value; //获取姓名
+            let sex = [...document.getElementsByName('sex')].find(r => r.checked == true).value; //获取性别
+            //当前页码重置为1
+            pageIndex = 1;
+            loadData(name, sex, pageIndex, pageSize);
+        }
+
+        // 添加功能实现
+        // 显示添加页面
+        let edit = document.querySelector('.edit')
+        document.querySelector('.add').onclick = function () {
+            edit.style.visibility = 'visible'
+        }
+        // 关闭添加界面
+        document.querySelector('.close').onclick = function () {
+            edit.style.visibility = 'hidden'
+        }
+
+        // 加载年级信息的方法
+        function loadGradeData() {
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://www.bingjs.com:81/Grade/GetAll');
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    let gradeData = JSON.parse(xhr.responseText);
+                    // 在数组中插入元素
+                    gradeData.unshift({ Grade: 0, GradeName: '请选择年级' })
+                    gradeData.forEach(r => {
+                        let option = document.createElement('option');
+                        option.value = r.GradeId;
+                        option.innerHTML = r.GradeName;
+                        document.querySelector('#gradeId').appendChild(option)
+                    })
+                }
+            }
+        }
+        loadGradeData();
+
+        // 获取表单元素的值
+        function $val(dom) {
+            return document.querySelector(dom).value;
+        }
+
+        // 清空添加表单的方法
+        function clearVal() {
+            no.value = '';
+            pwd.value = '';
+            pwd2.value = '';
+            stuname.value = '';
+            document.getElementsByName('sex1')[0].checked = true;
+            gradeId.value = '';
+            phone.value = '';
+            address.value = '';
+            born.value = '';
+            email.value = '';
+            idCard.value = '';
+        }
+
+        // 添加功能
+        document.querySelector('.submit').onclick = function () {
+            let studentNo = $val('#no');
+            let loginPwd = $val('#pwd');
+            let studentName = $val('#stuname');
+            let sex = [...document.getElementsByName('sex1')].find(r => r.checked == true).value;
+            let gradeId = $val('#gradeId');
+            let phone = $val('#phone');
+            let address = $val('#address');
+            let bornDate = $val('#born');
+            let email = $val('#email')
+            let identityCard = $val('#idCard');
+            let stu = {
+                studentNo,
+                loginPwd,
+                studentName,
+                sex,
+                gradeId,
+                phone,
+                address,
+                bornDate,
+                email,
+                identityCard,
+            }
+            console.log(stu);
+            // 转换以&拼接的成字符串格式
+            let str = $b.getStrByObj(stu);
+            console.log(str);
+            // 创建xhr对象
+            let xhr = new XMLHttpRequest();
+            // GET 方式的参数通过url传值，POST 的参数通过send()传值
+            xhr.open('POST', 'http://www.bingjs.com:81/Student/Add');
+            // 设置请求头
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send(str);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    if (xhr.responseText == 'true') {
+                        alert('添加成功！！！');
+                        clearVal();
+                        edit.style.visibility = 'hidden';
+                        loadData(name, sex, pageIndex, pageSize);
+                    }
+                }
+            }
+        }
+        // 取消功能
+        document.querySelector('.cancel').onclick = function () {
+            clearVal();
+            edit.style.visibility = 'hidden';
+        }
+    </script>
+</body>
+
+</html>

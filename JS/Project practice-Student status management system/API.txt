@@ -1,0 +1,48 @@
+1.登录相关接口
+    http://www.bingjs.com:81/Admin/Login 登录 [GET请求]
+    参数1：loginId：登录名
+    参数2：loginPwd：登录密码
+    例：Admin-123456
+
+
+2.年级相关接口
+    http://www.bingjs.com:81/Grade/GetAll 查询全部年级信息 [GET请求]
+
+    http://www.bingjs.com:81/Grade/GetOne 根据id查询指定年级信息 [GET请求]
+    参数：id：年级编号
+
+
+3.学生相关接口
+    http://www.bingjs.com:81/Student/GetAll 查询全部学生 [GET请求]
+
+    http://www.bingjs.com:81/Student/GetStudentsByGrade 根据年级编号查询全部学生 [GET请求]
+    参数：grade：年级编号 (可以为空)
+
+    http://www.bingjs.com:81/Student/GetStudentsCondition 根据条件查询全部学生 [GET请求]
+    参数1：studentName：学生姓名 (可以为空，支持模糊查询)
+    参数2：sex：学生性别 (可以为空，M表示男，F表示女)
+
+    http://www.bingjs.com:81/Student/GetStudentsByPages 分页查询学生信息 [GET请求]
+    参数1：pagelndex：页码 (默认值是1)
+    参数2：pageSize：每页数量 (默认值是10)
+
+    http://www.bingjs.com:81/Student/GetStudentsConditionPages 查询学生+条件+分页 [GET请求]
+    参数1：studentName：学生姓名 (可以为空，支持模糊查询)
+    参数2：sex：学生性别 (可以为空，M表示男，F表示女)
+    参数3：pagelndex：页码 (默认值是1)
+    参数4：pageSize：每页数量 (默认值是10)
+
+    http://www.bingjs.com:81/Student/GetStudentByNo 根据学号查询单个学生信息 [GET请求]
+    参数：studentNo：学生学号 (不可以为空)
+
+    http://www.bingjs.com:81/Student/Add 添加学生 [POST请求]
+    参数：studentNo 学号
+          loginPwd 密码
+          studentName 姓名
+          sex 性别
+          gradeId 年级编号
+          phone 电话
+          address 地址
+          bornDate 生日
+          email 邮箱
+          identityCard 身份证
