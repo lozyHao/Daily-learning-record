@@ -36,7 +36,6 @@
             color: white;
             text-align: center;
             letter-spacing: 3px;
-
         }
 
         .item {
@@ -129,7 +128,7 @@
                     let userData = JSON.parse(xhr.responseText);
                     if (userData.success) {
                         // 页面跳转--首页
-                        location.href='./mainPage.html';
+                        location.href = `./mainPage.html?loginId=${loginId}`;
                     } else {
                         alert(userData.message);
                     }

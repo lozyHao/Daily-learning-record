@@ -98,14 +98,14 @@
             <ul>
                 <li><a href="./studentList.html" target="content">所有学生信息</a></li>
                 <li><a href="./studentPageList.html" target="content">处理学生信息</a></li>
-                <li><a href="" target="content">查询课程信息</a></li>
-                <li><a href="" target="content">查询成绩信息</a></li>
+                <li><a href="./subjectList.html" target="content">所有课程信息</a></li>
+                <li><a href="./scoreList.html" target="content">所有成绩信息</a></li>
             </ul>
         </div>
         <div class="right">
             <div class="top">
-                <div>Admin</div>
-                <div>退出</div>
+                <div class='admin'>用户</div>
+                <div class="signOut">退出</div>
             </div>
             <div class="content">
                 <!-- 改标签用于嵌套网页，通过 name 属性绑定 a 标签的 target属性 进行超链接 -->
@@ -115,7 +115,19 @@
     </div>
 
     <script>
-
+        // 获取url参数并将用户名提取出来
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null && r[2] != "false")
+                return unescape(r[2]);
+            else{
+               return false; 
+            }
+        }
+        let loginId = getQueryString('loginId');
+        console.log(loginId);
+        document.querySelector('.admin').innerHTML=loginId;
     </script>
 </body>
 

@@ -47,7 +47,7 @@
           email 邮箱
           identityCard 身份证
 
-    http://www.bingjs.com:81/Student/Update 添加学生 [POST请求]
+    http://www.bingjs.com:81/Student/Update 修改学生信息 [POST请求]
     参数：studentNo 学号
           loginPwd 密码
           studentName 姓名
@@ -58,3 +58,13 @@
           bornDate 生日
           email 邮箱
           identityCard 身份证
+
+    http://www.bingjs.com:81/Student/Delete 删除学生 [POST请求]
+    参数：studentNo：学生学号
+
+
+4.课程相关接口
+    http://www.bingjs.com:81/Subject/GetAll 查询全部课程 [GET请求]
+
+    http://www.bingjs.com:81/Subject/GetSubjectById 根据课程编号查询一个课程 [GET请求]
+    参数：

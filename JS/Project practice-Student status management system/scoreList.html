@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main.css">
+    <title>所有成绩信息</title>
+
+    <style>
+        #content>tr:nth-child(odd) {
+            background: #ffd8d8;
+        }
+
+        thead>tr:first-child {
+            background: darkcyan;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>课程ID</th>
+                <th>课程名</th>
+                <th>学时</th>
+                <th>年级</th>
+                <!-- <th>操作</th> -->
+            </tr>
+        </thead>
+        <tbody id="content">
+        </tbody>
+    </table>
+
+    <script src="./js/bing.js"></script>
+
+    <script>
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://www.bingjs.com:81/Score/GetAll', true);
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                let stus = JSON.parse(xhr.responseText);
+                console.log(stus);
+                stus.forEach(s => {
+                    // let tr = document.createElement('tr');
+                    // let td1 = document.createElement('td');
+                    // td1.innerHTML = s.SubjectId;
+                    // let td2 = document.createElement('td');
+                    // td2.innerHTML = s.SubjectName;
+                    // let td3 = document.createElement('td');
+                    // td3.innerHTML = s.ClassHour + ' 学时';
+                    // let td4 = document.createElement('td');
+                    // td4.innerHTML = s.Grade.GradeName == 'S1' ? '大一' : (s.Grade.GradeName == 'S2' ? '大二' : '大三');
+                    // // let td8 = document.createElement('td');
+                    // // td8.innerHTML = '操作';
+                    // tr.appendChild(td1);
+                    // tr.appendChild(td2);
+                    // tr.appendChild(td3);
+                    // tr.appendChild(td4);
+                    // // tr.appendChild(td8);
+                    // document.querySelector('#content').appendChild(tr);
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>
