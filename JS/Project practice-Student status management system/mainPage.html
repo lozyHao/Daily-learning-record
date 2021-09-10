@@ -127,7 +127,12 @@
         }
         let loginId = getQueryString('loginId');
         console.log(loginId);
-        document.querySelector('.admin').innerHTML=loginId;
+        if(loginId==false){
+            document.querySelector('.admin').innerHTML='用户';
+        }else{
+               document.querySelector('.admin').innerHTML=loginId;
+           } 
+        
     </script>
 </body>
 
