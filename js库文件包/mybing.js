@@ -75,7 +75,7 @@ let $Luo = {
 
     // 返回两个日期的时间差
     getHMS: function (endDate, startDate = new Date()) {
-        let differ = endDate - nowDate;
+        let differ = endDate - startDate;
         if (differ <= 0) {
             differ = 0
         }

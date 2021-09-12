@@ -1,0 +1,153 @@
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.top{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    background: white;
+    border-bottom: 1px solid #ccc;
+    min-width: 800px;
+}
+.top_content{
+    position: relative;
+    width: 800px;
+    height: 50px;
+    background: white;
+    border-bottom: 1px solid #ccc;
+    margin: 0 auto;
+}
+.search{
+    position: absolute;
+    right: 0;
+    top: 5px;
+    width: 250px;
+    height: 40px;
+    background: rgb(221, 221, 221);
+    border-radius:20px;
+}
+#search_con{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    outline: none;
+    width: 170px;
+    height: 20px;
+    border: none;
+    background: rgb(255, 255, 255);
+    padding-left: 10px;
+    border-radius: 10px;
+}
+#btn{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 40px;
+    text-align: center;
+    background: darkcyan;
+    line-height: 40px;
+    cursor: pointer;
+    color: white;
+    font-size: 14px;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+}
+.container {
+    width: 800px;
+    padding: 10px;
+    margin: 20px auto;
+    user-select: none;
+}
+
+.container ul {
+    width: 800px;
+    border: 1px solid #ccc;
+    padding: 10px 0;
+    margin: 10px 0;
+}
+
+.container ul li {
+    padding: 5px;
+    height: 20px;
+    background: rgb(230, 230, 230);
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.container ul li:first-child {
+    background: none;
+    color: rgb(143, 143, 143);
+    font-size: 13px;
+    line-height: 20px;
+}
+.container ul li:hover{
+    background: darkcyan;
+    color: white;
+}
+.container ul li:first-of-type:hover{
+    background: none;
+    color: rgb(143, 143, 143);
+    cursor: default;
+}
+.container ul li.active {
+    background: darkcyan;
+    color: white;
+}
+.content {
+    width: 800px;
+    padding: 10px 0;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+}
+.error{
+    display: block;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    color: rgb(180, 180, 180);
+}
+.show {
+    width: 750px;
+    margin: 10px auto;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.show img {
+    width: 150px;
+    height: 200px;
+}
+
+.show ul {
+    width: 500px;
+    height: 200px;
+    margin-left: 20px;
+}
+
+.show ul>li {
+    line-height: 25px;
+}
+
+.show ul .title {
+    font-size: 20px;
+}
+
+.show ul>li:nth-child(2) {
+    font-size: 15px;
+    color: rgb(141, 141, 141);
+}
+
+.show ul>li:nth-child(3) {
+    font-size: 15px;
+    color: rgb(141, 141, 141);
+}
+
+.show ul>li:nth-child(4) {
+    font-size: 10px;
+    color: rgb(141, 141, 141);
+}

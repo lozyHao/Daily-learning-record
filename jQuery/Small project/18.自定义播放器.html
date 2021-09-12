@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/common.css">
+    <title>自定义播放器</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #audio {
+            display: none;
+        }
+
+        #title {
+            display: block;
+            width: 500px;
+            height: 50px;
+            font-size: 25px;
+            font-weight: bold;
+            font-family: "Geometr415 Blk BT Black";
+            text-align: center;
+            line-height: 50px;
+            color: white;
+            user-select: none;
+        }
+
+        #player {
+            width: 500px;
+            border: 1px solid #ccc;
+            margin: 50px auto;
+            padding: 10px;
+            padding-top: 0;
+            border-radius: 10px;
+            background: black;
+        }
+
+        #progress {
+            position: relative;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgb(90, 90, 90);
+            cursor: pointer;
+        }
+
+        #go {
+            width: 0%;
+            height: 6px;
+            background: rgb(190, 26, 26);
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        #goBig {
+            position: absolute;
+            top: -4px;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border: 2px solid red;
+            border-radius: 50%;
+            transition: 0.3s;
+            opacity: 0;
+        }
+
+        #control {
+            margin-top: 10px;
+        }
+
+        #btn {
+            width: 50px;
+            height: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            background: white;
+            text-align: center;
+            line-height: 20px;
+            font-size: 15px;
+            user-select: none;
+        }
+
+        #time {
+            width: 90px;
+            height: 20px;
+            font-size: 14px;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="player">
+        <audio id="audio" src="./audio/大鱼.m4a" loop controls></audio>
+        <span id="title">LUO MINF PLAYER</span>
+        <div id='progress'>
+            <div id="go"></div>
+            <div id="goBig"></div>
+        </div>
+        <div id="control" class="flex j-s">
+            <div id="btn">播 放</div>
+            <div id="time" class="flex j-s">
+                <div id="time1">00:00</div>
+                <div> / </div>
+                <div id="time2">00:00</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script src="../js/bing.js"></script>
+    <script>
+        // 获取播放器对象
+        let audio = document.getElementById('audio');
+
+        // 播放器按钮点击事件
+        $('#btn').click(function () {
+            // 获取播放器的总时间
+            let { duration } = audio;
+            let m2 = $b.repairZero(Math.floor(duration / 60));
+            let s2 = $b.repairZero(Math.floor(duration % 60));
+            $('#time2').text(m2 + ':' + s2)
+            // 判断播放器是否暂停
+            if (audio.paused) {
+                audio.play() //播放
+                $(this).text('暂 停');
+            } else {
+                audio.pause() //暂停
+                $(this).text('播 放');
+            }
+        })
+
+        // 定时器计时播放时间
+        setInterval(function () {
+            // 获取播放器的已播放时间和总时间
+            let { currentTime, duration } = audio;
+            // 计算出播放比
+            let percent = currentTime / duration * 100 + '%'
+            $('#go').css({
+                width: percent
+            })
+            $('#goBig').css({
+                left: percent
+            })
+            let m1 = $b.repairZero(Math.floor(currentTime / 60));
+            let s1 = $b.repairZero(Math.floor(currentTime % 60));
+            $('#time1').text(m1 + ':' + s1)
+        }, 500)
+
+        // 进度条点击事件
+        $('#progress').click(function (e) {
+            // 获取播放器的总时间
+            let { duration } = audio;
+
+            // 获取鼠标点击处在进度条上的宽度
+            let width = e.pageX - $(this).offset().left;
+            // 计算出比例
+            let percent = width / $(this).innerWidth();
+            // 计算出时间
+            let defTime = percent * duration
+
+            // 更新时间
+            audio.currentTime = defTime;
+        }).mouseenter(function () {
+            $('#goBig').css({
+                opacity: '1'
+            });
+        }).mouseleave(() => {
+            $('#goBig').css({
+                opacity: '0'
+            });
+
+        })
+
+        // 播放按钮点击效果
+        $('#btn').mousedown(function () {
+            $(this).css({
+                background: 'rgb(126, 126, 126)',
+                color: 'white'
+            })
+        }).mouseup(function () {
+            $(this).css({
+                background: 'white',
+                color: 'black'
+            })
+        })
+    </script>
+</body>
+
+</html>

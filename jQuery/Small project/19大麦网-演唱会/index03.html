@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/index01.css">
+    <title>大麦网-演唱会页面--实现</title>
+</head>
+
+<body>
+    <div class="top">
+        <div class="top_content">
+            <div class="search">
+                <input id="search_con" type="text" placeholder="请输入关键词">
+                <div id="btn">搜 索</div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <ul class="list flex" id="city">
+            <li>城市：</li>
+            <script id="city_template" type="text/html">
+                {{each $data item index}}
+            <li class='{{index==0?"active":""}}'>{{item.city}}</li>
+            {{/each}}
+            </script>
+        </ul>
+        <ul class="list flex" id="type">
+            <li>类别：</li>
+            <script id="type_template" type="text/html">
+                {{each $data item index}}
+            <li class='{{index==0?"active":""}}'>{{item.type}}</li>
+            {{/each}}
+            </script>
+        </ul>
+    </div>
+    <div class="content">
+
+    </div>
+    <!-- 定义渲染内容的模板 -->
+    <script id="show_template" type="text/html">
+        {{each $data item index}}
+        <div class="show flex">
+            <img src="{{item.img}}" alt="">
+            <ul>
+                <li class="title">{{item.title}}</li>
+                <li>{{item.city}}</li>
+                <li>{{item.type}}</li>
+                <li>{{item.time}}</li>
+            </ul>
+        </div>
+        {{/each}}
+        </script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script src="./js/artTemplate.js"></script>
+    <script>
+
+        // 加载城市数据
+        $.get('./data/city.json', (res) => {
+            let html = template('city_template', res)
+            $('#city').append(html)
+        })
+        // 加载种类数据
+        $.get('./data/type.json', res => {
+            let html = template('type_template', res)
+            $('#type').append(html)
+        })
+
+        // 加载数据的方法
+        function loadData() {
+            // 每次加载前清空（不然内容一直累加）
+            // $('.content').empty()
+            // 加载内容数据
+            $.get('./data/show.json', res => {
+                // 获取输入框中的内容
+                let search_con = $('#search_con').val().trim();
+                if (search_con) {
+                    // includes()方法，判断字符串是否包含
+                    res = res.filter(r => r.title.includes(search_con));
+                }
+
+                // 获取选中的城市名称
+                let city = $('#city li[class="active"').text();
+                if (city != '全部') {
+                    res = res.filter(r => r.city == city)
+                }
+                // 获取选中的类型名称
+                let type = $('#type li[class="active"').text();
+                if (type != '全部') {
+                    res = res.filter(r => r.type == type)
+                }
+                if (res.length == '0') {
+                    $('.content').html(`<p class='error'>对不起，暂未找到你需要的内容！</p>`)
+                } else {
+                    let html = template('show_template', res)
+                    // append() 追加内容
+                    // $('.content').append(html)
+                    // 利用 .html() 是形成内容覆盖,不需要每次加载前清空(会出现闪烁)
+                    $('.content').html(html)
+                }
+
+            })
+        }
+        loadData();
+
+        // 点击 li 时可能还没有生成，所以需要委托给父级
+        $('#city').on('click', 'li:not(:eq(0))', function () {
+            $(this).addClass('active').siblings('.active').removeClass('active')
+            loadData();
+        })
+        $('#type').on('click', 'li:not(:eq(0))', function () {
+            $(this).addClass('active').siblings('.active').removeClass('active')
+            loadData();
+        })
+
+        // 搜索框点击提交事件
+        $('#btn').click(function () {
+            loadData();
+        })
+    </script>
+</body>
+
+</html>

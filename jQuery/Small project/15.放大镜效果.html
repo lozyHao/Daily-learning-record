@@ -23,6 +23,28 @@
             top: 20px;
         }
 
+        .img {
+            width: 350px;
+            height: 350px;
+            position: relative;
+        }
+
+        .img .middle{
+            width: 350px;
+            height: 350px;
+        }
+
+        .move {
+            display: none;
+            width: 218.75px;
+            height: 218.75px;
+            background: rgba(206, 159, 42, 0.4);
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: move;
+        }
+
         .list {
             width: 350px;
             height: 50px;
@@ -35,42 +57,142 @@
             cursor: pointer;
             border: 2px solid rgb(255, 255, 255);
         }
-        .list img.active{
+
+        .list img.active {
             border: 2px solid red;
         }
 
-        .right{
+        .right {
+            display: none;
             width: 500px;
             height: 500px;
             border: 1px solid rgb(199, 199, 199);
             position: absolute;
-            /* left: 380px;
-            top: 20px; */
+            background: url(./img/lankou/large1.jpg) no-repeat;
         }
     </style>
 </head>
 
 <body>
     <div class="left">
-        <img src="./img/lankou/middle1.jpg" alt="">
+        <div class="img">
+            <img class="middle" src="./img/lankou/middle1.jpg" alt="">
+            <div class="move"></div>
+        </div>
         <ul class="list flex j-s">
-            <img class="active" src="./img//lankou/small1.jpg" alt="">
-            <img src="./img//lankou/small2.jpg" alt="">
-            <img src="./img//lankou/small3.jpg" alt="">
-            <img src="./img//lankou/small4.jpg" alt="">
         </ul>
     </div>
     <div class="right"></div>
 
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
     <script>
+        // 定义数组，保存图片
+        let imgs = [
+            {
+                large: './img/lankou/large1.jpg',
+                middle: './img/lankou/middle1.jpg',
+                small: './img/lankou/small1.jpg'
+            },
+            {
+                large: './img/lankou/large2.jpg',
+                middle: './img/lankou/middle2.jpg',
+                small: './img/lankou/small2.jpg'
+            },
+            {
+                large: './img/lankou/large3.jpg',
+                middle: './img/lankou/middle3.jpg',
+                small: './img/lankou/small3.jpg'
+            },
+            {
+                large: './img/lankou/large4.jpg',
+                middle: './img/lankou/middle4.jpg',
+                small: './img/lankou/small4.jpg'
+            },
+            {
+                large: './img/lankou/large1.jpg',
+                middle: './img/lankou/middle1.jpg',
+                small: './img/lankou/small1.jpg'
+            }
+        ]
+
         // 设置right的位置
-        let top1=$('.left').position().top;
-        let left1=$('.left').position().left+$('.left').innerWidth()+10;
         $('.right').css({
-            left:left1,
-            top:top1
+            left: $('.left').position().left + $('.left').innerWidth() + 10,
+            top: $('.left').position().top
         })
+
+        // 生成小图片
+        imgs.map(r => r.small).forEach((r, i) => {
+            let small = $('<img/>').attr('src', r);
+            if (i == 0) {
+                small.addClass('active');
+            }
+            $('.list').append(small);
+        })
+
+        // 鼠标进入小图片切换
+        $('.list img').mouseover(function (e) {
+            $(this).addClass('active').siblings('.active').removeClass('active');
+            // 更换中图
+            $('.middle').attr('src', imgs[$(this).index()].middle);
+            // 更换大图
+            $('.right').css({ background: `url(${imgs[$(this).index()].large}) no-repeat` });
+        })
+
+        // 设置选取框的大小
+        $('.move').css({
+            width: $('.right').innerWidth() / 800 * $('.middle').innerWidth(),
+            height: $('.right').innerHeight() / 800 * $('.middle').innerHeight(),
+        })
+
+        // 最大移动区域
+        let maxLeft = $('.middle').innerWidth()-$('.move').innerWidth();
+        let maxTop = $('.middle').innerHeight()-$('.move').innerHeight();
+
+        // 移动事件
+        function move(e){
+            let { pageX, pageY } = e;
+            let left = pageX - $('.left').offset().left-$('.move').innerWidth()/2;
+            let top = pageY - $('.left').offset().top-$('.move').innerHeight()/2;
+            if (left <= 0)
+                left = 0;
+            if (left > maxLeft)
+                left = maxLeft;
+            if (top <= 0)
+                top = 0;
+            if (top >= maxTop)
+                top = maxTop;
+            $('.move').css({
+                top: top + 'px',
+                left: left + 'px'
+            });
+            return {
+                top,
+                left
+            }
+        }
+        // 鼠标进入
+        $('.middle').mouseenter(function (e) {
+            $('.move').show();
+            move(e);
+        })
+        // 鼠标移动/鼠标离开
+        $('.move').mousemove(function (e) {
+            move(e);
+            // right对应位置展示
+            let r=move(e);
+            let moveLeft = r.left;
+            let moveTop = r.top;
+            $('.right').show().css({
+                backgroundPosition:`${moveLeft/maxLeft*100+'%'} ${moveTop/maxTop*100+'%'}`
+            })
+        }).mouseleave(function () {
+            $('.move').hide();
+            $('.right').hide();
+        })
+
+        
+
     </script>
 </body>
 

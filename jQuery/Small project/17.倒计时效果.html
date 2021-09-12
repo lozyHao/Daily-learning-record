@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/common.css">
+    <title>倒计时效果</title>
+
+    <style>
+        .time {
+            width: 290px;
+            height: 50px;
+            margin: 50px;
+            background: red;
+            padding: 5px 20px;
+            user-select: none;
+        }
+
+        .time div:nth-of-type(even) {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            background: black;
+            color: white;
+            font-size: 25px;
+            font-weight: lighter;
+        }
+
+        .time div:nth-of-type(odd) {
+            width: 20px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            font-weight: bolder;
+            color: white;
+        }
+        .time div:first-child{
+            width: 100px;
+            font-size: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="time flex">
+        <div class="title">倒计时：</div>
+        <div class="h">00</div>
+        <div>:</div>
+        <div class="m">00</div>
+        <div>:</div>
+        <div class="s">00</div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script src="../js/bing.js"></script>
+    <script>
+        let endDate = new Date('2021-9-12 15:44:00');
+        function time() {
+            let hms=$b.getHMS(endDate)
+        
+            $('.h').text(hms.h);
+            $('.m').text(hms.m);
+            $('.s').text(hms.s);
+        }
+        time();
+        setInterval(() => {
+            time();
+        }, 1000)
+    </script>
+</body>
+
+</html>

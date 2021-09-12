@@ -1,0 +1,21 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.flex{
+    display: flex;
+}
+.flex-wrap{
+    display: flex;
+    flex-wrap: wrap;
+}
+.j-c{
+justify-content: center;
+}
+.j-s{
+    justify-content: space-between;
+}
+.a-c{
+    align-items: center;
+}

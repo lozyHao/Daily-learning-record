@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/index01.css">
+    <title>大麦网-演唱会页面(模板引擎优化)</title>
+</head>
+
+<body>
+    <div class="container">
+        <p>分类：</p>
+        <ul class="list flex" id="city">
+            <li>城市：</li>
+            <!-- 第二步：在网页中定义模板 -->
+            <!-- each 循环 / citys 后台传的数据 / item 循环该数组的每一项 / index 索引 -->
+            <!-- {{each citys item index}} -->
+            <script id="city_template" type="text/html">
+                {{each $data item index}}
+            <li class='{{index==0?"active":""}}'>{{item.city}}</li>
+            {{/each}}
+            </script>
+        </ul>
+        <ul class="list flex" id="type">
+            <li>类别：</li>
+            <script id="type_template" type="text/html">
+                {{each $data item index}}
+            <li class='{{index==0?"active":""}}'>{{item.type}}</li>
+            {{/each}}
+            </script>
+        </ul>
+    </div>
+    <div class="content">
+        <script id="show_template" type="text/html">
+        {{each $data item index}}
+        <div class="show flex">
+            <img src="{{item.img}}" alt="">
+            <ul>
+                <li class="title">{{item.title}}</li>
+                <li>{{item.city}}</li>
+                <li>{{item.type}}</li>
+                <li>{{item.time}}</li>
+            </ul>
+        </div>
+        {{/each}}
+        </script>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <!-- 第一步：引入 artTemplate 模板引擎库 -->
+    <script src="./js/artTemplate.js"></script>
+    <script>
+        // 加载城市数据
+        $.get('./data/city.json', (res) => {
+            // 第三步，通过 template 方法将数据传给模板，返回生成的html内容（ 第一个参数为模板(id)，第二个参数为数据）
+            // let html = template('city_template', { citys: res })  //---此方法需要是具体数据
+            let html = template('city_template', res)
+            console.log(html);
+            // 第四步：将生成的html内容，放置在指定位置显示
+            $('#city').append(html)
+        })
+        // 加载种类数据
+        $.get('./data/type.json', res => {
+            let html = template('type_template', res)
+            $('#type').append(html)
+        })
+        // 加载内容数据
+        $.get('./data/show.json', res => {
+            let html = template('show_template', res)
+            $('.content').append(html)
+        })
+    </script>
+</body>
+
+</html>
