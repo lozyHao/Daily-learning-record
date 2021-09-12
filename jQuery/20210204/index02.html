@@ -13,6 +13,12 @@
         background: red;
         display: none;
     }
+
+    #box1 {
+        width: 200px;
+        height: 200px;
+        background: red;
+    }
 </style>
 
 <body>
@@ -25,7 +31,9 @@
     <button id="in">淡入显示</button>
     <button id="out">淡出隐藏</button>
     <button id="inOut">淡入显示/淡出隐藏</button>
+    <button id="p1">自定义动画</button>
     <div id="box"></div>
+    <div id="box1"></div>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
     <script>
         // 1.show()方法显示
@@ -82,6 +90,13 @@
         $("#inOut").click(function () {
             $("#box").fadeToggle()
         })
+
+        $("#p1").click(function () {
+            $('#box1').animate({
+                height: 'toggle', opacity: 'toggle'
+            }, "slow");
+        })
+
     </script>
 </body>
 

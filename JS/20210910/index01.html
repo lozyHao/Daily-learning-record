@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象的深拷贝 和 递归算法</title>
+</head>
+
+<body>
+    <script>
+        // 1.深拷贝会改变原来的值
+        // let obj1={
+        //     name:'张三',
+        //     age:20,
+        //     sex:'男'
+        // }
+        // let obj2=obj1;
+        // console.log('obj1',obj1); //{name: "张三", age: 20, sex: "男"}
+        // console.log('obj2',obj2); //{name: "张三", age: 20, sex: "男"}
+        // obj2.name='小明';
+        // obj2.age=22;
+        // obj2.sex='女';
+        // console.log('obj1',obj1); //{name: "小明", age: 22, sex: "女"}
+        // console.log('obj2',obj2); //{name: "小明", age: 22, sex: "女"}
+
+        // 2.深拷贝一
+        // let obj1={
+        //     name:'张三',
+        //     age:20,
+        //     sex:'男',
+        // }
+        // let obj2={};
+        // Object.keys(obj1).forEach(r=>{
+        //     obj2[r]=obj1[r]
+        // })
+
+        // console.log('obj1',obj1); //{name: "张三", age: 20, sex: "男"}
+        // console.log('obj2',obj2); //{name: "张三", age: 20, sex: "男"}
+        // obj2.name='小明';
+        // obj2.age=22;
+        // obj2.sex='女';
+        // console.log('obj1',obj1); //{name: "张三", age: 20, sex: "男"}
+        // console.log('obj2',obj2); //{name: "小明", age: 22, sex: "女"}
+
+        // 3.深拷贝二
+        // let obj1 = {
+        //     name: '张三',
+        //     age: 20,
+        //     sex: '男',
+        //     car: {
+        //         name: '宝马',
+        //         price: '50万'
+        //     }
+        // }
+        // let obj2 = {};
+        // Object.keys(obj1).forEach(r => {
+        //  obj2[r] = obj1[r]
+        // })
+        // console.log('obj1', obj1); //{name: "张三", age: 20, sex: "男"，car: {name: "奔驰", price: "80万"}}
+        // console.log('obj2', obj2); //{name: "张三", age: 20, sex: "男"，car: {name: "奔驰", price: "80万"}}
+        // obj2.name = '小明';
+        // obj2.age = 22;
+        // obj2.sex = '女';
+        // obj2.car.name = '奔驰',
+        //     obj2.car.price = '80万'
+        // console.log('obj1', obj1); //{name: "张三", age: 20, sex: "男"，car: {name: "奔驰", price: "80万"}}
+        // console.log('obj2', obj2); //{name: "小明", age: 22, sex: "女"，car: {name: "奔驰", price: "80万"}}
+        let obj1 = {
+            name: '张三',
+            age: 20,
+            sex: '男',
+            car: {
+                name: '宝马',
+                price: '50万',
+                a:{
+                    b:{
+                      c:200
+                    }
+                }
+            }
+        }
+        let obj2 = {};
+        function copyObject(obj) {
+            let newObj = {};
+            Object.keys(obj).forEach(r => {
+                // 判断数据类型，如果是obj类型，就需要重新拷贝成员，避免地址传值
+                if (typeof obj[r] =='object') {
+                    // 递归传值
+                    newObj[r]=copyObject(obj[r]);
+                }else{
+                    newObj[r] = obj[r]
+                }
+                
+            })
+            return newObj
+        }
+        obj2=copyObject(obj1);
+        console.log('obj1', obj1); //{name: "张三", age: 20, sex: "男"，car: {name: "宝马", price: "50万", a:b: {c: 200}}
+        console.log('obj2', obj2); //{name: "张三", age: 20, sex: "男"，car: {name: "奔驰", price: "80万", a:b: {c: 600}}}
+        obj2.name = '小明';
+        obj2.age = 22;
+        obj2.sex = '女';
+        obj2.car.name = '奔驰';
+        obj2.car.price = '80万'
+        obj2.car.a.b.c=600
+        console.log('obj1', obj1); //{name: "张三", age: 20, sex: "男"，car: {name: "宝马", price: "50万", a:b: {c: 200}}
+        console.log('obj2', obj2); //{name: "小明", age: 22, sex: "女"，car: {name: "奔驰", price: "80万", a:b: {c: 600}}}
+
+    </script>
+</body>
+
+</html>

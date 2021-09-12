@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>悬浮导航效果</title>
+    <link rel="stylesheet" href="../css/common.css">
+</head>
+<style>
+    #container {
+        width: 90vw;
+        margin: 0 auto;
+    }
+
+    #header {
+        height: 200vh;
+        font-size: 100px;
+        color: white;
+        text-align: center;
+        line-height: 50vh;
+        background-color: rgb(235, 112, 112);
+    }
+
+    #one {
+        height: 100vh;
+        font-size: 80px;
+        color: white;
+        text-align: center;
+        line-height: 50vh;
+        background-color: rgb(235, 112, 198);
+    }
+
+    #two {
+        height: 100vh;
+        font-size: 80px;
+        color: white;
+        text-align: center;
+        line-height: 50vh;
+        background-color: rgb(196, 112, 235);
+    }
+
+    #three {
+        height: 100vh;
+        font-size: 80px;
+        color: white;
+        text-align: center;
+        line-height: 50vh;
+        background-color: rgb(131, 112, 235);
+    }
+
+    #fore {
+        height: 100vh;
+        font-size: 80px;
+        color: white;
+        text-align: center;
+        line-height: 50vh;
+        background-color: rgb(112, 170, 235);
+    }
+
+    #five {
+        height: 100vh;
+        font-size: 80px;
+        color: white;
+        text-align: center;
+        line-height: 50vh;
+        background-color: rgb(112, 235, 229);
+    }
+
+    #footer {
+        height: 200vh;
+        font-size: 80px;
+        color: white;
+        text-align: center;
+        line-height: 50vh;
+        background-color: rgb(112, 235, 163);
+    }
+
+    #nav {
+        position: fixed;
+        left: 1vw;
+        top: 20vh;
+    }
+
+    .goTop {
+        position: fixed;
+        left: 1vw;
+        top: 10px;
+        width: 50px;
+        height: 25px;
+        text-align: center;
+        line-height: 25px;
+        color: rgb(100, 100, 100);
+        border: 1px solid rgb(201, 201, 201);
+        background-color: white;
+        cursor: pointer;
+    }
+
+    .goBottom {
+        position: fixed;
+        left: 1vw;
+        bottom: 10px;
+        width: 50px;
+        height: 25px;
+        text-align: center;
+        line-height: 25px;
+        color: rgb(100, 100, 100);
+        border: 1px solid rgb(201, 201, 201);
+        background-color: white;
+        cursor: pointer;
+    }
+
+    #nav li {
+        width: 50px;
+        height: 50px;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: rgb(124, 124, 124);
+        line-height: 50px;
+        text-align: center;
+        cursor: pointer;
+        border: 1px solid rgb(201, 201, 201);
+        margin-top: 2px;
+    }
+
+    #nav>li.active {
+        background-color: rgb(233, 119, 42);
+        color: white;
+    }
+</style>
+
+<body>
+    <div id="container">
+        <div id="header">header</div>
+        <div id="one">one</div>
+        <div id="two">two</div>
+        <div id="three">three</div>
+        <div id="fore">fore</div>
+        <div id="five">five</div>
+        <div id="footer">footer</div>
+    </div>
+    <div class="goTop">︿</div>
+    <ul id="nav">
+        <li>one</li>
+        <li>two</li>
+        <li>three</li>
+        <li>fore</li>
+        <li>five</li>
+    </ul>
+    <div class="goBottom">﹀</div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+        let maxScrollTop = $("#container").innerHeight() - $(window).innerHeight()
+        // console.log((maxScrollTop));
+        // 头部高度
+        let headerHeight = $('#header').innerHeight();
+        // console.log(headerHeight);
+        // one高度
+        let oneHeight = $('#one').innerHeight();
+
+        // 初始化位置
+        let top1 = $(this).scrollTop();
+        let i = Math.floor((top1 - headerHeight + 300) / oneHeight);
+        console.log(i);
+        if (i >= 0 && i <= 4) {
+            $('#nav li').eq(i).addClass('active').siblings('.active').removeClass('active')
+        } else {
+            $('#nav li').removeClass('active')
+        }
+
+        // scroll()方法，滚动条事件
+        $(window).scroll(function () {
+            window.onmousewheel = function (e) {
+                // 返回滚动的高度
+                let top = $(this).scrollTop();
+                // console.log(top);
+
+                // wheelDelta>0 表示滚轮往上，wheelDelta<0 表示滚轮往下
+                let { wheelDelta } = e
+                console.log(wheelDelta);
+                if (wheelDelta < 0) {
+                    let i = Math.floor((top - headerHeight + 300) / oneHeight);
+                    console.log(i);
+                    if (i >= 0 && i <= 4) {
+                        $('#nav li').eq(i).addClass('active').siblings('.active').removeClass('active')
+                    } else {
+                        $('#nav li').removeClass('active')
+                    }
+                } else {
+                    let i = Math.floor((top - headerHeight + 500) / oneHeight);
+                    console.log(i);
+                    if (i >= 0 && i <= 4) {
+                        $('#nav li').eq(i).addClass('active').siblings('.active').removeClass('active')
+                    } else {
+                        $('#nav li').removeClass('active')
+                    }
+                }
+            }
+        })
+
+        $('.goTop').click(function () {
+            console.log($(this).index());
+            document.documentElement.scrollTop = 0;
+            $('#nav li').removeClass('active')
+        })
+        $('.goBottom').click(function () {
+            console.log($(this).index());
+            document.documentElement.scrollTop = headerHeight + oneHeight * 5;
+            $('#nav li').removeClass('active')
+        })
+
+        $('#nav li').click(function () {
+            console.log($(this).index());
+            if ($(this).index() == 0) {
+                document.documentElement.scrollTop = headerHeight;
+                $('#nav li').eq(0).addClass('active').siblings('.active').removeClass('active')
+            } else if ($(this).index() == 1) {
+                document.documentElement.scrollTop = headerHeight + oneHeight;
+                $('#nav li').eq(1).addClass('active').siblings('.active').removeClass('active')
+            } else if ($(this).index() == 2) {
+                document.documentElement.scrollTop = headerHeight + oneHeight * 2;
+                $('#nav li').eq(2).addClass('active').siblings('.active').removeClass('active')
+            } else if ($(this).index() == 3) {
+                document.documentElement.scrollTop = headerHeight + oneHeight * 3;
+                $('#nav li').eq(3).addClass('active').siblings('.active').removeClass('active')
+            } else if ($(this).index() == 4) {
+                document.documentElement.scrollTop = headerHeight + oneHeight * 4;
+                $('#nav li').eq(4).addClass('active').siblings('.active').removeClass('active')
+            }
+        })
+    </script>
+</body>
+
+</html>

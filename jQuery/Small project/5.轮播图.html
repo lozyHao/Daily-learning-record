@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>13-轮播图1</title>
+    <title>轮播图1</title>
 </head>
 <style>
     * {
@@ -18,7 +18,7 @@
         width: 700px;
         height: 300px;
         margin: 50px auto;
-        background-color: red;
+        background-color: rgb(255, 255, 255);
         position: relative;
     }
 
@@ -55,7 +55,7 @@
         height: 100%;
         position: absolute;
         top: 0;
-        left: 5px;
+        left: 0;
         display: flex;
         align-items: center;
     }
@@ -76,7 +76,7 @@
         height: 100%;
         position: absolute;
         top: 0;
-        right: 5px;
+        right: 0;
         display: flex;
         align-items: center;
     }
@@ -181,9 +181,17 @@
                     i = 0
                 }
                 change() //调用切换方法
-            }, 4000);
+            }, 6000);
         }
         run() //开启定时器
+
+        $('#lunbo').mouseover(function () {
+            // 先清空定时器
+            clearInterval(timer)
+        })
+        $('#lunbo').mouseout(function () {
+            run() //开启定时器
+        })
     </script>
 </body>
 

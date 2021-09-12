@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/common.css">
+    <title>放大镜效果</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .left {
+            width: 350px;
+            height: 420px;
+            border: 1px solid #eee;
+            position: absolute;
+            left: 20px;
+            top: 20px;
+        }
+
+        .list {
+            width: 350px;
+            height: 50px;
+            margin-top: 10px;
+        }
+
+        .list img {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            border: 2px solid rgb(255, 255, 255);
+        }
+        .list img.active{
+            border: 2px solid red;
+        }
+
+        .right{
+            width: 500px;
+            height: 500px;
+            border: 1px solid rgb(199, 199, 199);
+            position: absolute;
+            /* left: 380px;
+            top: 20px; */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="left">
+        <img src="./img/lankou/middle1.jpg" alt="">
+        <ul class="list flex j-s">
+            <img class="active" src="./img//lankou/small1.jpg" alt="">
+            <img src="./img//lankou/small2.jpg" alt="">
+            <img src="./img//lankou/small3.jpg" alt="">
+            <img src="./img//lankou/small4.jpg" alt="">
+        </ul>
+    </div>
+    <div class="right"></div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+        // 设置right的位置
+        let top1=$('.left').position().top;
+        let left1=$('.left').position().left+$('.left').innerWidth()+10;
+        $('.right').css({
+            left:left1,
+            top:top1
+        })
+    </script>
+</body>
+
+</html>

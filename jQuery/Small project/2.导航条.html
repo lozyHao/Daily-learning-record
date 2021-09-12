@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9-制作导航条</title>
+    <title>制作导航条</title>
 </head>
 <style>
     * {
@@ -20,6 +20,7 @@
         background: #eeeeee;
         display: flex;
         align-items: center;
+        user-select: none;
     }
 
     #nav .title {
@@ -43,9 +44,16 @@
         line-height: 40px;
         border-bottom: 2px solid transparent;
     }
+    #nav li:first-child {
+        cursor: default;
+    }
+
+    #nav .active {
+        border-bottom: 2px solid rgb(59, 153, 51);
+    }
 
     #nav li:hover {
-        border-bottom: 2px solid #369;
+        border-bottom: 2px solid rgba(100, 100, 100, 0.2);
     }
 </style>
 
@@ -74,9 +82,18 @@
                     // 将li标签追加到#nav中
                     $("#nav").append(li)
                 });
+                $("li").eq(1).addClass("active")
+                $('li').click(function () {
+                    if($(this).index()==0){
+                        $("li").eq(0).addClass("");
+                    }else{
+                        $(this).addClass("active").siblings(".active").removeClass("active")
+                    }
+                })
             })
         }
         loadMenu();
+
     </script>
 </body>
 

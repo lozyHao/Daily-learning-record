@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拖动框效果</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #move {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 200px;
+            background: red;
+            cursor: move;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="move">Hello</div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+        let canMove = false; //是否可以移动的状态
+
+        let x = 0; //表示点击在元素上的位置
+        let y = 0;
+
+        $('#move').mousedown(function (e) {
+            canMove = true;
+            x = e.pageX - $('#move').position().left;
+            y = e.pageY - $('#move').position().top;
+            console.log(x, y);
+        })
+        $(window).mousemove(function (e) {
+            e.preventDefault(); //取消文字的默认拖动行为
+            
+            // 最大移动区域
+            let maxLeft = $(window).innerWidth() - $('#move').innerWidth();
+            let maxTop = $(window).innerHeight() - $('#move').innerHeight();
+
+            if (canMove) {
+                let { pageX, pageY } = e;
+
+                let left = pageX - x;
+                if (left <= 0)
+                    left = 0;
+                if (left > maxLeft)
+                    left = maxLeft;
+                let top = pageY - y;
+                if (top <= 0)
+                    top = 0;
+                if (top >= maxTop)
+                    top = maxTop;
+
+                $('#move').css({
+                    top: top + 'px',
+                    left: left + 'px'
+                });
+            }
+        }).mouseup(function () {
+            canMove = false;
+        })
+
+    </script>
+</body>
+
+</html>

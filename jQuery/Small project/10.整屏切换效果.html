@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>22-整屏切换效果之扩展</title>
+    <title>整屏切换效果</title>
     <link rel="stylesheet" href="../css/common.css">
     <style>
         #container {
@@ -54,15 +54,26 @@
         <div class="five">five</div>
     </div>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
-    <script src="../js/bingJq.js"></script>
     <script>
-
-        // 调用给jquery注册的鼠标滚轮事件方法
-        $.mousewheel(move)
+        if (window.onmousewheel === undefined) {
+            // 表示：当前浏览器是火狐
+            window.addEventListener("DOMMouseScroll", function (e) {
+                // detail<0 表示滚轮往上，detail>0 表示滚轮往下
+                let { detail } = e
+                move(detail < 0)
+            })
+        } else {
+            // 表示：当前浏览器是谷歌
+            // onmousewheel是鼠标滚轮事件
+            window.onmousewheel = function (e) {
+                // wheelDelta>0 表示滚轮往上，wheelDelta<0 表示滚轮往下
+                let { wheelDelta } = e
+                move(wheelDelta > 0)
+            }
+        }
 
         let i = 0  //定义i表示翻屏数量
         let date = null  //定义日期，用于节流操作
-
         function move(ismove) {
             if (new Date() - date >= 500) {
                 if (-ismove < 0) {
