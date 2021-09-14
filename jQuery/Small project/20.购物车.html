@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购物车</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .box {
+            width: 1200px;
+            padding: 10px;
+            border: 1px solid rgb(23, 146, 168);
+            margin: 20px auto;
+            background: rgb(23, 146, 168);
+        }
+
+        .title {
+            width: 1200px;
+            height: 40px;
+            background: rgb(23, 146, 168);
+            color: white;
+            font-size: 25px;
+            text-align: center;
+            line-height: 40px;
+            font-family: "Geometr415 Blk BT Black";
+        }
+
+        table {
+            width: 1200px;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th,
+        td {
+            border: 1px solid rgb(23, 146, 168);
+            padding: 5px;
+            text-align: center;
+        }
+
+        img {
+            width: 200px;
+            height: 200px;
+        }
+
+        .cheese {
+            width: 50px;
+        }
+
+        .name,
+        .img,
+        .type {
+            width: 220px;
+        }
+
+        .price0,
+        .xiaoji,
+        .num,
+        .konzhi {
+            width: 100px;
+        }
+
+        .count input {
+            width: 30px;
+            text-align: center;
+            outline: none;
+        }
+
+        .count button {
+            width: 20px;
+            cursor: pointer;
+        }
+
+        .delete {
+            width: 80px;
+            height: 40px;
+            font-size: 20px;
+            background: rgb(23, 146, 168);
+            border: none;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="title">MY SHOOPING CART</div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="cheese">
+                        <input class="check_all" type="checkbox" style="cursor: pointer;"> 全选
+                    </th>
+                    <th class="name">名称</th>
+                    <th class="img">图片</th>
+                    <th class="type">属性</th>
+                    <th class="price0">价格(件/元)</th>
+                    <th class="num">数量(件)</th>
+                    <th class="xiaoji">小计(元)</th>
+                    <th class="konzhi">操作</th>
+                </tr>
+            </thead>
+            <tbody id="goods">
+                <!-- 利用模板引擎 -->
+                <script id="goods_temp" type="text/html">
+                    {{each $data item}}
+                    <tr>
+                        <td>
+                            <input class="ck" type="checkbox" style="cursor: pointer;">
+                        </td>
+                        <td>{{item.name}}</td>
+                        <td><img src="{{item.img}}"
+                                alt=""></td>
+                        <td style="text-align: left;">{{item.type}}</td>
+                        <td class="price">{{item.price}}</td>
+                        <td class="count">
+                            <button class="count_sub">-</button>
+                            <input readonly class="count_num" type="text" value="{{item.count}}">
+                            <button class="count_add">+</button>
+                        </td>
+                        <td class="total_price">{{item.count*item.price}}</td>
+                        <td>
+                            <button class="delete">删 除</button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </script>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <!-- colspan  合并单元格 -->
+                    <td colspan="8" style="text-align: right;">
+                        <span>总计：</span>
+                        <span id="sum">0 元</span>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script src="../js/artTemplate.js"></script>
+    <script>
+        // 模板引擎显示
+        $.get('./data/goods.json', res => {
+            $('#goods').html(template('goods_temp', res))
+        })
+
+        // 数量加减
+        $('#goods').on('click', '.count_sub', function () {
+            // 获取数量并修改数量
+            let count = $(this).siblings('.count_num').val();
+            count--;
+            if (count < 1) {
+                count = 1;
+                alert('请注意，最小不少于1件！')
+            }
+            $(this).siblings('.count_num').val(count);
+            // 获取单价
+            let price = parseInt($(this).parent().siblings('.price').text());
+            console.log(price);
+            // 更新小计
+            $(this).parent().siblings('.total_price').text(count * price);
+            sumPrice(); //调用更新总计的方法
+
+        })
+        $('#goods').on('click', '.count_add', function () {
+            let count = $(this).siblings('.count_num').val();
+            count++;
+            if (count > 20) {
+                count = 20;
+                alert('请注意，最多不超过20件！')
+            }
+            $(this).siblings('.count_num').val(count);
+            // 获取单价
+            let price = parseInt($(this).parent().siblings('.price').text());
+            console.log(price);
+            // 更新小计
+            $(this).parent().siblings('.total_price').text(count * price);
+            sumPrice(); //调用更新总计的方法
+        })
+
+        // 全选按钮点击事件
+        $('.check_all').click(function () {
+            // prop() 用于获取表单元素的状态属性值
+            // 获取所有的 ck
+            $('#goods .ck').prop('checked', $(this).prop('checked'));
+            sumPrice(); //调用更新总计的方法
+        })
+        // 每一件商品的复选框事件
+        $('#goods').on('click', '.ck', function () {
+            // 表示是否全选
+            let isAllchecked = true;
+            $('#goods .ck').each(function (index, ck) {
+                // 遍历每一项，只要有一项没有选中，就未全选
+                if (!$(ck).prop('checked')) {
+                    isAllchecked = false;
+                }
+            })
+            $('.check_all').prop('checked', isAllchecked)
+            sumPrice(); //调用更新总计的方法
+        })
+
+        // 计算总计
+        function sumPrice() {
+            // 获取总计
+            let sum = 0;
+            $('#goods .ck').each(function (index, ck) {
+
+                // 遍历每一项,找出状态为true的复选框并计数
+                if ($(ck).prop('checked')) {
+                    sum += parseInt($(ck).parent().siblings('.total_price').text());
+                }
+
+            })
+            // 更新总计
+            console.log(sum);
+            $('#sum').text(sum+' 元');
+        }
+
+        // 点击删除功能
+        $('#goods').on('click', '.delete', function () {
+            confirm("是否删除")==true?$(this).parents('tr').remove():'';
+            
+            sumPrice(); //调用更新总计的方法
+        })
+    </script>
+</body>
+
+</html>

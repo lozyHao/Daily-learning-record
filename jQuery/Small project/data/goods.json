@@ -1,0 +1,31 @@
+[
+    {
+        "id":"1001",
+        "name":"联想(Lenovo)拯救者R9000X",
+        "img":"https://img14.360buyimg.com/n0/jfs/t1/186845/4/18936/245956/611b7539Eaae2e59f/de76533306681bdd.jpg",
+        "price":9199.00,
+        "type":"15.6英寸游戏笔记本电脑(锐龙8核R7-5800H 16G 512G RTX3060 2.5k 165Hz) 钛晶灰",
+        "count":2
+    },{
+        "id":"1002",
+        "name":"联想(Lenovo)拯救者Y9000K",
+        "img":"https://img14.360buyimg.com/n0/jfs/t1/194746/22/4788/425648/60ac5302Ec5295dcf/ffe7dcdbd48aa750.jpg",
+        "price":17999.00,
+        "type":"16英寸游戏笔记本电脑(十一代i7-11800H 32G 1T RTX3080 2.5k 165Hz100%sRGB) 灰",
+        "count":3
+    },{
+        "id":"1003",
+        "name":"联想(Lenovo)拯救者R7000",
+        "img":"https://img14.360buyimg.com/n0/jfs/t1/183539/3/20831/234387/61234a49E62d89001/45ac0319a6739bb1.jpg",
+        "price":6799.00,
+        "type":"2021 15.6英寸游戏笔记本电脑(新锐龙 8核 R7-5800H 16G 512G RTX3050 100%sRGB) 黑",
+        "count":1
+    },{
+        "id":"1004",
+        "name":"联想(Lenovo)拯救者R7000P",
+        "img":"https://img14.360buyimg.com/n0/jfs/t1/188050/7/5349/314355/60b0e56fE193c974b/717580302a6a2aa7.jpg",
+        "price":7199.00,
+        "type":"2021 15.6英寸游戏笔记本电脑(新锐龙 8核 R7-5800H 16G 512G RTX3050Ti 165Hz) 黑",
+        "count":2
+    }
+]
