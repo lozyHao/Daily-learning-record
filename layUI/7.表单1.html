@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <title>表单</title>
+</head>
+
+<body>
+    <h2>首先表示为表单元素块 class="layui-form" ，再将表单元素块放于其中</h2>
+    <p>标题属性：class="layui-form-label" / form属性：layui-input-*(inline占据部分宽度 / block 占据全部宽度)</p>
+    <form action='' class="layui-form">
+        <h2>1.输入框 </h2>
+        <!-- 区块结构，响应式布局：class="layui-form-item" -->
+        <div class="layui-form-item">
+            <label class="layui-form-label">标题</label>
+            <div class="layui-input-inline">
+                <input type="text" name="title" required lay-verify="required" placeholder="请输入名字" autocomplete="off"
+                    class="layui-input">
+            </div>
+        </div>
+
+        <h2>2.下拉选择框</h2>
+        <h3>2.1 基本使用</h3>
+        <div class="layui-form-item">
+            <label class="layui-form-label">标题</label>
+            <div class="layui-input-inline">
+                <select name="city" lay-verify="required">
+                    <option value="">请选择一个城市</option>
+                    <option value="01">北京</option>
+                    <option value="02">上海</option>
+                    <option value="03">杭州</option>
+                </select>
+            </div>
+        </div>
+
+        <h3>2.2 selected 来设定默认选中项 / disabled 警用效果(select和option标签都支持)</h3>
+        <div class="layui-form-item">
+            <select name="city" lay-verify="">
+                <option value="010">北京</option>
+                <option value="021" disabled>上海（禁用效果）</option>
+                <option value="0571" selected>杭州</option>
+            </select>
+        </div>
+
+        <h3>2.3 optgroup 标签给select分组</h3>
+        <div class="layui-form-item">
+            <select name="quiz">
+                <option value="">请选择</option>
+                <optgroup label="城市记忆">
+                    <option value="你工作的第一个城市">你工作的第一个城市？</option>
+                </optgroup>
+                <optgroup label="学生时代">
+                    <option value="你的工号">你的工号？</option>
+                    <option value="你最喜欢的老师">你最喜欢的老师？</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <h3>2.4 设定属性 lay-search 来开启搜索匹配功能</h3>
+        <div class="layui-form-item">
+            <select name="city" lay-verify="" lay-search>
+                <option value="010">layer</option>
+                <option value="021">form</option>
+                <option value="0571" selected>layim</option>
+                ……
+            </select>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+
+
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="./layui/layui.js"></script>
+    <script>
+        //Demo
+        layui.use('form', function () {
+            var form = layui.form;
+
+            //监听提交
+            form.on('submit(formDemo)', function (data) {
+                layer.msg(JSON.stringify(data.field));
+                return false;
+            });
+        });
+    </script>
+</body>
+
+</html>

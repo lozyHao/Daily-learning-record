@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <title>按钮</title>
+</head>
+
+<body>
+
+    <!-- 1. 普通按钮/跳转按钮 -->
+    <h2>1. 普通按钮/跳转按钮</h2>
+    <button type="button" class="layui-btn">一个标准的按钮</button>
+    <a href="http://www.layui.com" class="layui-btn">一个可跳转的按钮</a>
+
+    <!-- 2.不同主题的按钮 -->
+    <h2>2.不同主题的按钮</h2>
+    <h2>2.1 不同主题--背景 layui-btn-*</h2>
+    <div>
+        <button type="button" class="layui-btn layui-btn-primary">原始按钮</button>
+        <button type="button" class="layui-btn">默认按钮</button>
+        <button type="button" class="layui-btn layui-btn-normal">百搭按钮</button>
+        <button type="button" class="layui-btn layui-btn-warm">软色按钮</button>
+        <button type="button" class="layui-btn layui-btn-danger">警告按钮</button>
+        <button type="button" class="layui-btn layui-btn-disabled">警用按钮</button>
+    </div>
+    <h2>2.2 不同主题--边框 layui-border-green</h2>
+    <div>
+        <button type="button" class="layui-btn layui-btn-primary layui-border-green">主色按钮</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-border-blue">百搭按钮</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-border-orange">软色按钮</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-border-red">警告按钮</button>
+        <button type="button" class="layui-btn layui-btn-primary layui-border-black">深色按钮</button>
+    </div>
+    <h2>2.3 不同尺寸 layui-btn-*（lg、sm、xs）--默认色</h2>
+    <div>
+        <button type="button" class="layui-btn layui-btn-lg">大型按钮</button>
+        <button type="button" class="layui-btn">默认按钮</button>
+        <button type="button" class="layui-btn layui-btn-sm">小型按钮</button>
+        <button type="button" class="layui-btn layui-btn-xs">迷你按钮</button>
+    </div>
+    <h2>2.4 不同尺寸--不同色</h2>
+    <div>
+        <button type="button" class="layui-btn layui-btn-lg layui-btn-normal">大型百搭</button>
+        <button type="button" class="layui-btn layui-btn-warm">正常暖色</button>
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-danger">小型警告</button>
+        <button type="button" class="layui-btn layui-btn-xs layui-btn-disabled">迷你警用</button>
+    </div>
+    <button type="button" class="layui-btn layui-btn-fluid">流体按钮（最大化适应）</button>
+    <h2>2.5 圆角 layui-btn-radius</h2>
+    <div>
+        <button type="button" class="layui-btn layui-btn-radius layui-btn-primary">原始按钮</button>
+        <button type="button" class="layui-btn layui-btn-radius">默认按钮</button>
+        <button type="button" class="layui-btn layui-btn-radius layui-btn-normal">百搭按钮</button>
+        <button type="button" class="layui-btn layui-btn-radius layui-btn-warm">软色按钮</button>
+        <button type="button" class="layui-btn layui-btn-radius layui-btn-danger">警告按钮</button>
+        <button type="button" class="layui-btn layui-btn-radius layui-btn-disabled">警用按钮</button>
+    </div>
+
+    <h2>3.图标</h2>
+    <button type="button" class="layui-btn">
+        <i class="layui-icon layui-icon-down layui-font-12"></i> 按钮
+    </button>
+    <button type="button" class="layui-btn layui-btn-sm layui-btn-primary">
+        <i class="layui-icon layui-icon-left"></i>
+    </button>
+
+    <h2>4. 按钮组 layui-btn-group</h2>
+    <div class="layui-btn-group">
+        <button type="button" class="layui-btn">增加</button>
+        <button type="button" class="layui-btn">编辑</button>
+        <button type="button" class="layui-btn">删除</button>
+    </div>
+    <div class="layui-btn-group">
+        <button type="button" class="layui-btn layui-btn-sm">
+            <i class="layui-icon">&#xe654;</i>
+        </button>
+        <button type="button" class="layui-btn layui-btn-sm">
+            <i class="layui-icon">&#xe642;</i>
+        </button>
+        <button type="button" class="layui-btn layui-btn-sm">
+            <i class="layui-icon">&#xe640;</i>
+        </button>
+        <button type="button" class="layui-btn layui-btn-sm">
+            <i class="layui-icon">&#xe602;</i>
+        </button>
+    </div>
+    <div class="layui-btn-group">
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
+            <i class="layui-icon">&#xe654;</i>
+        </button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
+            <i class="layui-icon">&#xe642;</i>
+        </button>
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">
+            <i class="layui-icon">&#xe640;</i>
+        </button>
+    </div>
+
+    <h2>5. 按钮容器 layui-btn-container</h2>
+    <div class="layui-btn-container">
+        <button type="button" class="layui-btn">按钮一</button> 
+        <button type="button" class="layui-btn">按钮二</button> 
+        <button type="button" class="layui-btn">按钮三</button> 
+      </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="./layui/layui.js"></script>
+</body>
+
+</html>

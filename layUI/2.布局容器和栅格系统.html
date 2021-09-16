@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <title>布局容器和栅格系统</title>
+</head>
+
+<body>
+    <!-- 1.布局容器 -->
+    <h2>1.布局容器</h2>
+    <!-- 1.1 固定宽度 -->
+    <h2>1.1 固定宽度</h2>
+    <div class="layui-container">
+        <div class="layui-row" style="background: red;">
+            ……
+        </div>
+        <div class="layui-row">
+            ……
+        </div>
+        <div class="layui-row">
+            ……
+        </div>
+    </div>
+    <!-- 1.2 不固定宽度 -->
+    <h2>1.2 不固定宽度</h2>
+    <div class="layui-fluid">
+        <div class="layui-row" style="background: red;">
+            1
+        </div>
+        <div class="layui-row">
+            2
+        </div>
+        <div class="layui-row">
+            3
+        </div>
+    </div>
+
+    <!-- 2.栅格系统 -->
+    <!-- 2.1 栅格系统 -->
+    <h2>2.1 栅格系统 layui-col-*</h2>
+    <div class="layui-container">
+        常规布局（以中型屏幕桌面为例）：
+        <!-- 定义行 -->
+        <div class="layui-row">
+            <!-- 定义列 -->
+            <div class="layui-col-md9" style="background: sandybrown;">
+                你的内容 9/12
+            </div>
+            <div class="layui-col-md3" style="background: salmon;">
+                你的内容 3/12
+            </div>
+        </div>
+
+        移动设备、平板、桌面端的不同表现：
+        <div class="layui-row">
+            <div class="layui-col-xs6 layui-col-sm6 layui-col-md4" style="background: seagreen;">
+                移动：6/12 | 平板：6/12 | 桌面：4/12
+            </div>
+            <div class="layui-col-xs6 layui-col-sm6 layui-col-md4" style="background: rgb(107, 128, 116);">
+                移动：6/12 | 平板：6/12 | 桌面：4/12
+            </div>
+            <div class="layui-col-xs4 layui-col-sm12 layui-col-md4" style="background: rgb(34, 80, 54);">
+                移动：4/12 | 平板：12/12 | 桌面：4/12
+            </div>
+            <div class="layui-col-xs4 layui-col-sm7 layui-col-md8" style="background: rgb(21, 211, 103);">
+                移动：4/12 | 平板：7/12 | 桌面：8/12
+            </div>
+            <div class="layui-col-xs4 layui-col-sm5 layui-col-md4" style="background: rgb(54, 97, 73);">
+                移动：4/12 | 平板：5/12 | 桌面：4/12
+            </div>
+        </div>
+    </div>
+    <!-- 2.2 列间距 -->
+    <h2>2.3 列偏移 layui-col-space10</h2>
+    <div class="layui-row layui-col-space20">
+        <div class="layui-col-md4">
+            <div style="background: red;">
+                1/3
+            </div>
+        </div>
+        <div class="layui-col-md4">
+            <div style="background: red;">
+                1/3
+            </div>
+        </div>
+        <div class="layui-col-md4">
+            <div style="background: red;">
+                1/3
+            </div>
+        </div>
+    </div>
+
+    <!-- 2.3 列偏移 -->
+    <h2>2.3 列偏移 layui-col-md-offset4</h2>
+    <div class="layui-row">
+        <div class="layui-col-md4" style="background: darkcyan;">
+            4/12
+        </div>
+        <div class="layui-col-md4 layui-col-md-offset4" style="background: rgb(78, 119, 119);">
+            偏移4列，从而在最右
+        </div>
+    </div>
+
+    <!-- 2.4 栅格嵌套 -->
+    <h2>2.4 栅格嵌套</h2>
+    <div class="layui-row layui-col-space5">
+        <div class="layui-col-md5">
+            <div class="layui-row grid-demo">
+                <div class="layui-col-md3" style="background: darkmagenta;">
+                    内部列
+                </div>
+                <div class="layui-col-md9" style="background: rgb(184, 123, 184);">
+                    内部列
+                </div>
+                <div class="layui-col-md12" style="background: rgb(95, 31, 95);">
+                    内部列
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md7">
+            <div class="layui-row grid-demo grid-demo-bg1">
+                <div class="layui-col-md12" style="background: rgb(148, 94, 148);">
+                    内部列
+                </div>
+                <div class="layui-col-md9" style="background: rgb(240, 202, 240);">
+                    内部列
+                </div>
+                <div class="layui-col-md3" style="background: rgb(175, 46, 175);">
+                    内部列
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="./layui/layui.js"></script>
+    <script>
+
+    </script>
+</body>
+
+</html>
