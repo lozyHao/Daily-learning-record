@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <title>分页</title>
+</head>
+
+<body>
+
+    <div id="test1"></div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="./layui/layui.js"></script>
+    <script>
+        layui.use('laypage', function () {
+            var laypage = layui.laypage;
+
+            //执行一个laypage实例
+            laypage.render({
+                elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+                , count: 50 //数据总数，从服务端得到
+                , limit: 5 //每页显示的条数
+                , limits: [5, 10, 20, 30, 40, 50] //每页条数的选择项 layout 参数开启了 limit，
+                , layout: ['prev', 'page', 'next', 'limit'] //自定义排版。可选值有：count（总条目输区域）、prev（上一页区域）、page（分页区域）、next（下一页区域）、limit（条目选项区域）、refresh（页面刷新区域。注意：layui 2.3.0 新增） 、skip（快捷跳页区域）
+                , groups: 7 //连续显示页码数
+                , jump: function (obj, first) {//切换页码的回调函数
+                    console.log(obj.curr); //得到当前页
+                    console.log(obj.limit); //得到每页显示的条数
+                    //首次不执行
+                    if (!first) {
+                        //do something
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

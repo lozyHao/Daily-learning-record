@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>table模块</title>
+    <link rel="stylesheet" href="./layui/css/layui.css" media="all">
+</head>
+
+<body>
+
+    <!-- 1.方法渲染 只是“方法级渲染”将基础参数的设定放在了JS代码中，且原始的 table 标签只需要一个 选择器-->
+    <table id="demo" lay-filter="test"></table>
+
+    <!-- 2.自动渲染 在一段 table 容器中配置好相应的参数，由 table 模块内部自动对其完成渲染，而无需你写初始的渲染方法。-->
+    <table class="layui-table" lay-data="{height:315, url:'./data/user.json', page:true, id:'test'}" lay-filter="test">
+        <thead>
+            <tr>
+                <th lay-data="{field:'id', width:80, sort: true}">ID</th>
+                <th lay-data="{field:'username', width:80}">用户名</th>
+                <th lay-data="{field:'sex', width:80, sort: true}">性别</th>
+                <th lay-data="{field:'city'}">城市</th>
+                <th lay-data="{field:'sign'}">签名</th>
+            </tr>
+        </thead>
+    </table>
+
+    <!-- 3.转换静态表格 -->
+    <table lay-filter="demo">
+        <thead>
+            <tr>
+                <th lay-data="{field:'username', width:100}">昵称</th>
+                <th lay-data="{field:'experience', width:80, sort:true}">积分</th>
+                <th lay-data="{field:'sign'}">签名</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>贤心1</td>
+                <td>66</td>
+                <td>人生就像是一场修行a</td>
+            </tr>
+            <tr>
+                <td>贤心2</td>
+                <td>88</td>
+                <td>人生就像是一场修行b</td>
+            </tr>
+            <tr>
+                <td>贤心3</td>
+                <td>33</td>
+                <td>人生就像是一场修行c</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="./layui/layui.js"></script>
+    <script>
+        layui.use('table', function () {
+            var table = layui.table;
+            //1.方法渲染--执行渲染
+            table.render({
+                elem: '#demo' //指定原始表格元素选择器（推荐id选择器）
+                , height: 315 //容器高度
+                , url: './data/user.json' //数据接口
+                , cols: [[ //表头
+                    { field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left' }
+                    , { field: 'username', title: '用户名', width: 80 }
+                    , { field: 'sex', title: '性别', width: 80, sort: true }
+                    , { field: 'city', title: '城市', width: 80 }
+                    , { field: 'sign', title: '签名', width: 177 }
+                ]] //设置表头
+                //,…… //更多参数参考右侧目录：基本参数选项
+            });
+
+            //3.转换静态表格
+            table.init('demo', {
+                height: 315 //设置高度
+                , limit: 10 //注意：请务必确保 limit 参数（默认：10）是与你服务端限定的数据条数一致
+                //支持所有基础参数
+            });
+        });
+    </script>
+</body>
+
+</html>

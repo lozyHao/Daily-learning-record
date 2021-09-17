@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>table模块</title>
+    <link rel="stylesheet" href="./layui/css/layui.css" media="all">
+</head>
+
+<body>
+    <!-- 开启分页 -->
+    <table id="demo" lay-filter="test"></table>
+
+    <!-- 绑定表头工具栏 -->
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        <!-- 这里同样支持 laytpl 语法，如： -->
+        {{#  if(d.auth > 2){ }}
+          <a class="layui-btn layui-btn-xs" lay-event="check">审核</a>
+        {{#  } }}
+    </script>
+
+    <!-- 绑定行工具栏 -->
+    <script type="text/html" id="barDemo1">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="./layui/layui.js"></script>
+    <script>
+        layui.use('table', function () {
+            var table = layui.table;
+
+            //第一个实例
+            table.render({
+                elem: '#demo' //绑定容器
+                , url: './data/user.json' //数据接口
+                , page: true //开启分页
+                , cols: [[ //表头
+                    // 添加序号
+                    { field: 'aa', title: '序号', type: "numbers" }
+                    // 添加复选框
+                    , { field: 'aa', type: "checkbox" }
+                    , { field: 'id', title: '用户编号', width: 80, sort: true ,edit:'text'}
+                    , { field: 'username', title: '用户名', width: 80 }
+                    , { field: 'sex', title: '性别', width: 80, sort: true }
+                    , { field: 'city', title: '城市', width: 80,edit:'text'}
+                    , { field: 'sign', title: '签名', width: 177 }
+                    , { field: '操作', title: '操作', toolbar: "#barDemo1" }
+                ]],
+                toolbar: '#barDemo'
+            });
+
+            // 1.监听表头工具栏事件
+            // toolbar(test) lay-filiter属性
+            table.on('toolbar(test)', function (obj) {
+                // 获取当前表格选中的对象记录
+                var checkStatus = table.checkStatus(obj.config.id);
+                console.log(checkStatus);
+                // 通过事件名判断
+                switch (obj.event) {
+                    case 'detail':
+                        let arr = checkStatus.data;
+                        layer.msg(JSON.stringify(arr));
+                        break;
+                    case 'edit':
+                        layer.msg('编辑');
+                        break;
+                    case 'del':
+                        layer.msg('删除');
+                        break;
+                };
+            });
+
+            // 2.监听行工具栏事件
+            table.on('tool(test)', function (obj) {
+                // 获取当前表格选中的对象记录
+                var tr = obj.data;
+                console.log(tr);
+                // 通过事件名判断
+                switch (obj.event) {
+                    case 'edit':
+                        layer.prompt({
+                            // 表单元素的类型 0-文本框 1-密码框 2-文本域
+                            formType:0,
+                            value:tr.username
+                        },function(value,index){
+                            // 修改该元素值，为 value
+                            obj.update({
+                                username:value
+                            })
+                            layer.close(index);
+                        })
+                        break;
+                    case 'del':
+                        layer.confirm("是否该删除？",function(index){
+                            obj.del();
+                            layer.close(index);
+                        })
+                        break;
+                };
+            });
+
+            // 3.监听单元格编辑事件
+            // 首先设置表头 edit:'text' 类型才能可编辑(默认不开启)
+            table.on('edit(test)',function(obj){
+                console.log(obj);
+                let value=obj.value;
+                let data=obj.data;
+                let field=obj.field;
+
+                layer.msg("[ID:"+data.id+"]的"+field+"字段修改为："+value)
+            })
+
+        });
+    </script>
+</body>
+
+</html>

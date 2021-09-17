@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <title>弹出层-layer</title>
+</head>
+
+<body>
+    <div id="id" style="display: none;">12465789</div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="./layui/layui.js"></script>
+    <script>
+        // 1.直接作为layui组件使用
+        // layer.msg('hello');
+        // 2.在 layui 中使用 layer
+        // layui.use('layer', function () {
+        //     var layer = layui.layer;
+
+        //     layer.msg('hello1');
+        // });
+
+        // /!*
+        // 信息框
+        //     * /
+        // layer.open({
+        //     type: 0,
+        //     content: '12345789' //这里content是一个普通的String
+        // });
+
+        // /!*
+        // 如果是页面层
+        //     * /
+        // layer.open({
+        //     type: 1,
+        //     content: '传入任意的文本或html' //这里content是一个普通的String
+        // });
+        layer.open({
+            type: 1,
+            content: $('#id') //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+        });
+
+        //Ajax获取
+        // $.post('url', {}, function (str) {
+        //     layer.open({
+        //         type: 1,
+        //         content: str //注意，如果str是object，那么需要字符拼接。
+        //     });
+        // });
+
+        // /!*
+        // 如果是iframe层
+        //     * /
+        // layer.open({
+        //     type: 2,
+        //     content: 'http://www.baidu.com' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+        // });
+
+        // /!*
+        // 如果是用layer.open执行tips层
+        //     * /
+        // layer.open({
+        //     type: 4,
+        //     content: ['内容', '#id'] //数组第二项即吸附元素选择器或者DOM
+        // });
+    </script>
+</body>
+
+</html>

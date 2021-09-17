@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <title>日期和时间选择</title>
+</head>
+
+<body>
+    <div class="layui-inline">
+        <input type="text" class="layui-input" id="test1">
+    </div>
+
+    <input type="text" id="test2">
+    <input type="text" id="test3">
+    <input type="text" id="test4">
+    <input type="text" id="test5">
+
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="./layui/layui.js"></script>
+    <script>
+        // elem - 绑定元素
+        // type - 控件选择类型
+        // range - 开启左右面板日期范围选择
+        // format - 自定义格式
+        // value - 初始值
+        // isInitValue - 初始值填充
+        // isPreview - 是否开启选择值预览
+        // min/max - 最小/大范围内的日期时间值
+        // trigger - 自定义弹出控件的事件
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#test1' //指定元素
+            });
+            laydate.render({
+                elem: '#test2', //指定元素
+                type:'year',
+            });
+            laydate.render({
+                elem: '#test3', //指定元素
+                type:'datetime'
+            });
+            laydate.render({
+                elem: '#test4' //指定元素
+                ,range: true //或 range: '~' 来自定义分割字符
+            });
+            laydate.render({
+                elem: '#test5' //指定元素
+                ,format:'yyyy-MM-dd HH:mm:ss'
+            });
+        });
+    </script>
+</body>
+
+</html>

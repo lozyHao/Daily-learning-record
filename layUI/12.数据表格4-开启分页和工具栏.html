@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>table模块</title>
+    <link rel="stylesheet" href="./layui/css/layui.css" media="all">
+</head>
+
+<body>
+    <!-- 开启分页 -->
+    <table id="demo" lay-filter="test"></table>
+
+    <!-- 绑定表格工具栏 -->
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        <!-- 这里同样支持 laytpl 语法，如： -->
+        {{#  if(d.auth > 2){ }}
+          <a class="layui-btn layui-btn-xs" lay-event="check">审核</a>
+        {{#  } }}
+    </script>
+    <!-- 绑定表头工具栏 -->
+    <script type="text/html" id="barDemo1">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="./layui/layui.js"></script>
+    <script>
+        layui.use('table', function () {
+            var table = layui.table;
+
+            //第一个实例
+            table.render({
+                elem: '#demo' //绑定容器
+                , height: 312
+                , url: './data/user.json' //数据接口
+                , page: true //开启分页
+                , cols: [[ //表头
+                    { field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left' }
+                    , { field: 'username', title: '用户名', width: 80 }
+                    , { field: 'sex', title: '性别', width: 80, sort: true }
+                    , { field: 'city', title: '城市', width: 80 }
+                    , { field: 'sign', title: '签名', width: 177 }
+                    , { field: '操作', title: '操作', toolbar: "#barDemo1" }
+                ]],
+                toolbar: '#barDemo'
+            });
+        });
+    </script>
+</body>
+
+</html>
