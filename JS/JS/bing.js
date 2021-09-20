@@ -86,5 +86,43 @@ let $Luo = {
         return {
             h, m, s
         }
+    },
+
+    // 设置cookie
+    setCookie: function (cname, cvalue, exdays = 0) {
+        // 创建一个日起对象
+        var d = new Date();
+        // 设置过期事件
+        var expires = ''
+        if (exdays != 0) {
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + d.toGMTString();
+        }
+        // 保存cookie
+        document.cookie = cname + "=" + cvalue + expires;
+    },
+    // 获取cookie
+    getCookie: function (cname) {
+        let val = ''
+        // a=aa; b=bb; c=cc
+        // ['a=aa','b=bb','c=cc']
+        // [['a','aa'],['b','bb'],['c','cc']]
+        document.cookie.split(';').map(r => r.split('=')).forEach(e => {
+            if (e[0] == cname) val = e[1];
+        })
+        return val;
+    },
+    // 检测cookie
+    checkCookie: function () {
+        var username = getCookie("username");
+        if (username != "") {
+            alert("Welcome again " + username);
+        }
+        else {
+            username = prompt("Please enter your name:", "");
+            if (username != "" && username != null) {
+                setCookie("username", username, 365);
+            }
+        }
     }
 }

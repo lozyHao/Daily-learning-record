@@ -1,0 +1,49 @@
+{
+    "code": 0,
+    "msg": "",
+    "count": 50,
+    "data": [
+        {
+            "id": 10001,
+            "username": "user-1",
+            "sex": "女",
+            "city": "城市-1",
+            "sign": "签名-1"
+        },
+        {
+            "id": 10002,
+            "username": "user-2",
+            "sex": "男",
+            "city": "城市-2",
+            "sign": "签名-2"
+        },
+        {
+            "id": 10003,
+            "username": "user-3",
+            "sex": "女",
+            "city": "城市-3",
+            "sign": "签名-3"
+        },
+        {
+            "id": 10004,
+            "username": "user-4",
+            "sex": "男",
+            "city": "城市-4",
+            "sign": "签名-4"
+        },
+        {
+            "id": 10005,
+            "username": "user-5",
+            "sex": "女",
+            "city": "城市-5",
+            "sign": "签名-5"
+        },
+        {
+            "id": 10006,
+            "username": "user-6",
+            "sex": "男",
+            "city": "城市-6",
+            "sign": "签名-6"
+        }
+    ]
+}
