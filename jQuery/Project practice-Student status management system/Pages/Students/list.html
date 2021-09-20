@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <title>查询学生信息</title>
+
+    <style>
+        body {
+            flex: 1;
+            height: 100%;
+            width: 100%;
+            background: rgb(230, 230, 230);
+        }
+
+        .right_nav {
+            position: relative;
+            height: 40px;
+            width: 100%;
+        }
+
+        .layui-breadcrumb {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            height: 20px;
+        }
+
+        .layui-form {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            width: 200px;
+            height: 30px;
+        }
+
+        .layui-form-item {
+            width: 200px;
+        }
+
+        .layui-input-inline {
+            display: flex;
+        }
+
+        #right_nav_input {
+            width: 130px;
+            height: 30px;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+            border: none;
+            padding-left: 10px;
+            background: #ccc;
+        }
+
+        #right_nav_search {
+            width: 50px;
+            height: 30px;
+            text-align: center;
+            line-height: 0px;
+            font-size: 15px;
+            background: rgb(57, 61, 73);
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px;
+            color: white;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .right_content {
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .layui-table {
+            min-width: 1200px;
+            max-width: 1500px;
+            text-align: center;
+        }
+
+        .layui-table tr th {
+            background: rgb(73, 73, 73);
+            color: white;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .layui-table tr td {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .show_StudentInfo {
+            width: 100%;
+            height: 100%;
+            border-collapse: collapse;
+        }
+
+        .show_StudentInfo td{
+            border: 1px solid #ccc;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .show_StudentInfo tr>td:first-of-type {
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .show_ret{
+            width: 100%;
+            height: 100%;
+            border-collapse: collapse;
+        }
+        .show_ret td,
+        th {
+            border: 1px solid #ccc;
+            text-align: center;
+            padding: 10px;
+        }
+        .show_ret th{
+            font-size: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="right_nav">
+        <span class="layui-breadcrumb">
+            <a>学生管理</a>
+            <a><cite>查询学生</cite></a>
+        </span>
+        <div class="layui-form">
+            <div class="layui-form-item">
+                <div class="layui-input-inline">
+                    <input id="right_nav_input" class="layui-input" type="text" name="title" placeholder="请输入学生姓名"
+                        autocomplete="off">
+                    <button id="right_nav_search" class="layui-btn">查 询</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right_content">
+        <table class="layui-table">
+            <colgroup>
+                <col width="50">
+                <col width="50">
+                <col width="50">
+                <col width="50">
+                <col width="50">
+                <col width="200">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>学 号</th>
+                    <th>姓 名</th>
+                    <th>性 别</th>
+                    <th>出生日期</th>
+                    <th>年 级</th>
+                    <th>操 作</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                <!-- 利用数据表格模板显示数据 -->
+            </tbody>
+        </table>
+        <!-- 开启分页栏 -->
+        <div id="right_content_pages"></div>
+
+        <!-- 定义模板显示学生成绩 -->
+        <script id="temp3" type="text/html">
+            <table class="show_ret">
+                <tr>
+                    <th>课程名</th>
+                    <th>考试日期</th>
+                    <th>成绩</th>
+                </tr>
+                {{# layui.each(d.list,function(index,item){ }}
+                <tr>
+                    <td>{{item.Subject.SubjectName}}</td>
+                    <td>{{$b.getMiniDate(new Date(item.ExamDate))}}</td>
+                    <td>{{item.StudentResult}}</td>
+                </tr>
+                {{# }) }}
+            </table>
+        </script>
+
+        <!-- 定义单个学生信息表模板 -->
+        <script id="temp2" type="text/html">
+              <table class="show_StudentInfo">
+                <tr>
+                    <td>学号</td>
+                    <td>{{d.StudentNo}}</td>
+                </tr>
+                <tr>
+                    <td>姓名</td>
+                    <td>{{d.StudentName}}</td>
+                </tr>
+                <tr>
+                    <td>性别</td>
+                    <td>{{d.Sex=="M"?'男':'女'}}</td>
+                </tr>
+                <tr>
+                    <td>年级</td>
+                    <td>{{d.Grade.GradeName=='S1'?'大一':item.Grade.GradeName=='S2'?'大二':'大三'}}</td>
+                </tr>
+                <tr>
+                    <td>电话</td>
+                    <td>{{d.Phone}}</td>
+                </tr>
+                <tr>
+                    <td>地址</td>
+                    <td>{{d.Address}}</td>
+                </tr>
+                <tr>
+                    <td>出生日期</td>
+                    <td>{{$b.getMiniDate(new Date(d.BornDate))}}</td>
+                </tr>
+                <tr>
+                    <td>电子邮箱</td>
+                    <td>{{d.Email}}</td>
+                </tr>
+                <tr>
+                    <td>身份证号</td>
+                    <td>{{d.IdentityCard}}</td>
+                </tr>
+                <tr>
+                    <td>登录密码</td>
+                    <td>{{d.LoginPwd}}</td>
+                </tr>
+              </table>
+        </script>
+
+        <!-- 定义数据表格模板 -->
+        <script id="temp" type="text/html">
+            {{# layui.each(d.list,function(index,item){ }}
+              <tr>
+                  <td>{{item.StudentNo}}</td>
+                  <td>{{item.StudentName}}</td>
+                  <td>{{item.Sex=='M'?'女':'男'}}</td>
+                  <td>{{item.BornDate}}</td>
+                  <td>{{item.Grade.GradeName=='S1'?'大一':item.Grade.GradeName=='S2'?'大二':'大三'}}</td>
+                  <td>
+                    <button id="see_info" date-no="{{item.StudentNo}}" type="button" class="layui-btn">查看信息</button>
+                    <button id="show_results" date-no="{{item.StudentNo}}" type="button" class="layui-btn">查看成绩</button>
+                    <button id="update" date-no="{{item.StudentNo}}" type="button" class="layui-btn layui-btn-warm">修改</button>
+                    <button id="delete" date-no="{{item.StudentNo}}" type="button" class="layui-btn layui-btn-danger">删除</button>
+                  </td>
+              </tr>
+            {{# }) }} 
+        </script>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="../../layui/layui.js"></script>
+    <script src="../../js/bing.js"></script>
+    <script>
+        layui.use(['element', 'laypage', 'laytpl', 'layer'], function () {
+            // 导航 依赖 element 模块
+            var element = layui.element;
+            // 分页 依赖 laypage 模块
+            var laypage = layui.laypage;
+            // 模板引擎 laytpl 模块
+            var laytpl = layui.laytpl;
+            // 弹出层模块
+            var layer = layui.layer;
+
+
+            // 搜索框查询事件
+            $('#right_nav_search').click(function (e) {
+                getPage();
+            })
+
+            // 删除学生信息点击事件
+            $('#tbody').on('click', '#delete', function () {
+                let studentNo = $(this).attr('date-no')
+                layer.confirm('是否删除？',{icon:3,title:'提示'},function(index){
+                    
+                    $.post('http://www.bingjs.com:81/Student/Delete', {
+                        studentNo
+                    }, res => {
+                        if (res) {
+                            layer.msg(
+                                '删除成功!',
+                                { icon: 6, time: 1000 },
+                                function(){
+                                    getPage()
+                                }
+                            )
+                        }
+                    })
+                })
+            })
+
+            // 查看学生成绩弹出层
+            $('#tbody').on('click', '#show_results', function () {
+                let studentNo = $(this).attr('date-no')
+                $.get('http://www.bingjs.com:81/Result/GetResultsByStudentNo', {
+                    studentNo
+                }, res => {
+                    laytpl($('#temp3').html()).render(res, function (html) {
+                        layer.open({
+                            title: ['查询学生成绩', 'font-size:18px;text-align:center;font-weight:bold;'],
+                            type: 0,
+                            content: html
+                            , area: ['550px', '650px']
+                        });
+                    })
+                })
+            })
+
+            // 查看学生信息弹出层
+            $('#tbody').on('click', '#see_info', function () {
+                let studentNo = $(this).attr('date-no')
+                $.get('http://www.bingjs.com:81/Student/GetStudentByNo', {
+                    studentNo
+                }, res => {
+                    laytpl($('#temp2').html()).render(res, function (html) {
+                        console.log(res);
+                        console.log(html);
+                        layer.open({
+                            title: ['查询学生信息', 'font-size:18px;text-align:center;font-weight:bold;'],
+                            type: 0,
+                            content: html
+                            , area: ['550px', '650px']
+                        });
+                    })
+                })
+            })
+
+            // 修改学生信息弹出层
+            $('#tbody').on('click', '#update', function () {
+                //通过属性名获取绑定的值（学号）  或者 $(this).date('no')
+                // $(this).attr('date-xxx')  / $(this).date('xxx')
+                let studentNo = $(this).attr('date-no')
+                layer.open({
+                    title: ['修改学生信息', 'font-size:18px;text-align:center;font-weight:bold;'],
+                    type: 2,
+                    content: '../Students/update.html?student=' + studentNo //传参学号到相应网页
+                    , area: ['550px', '650px']
+                    , end: function () {
+                        // 该弹窗确认后关闭后的回调函数 执行刷新
+                        getPage();
+                    }
+                });
+            })
+
+            // 获取分页的方法
+            function getPage() {
+                $.get('http://www.bingjs.com:81/Student/GetStudentsConditionPages', {
+                    StudentName: $('#right_nav_input').val() //获取搜索框值
+                }, res => {
+                    laypage.render({
+                        elem: 'right_content_pages',  //注意，这里的 test1 是 ID，不用加 # 号
+                        count: res.count, // 数据总数，从服务端得到
+                        limit: 10, // 每页显示的条数
+                        limits: [5, 10, 20, 30, 40, 50],// 每页条数的选择项
+                        layout: ['prev', 'page', 'next', 'limit'],
+                        jump: function (obj, first) { //页面切换的回调
+                            // console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                            // console.log(obj.limit); //得到每页显示的条数
+                            getData(obj.curr, obj.limit);
+                        }
+                    });
+                })
+            }
+            getPage();
+
+            // 获取数据的方法
+            function getData(pageIndex = 1, pageSize = 10) {
+                $.get('http://www.bingjs.com:81/Student/GetStudentsConditionPages', {
+                    pageIndex,
+                    pageSize,
+                    StudentName: $('#right_nav_input').val() //获取搜索框值
+                }, res => {
+                    res.data.forEach(r => {
+                        let date = new Date(r.BornDate);
+                        r.BornDate = $b.getMiniDate(date);
+                    });
+                    // laytpl($('#temp').html)获取模板里面的内容
+                    laytpl($('#temp').html()).render({ list: res.data }, function (html) {
+                        $('#tbody').html(html);
+                    })
+                })
+            }
+        });
+    </script>
+</body>
+
+</html>

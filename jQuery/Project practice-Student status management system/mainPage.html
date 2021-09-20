@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <title>Lm 学生管理系统</title>
+
+    <style>
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            position: relative;
+            height: 60px;
+            background: rgb(41, 44, 53);
+        }
+
+        .header .logo {
+            position: absolute;
+            left: 10px;
+            font-size: 30px;
+            color: white;
+            line-height: 60px;
+            padding-left: 20px;
+            font-weight: bold;
+        }
+
+        .header_nav {
+            position: absolute;
+            right: 10px;
+        }
+
+        #loginId {
+            font-weight: bolder;
+            letter-spacing: 2px;
+            font-size: 20px;
+            /* background: #434855; */
+        }
+
+        .content {
+            flex: 1;
+            background: white;
+        }
+
+        .content .left_nav {
+            width: 200px;
+            background: rgb(57, 61, 73);
+        }
+
+        .content .right {
+            flex: 1;
+            height: 100%;
+            width: 100%;
+            background: rgb(255, 255, 255);
+        }
+        .right iframe{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header flex j-s a-c">
+            <div class="logo">Lm</div>
+            <div class='header_nav'>
+                <ul class="layui-nav" lay-filter="">
+                    <!-- <li class="layui-nav-item"><a href="">最新活动</a></li>
+                    <li class="layui-nav-item layui-this"><a href="">产品</a></li>
+                    <li class="layui-nav-item"><a href="">大数据</a></li> -->
+                    <li class="layui-nav-item">
+                        <a href="javascript:;" id="loginId">loginId</a>
+                        <dl class="layui-nav-child">
+                            <!-- 二级菜单 -->
+                            <dd><a id="myinfo" href="">个人信息</a></dd>
+                            <dd><a href="">系统消息</a></dd>
+                            <dd><a id="exit" href="">退出系统</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="content flex">
+            <div class="left_nav">
+                <ul class="layui-nav layui-nav-tree" lay-filter="test"  lay-shrink='all'>
+                    <li class="layui-nav-item  layui-this">
+                        <a href="./Pages/mainindex.html" target="content">首页</a>
+                    </li>
+                    <!--  layui-nav-itemed 默认展开 -->
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">学生管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="./Pages/Students/list.html" target="content">查询学生信息</a></dd>
+                            <dd><a href="./Pages/Students/addStudent.html" target="content">添加学生</a></dd>
+                            
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">课程管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="">查询课程信息</a></dd>
+                            <dd><a href="">添加课程</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">成绩管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="">查询成绩信息</a></dd>
+                            <dd><a href="">添加成绩</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+            <div class="right">
+                <iframe name="content"  src="./Pages/mainindex.html" frameborder="no"></iframe>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="./layui/layui.js"></script>
+    <script>
+        // 页面加载执行的事件
+        $(function () {
+            // 判断用户是否登陆成功
+            if ($.cookie('isLogin') == 'true') {
+                $('#loginId').text($.cookie('loginId'))
+            } else {
+                location.href = './login.html'
+            }
+
+            // 退出系统事件
+            $('#exit').click(function () {
+                $.removeCookie('isLogin');
+                $.removeCookie('isck');
+                $.removeCookie('loginPwd');
+                location.href = './login.html'
+            })
+        })
+
+
+
+        // layui.use(['element', 'laypage', 'laytpl'], function () {
+        //     // 导航 依赖 element 模块
+        //     var element = layui.element;
+        //     // 分页 依赖 laypage 模块
+        //     var laypage = layui.laypage;
+        //     var laytpl = layui.laytpl;
+        //     //执行一个laypage实例
+        //     laypage.render({
+        //         elem: 'right_content_pages',  //注意，这里的 test1 是 ID，不用加 # 号
+        //         count: 100, // 数据总数，从服务端得到
+        //         limit: 10, // 每页显示的条数
+        //         limits: [30, 40, 50],// 每页条数的选择项
+        //     });
+        // });
+    </script>
+</body>
+
+</html>

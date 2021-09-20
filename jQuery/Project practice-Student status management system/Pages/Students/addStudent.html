@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <title>添加学生信息</title>
+
+    <style>
+        .right_nav {
+            position: relative;
+            height: 40px;
+            width: 100%;
+        }
+
+        .layui-breadcrumb {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            height: 20px;
+        }
+
+        .content {
+            margin-left: 50px;
+        }
+
+        .content .layui-form-item {
+            width: 500px;
+            text-align: center;
+        }
+
+        .content .layui-form-item #go {
+            margin-top: 10px;
+            width: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="right_nav">
+        <span class="layui-breadcrumb">
+            <a>学生管理</a>
+            <a><cite>添加学生</cite></a>
+        </span>
+    </div>
+    <div class="content">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">学号</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="studentNo" name="studentNo" required lay-verify="required" placeholder="请输入学号"
+                        autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-inline">
+                    <input type="password" id="password" name="loginPwd" required lay-verify="required"
+                        placeholder="请输入密码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">姓名</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="name" name="studentName" required lay-verify="required" placeholder="请输入姓名"
+                        autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="sex" value="男" title="男" checked>
+                    <input type="radio" name="sex" value="女" title="女">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">年级</label>
+                <div class="layui-input-inline">
+                    <select id="grade" name="gradeId" lay-verify="required">
+                        <!-- 引用模板引擎 -->
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">出生日期</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="bornDate" class="layui-input" id="test1" lay-verify="required|date">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">电话</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="phone" name="phone" required lay-verify="required" placeholder="请输入电话号码"
+                        autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">地址</label>
+                <div class="layui-input-block">
+                    <textarea name="address" placeholder="请输入地址" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱</label>
+                <div class="layui-input-inline">
+                    <input id="email" type="email" name="email" required lay-verify="required|email" placeholder="请输入邮箱"
+                        autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">身份证</label>
+                <div class="layui-input-inline">
+                    <input type="identityCard" name="identityCard" required lay-verify="required|identity"
+                        placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div id="go" class="layui-input-inline">
+                    <button id="btn" class="layui-btn" lay-submit lay-filter="*">立即提交</button>
+                    <button id="reset" type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- 年级下拉框模板 -->
+    <script id="temp" type="text/html">
+        {{# layui.each(d.list,function(index,item){ }}
+            <option value="{{item.GradeId}}">{{item.GradeName=='S1'?'大一':item.GradeName=='S2'?'大二':item.GradeName=='Y2'?'大三':'------ 请选择年级 ------'}}</option>
+        {{# }) }} 
+    </script>
+
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="../../layui/layui.js"></script>
+    <script src="../../js/bing.js"></script>
+
+    <script>
+        //Demo
+        layui.use(['form', 'laydate', 'laytpl', 'layer'], function () {
+            // 表单模块
+            var form = layui.form;
+            // 时间组件模块
+            var laydate = layui.laydate;
+            // 模板引擎 laytpl 模块
+            var laytpl = layui.laytpl;
+            // 弹出层模块
+            var layer = layui.layer;
+            //监听提交
+            form.on('submit(formDemo)', function (data) {
+                layer.msg(JSON.stringify(data.field));
+                return false;
+            });
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#test1' //指定元素
+            });
+
+            // 获取全部年级信息
+            $.get('http://www.bingjs.com:81/Grade/GetAll', res => {
+                res.unshift({ GradeId: '', GradeName: '------ 请选择年级 ------' })
+                // laytpl($('#temp').html)获取模板里面的内容
+                laytpl($('#temp').html()).render({ list: res }, function (html) {
+                    $('#grade').html(html);
+                })
+                // 在表单中渲染下拉框
+                form.render('select')
+            })
+
+            // 监听 表单提交 的事件
+            form.on('submit(*)', function (data) {
+                // 通过name属性获取值
+                // data.field //当前容器的全部表单字段，名值对形式：{name: value}
+                let obj = data.field;
+
+
+                // 检查学号是否重复
+                $.get('http://www.bingjs.com:81/Student/GetStudentByNo', {
+                    studentNo: obj.studentNo,
+                }, res => {
+                    if (res == 'null') {
+                        // 如果是 null 执行添加操作（否者添加失败）
+                        $.post('http://www.bingjs.com:81/Student/Add', obj, res => {
+                            if (res) {
+                                layer.open({
+                                    title: '添加学生信息'
+                                    , content: '添加成功！！！'
+                                    , yes: function (index, layero) {
+                                        layer.close(index);
+                                        $('#reset').click();
+                                    }
+                                });
+                            }
+                        })
+                    } else {
+                        layer.open({
+                            title: '添加学生信息'
+                            , content: '该学号学生已存在，添加失败！！！'
+                            , yes: function (index, layero) {
+                                layer.close(index); //关闭提示框
+                                $('#studentNo').focus() //鼠标聚焦在学号输入框
+                            }
+                        });
+                    }
+                })
+
+                return false;
+            });
+
+        });
+
+    </script>
+</body>
+
+</html>

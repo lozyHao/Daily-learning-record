@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+    <title>修改学生信息</title>
+
+    <style>
+        .right_nav {
+            position: relative;
+            height: 40px;
+            width: 100%;
+        }
+
+        .layui-breadcrumb {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            height: 20px;
+        }
+
+        .content {
+            margin-left: 50px;
+        }
+
+        .content .layui-form-item {
+            width: 500px;
+            text-align: center;
+        }
+
+        .content .layui-form-item #go {
+            margin-top: 10px;
+            width: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">学号</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="studentNo" name="studentNo" required lay-verify="required"
+                        placeholder="请输入学号" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-inline">
+                    <input type="password" id="password" name="loginPwd" required lay-verify="required"
+                        placeholder="请输入密码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">姓名</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="studentName" name="studentName" required lay-verify="required"
+                        placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-inline">
+                    <input id="M" type="radio" name="sex" value="男" title="男" checked>
+                    <input id="F" type="radio" name="sex" value="女" title="女">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">年级</label>
+                <div class="layui-input-inline">
+                    <select id="gradeId" name="gradeId" lay-verify="required">
+                        <!-- 引用模板引擎 -->
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">出生日期</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="bornDate" name="bornDate" class="layui-input" lay-verify="required|date">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">电话</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="phone" name="phone" required lay-verify="required" placeholder="请输入电话号码"
+                        autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">地址</label>
+                <div class="layui-input-block">
+                    <textarea id="address" name="address" placeholder="请输入地址" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱</label>
+                <div class="layui-input-inline">
+                    <input id="email" type="email" name="email" required lay-verify="required|email" placeholder="请输入邮箱"
+                        autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">身份证</label>
+                <div class="layui-input-inline">
+                    <input id="identityCard" type="identityCard" name="identityCard" required
+                        lay-verify="required|identity" placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div id="go" class="layui-input-inline">
+                    <button id="btn" class="layui-btn" lay-submit lay-filter="*">立即提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- 年级下拉框模板 -->
+    <script id="temp" type="text/html">
+        {{# layui.each(d.list,function(index,item){ }}
+            <option value="{{item.GradeId}}">{{item.GradeName=='S1'?'大一':item.GradeName=='S2'?'大二':item.GradeName=='Y2'?'大三':'------ 请选择年级 ------'}}</option>
+        {{# }) }} 
+    </script>
+
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="../../layui/layui.js"></script>
+    <script src="../../js/bing.js"></script>
+
+    <script>
+        //Demo
+        layui.use(['form', 'laydate', 'laytpl', 'layer'], function () {
+            // 表单模块
+            var form = layui.form;
+            // 时间组件模块
+            var laydate = layui.laydate;
+            // 模板引擎 laytpl 模块
+            var laytpl = layui.laytpl;
+            // 弹出层模块
+            var layer = layui.layer;
+            //监听提交
+            form.on('submit(formDemo)', function (data) {
+                layer.msg(JSON.stringify(data.field));
+                return false;
+            });
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#bornDate' //指定元素
+            });
+
+
+            // 接收 url的参数
+            function loadStudent() {
+                // 通过 location.search 获取参数 格式为：?student=S1101114
+                let search = location.search.replace('?').split('=')[1];
+                // 根据学号查询学生信息
+                $.get('http://www.bingjs.com:81/Student/GetStudentByNo', {
+                    studentNo: search
+                }, e => {
+                    $('#studentNo').val(e.StudentNo)
+                    // 把它禁掉，不允许修改
+                    $('#studentNo').prop('disabled', 'disabled');
+                    $('#studentNo').delegate
+                    $('#password').val(e.LoginPwd)
+                    $('#studentName').val(e.StudentName)
+                    // 把它禁掉，不允许修改
+                    $('#studentName').prop('disabled', 'disabled');
+                    if (e.Sex == 'M') {
+                        $("#F").prop('checked', true);
+                    } else {
+                        $("#M").prop('checked', true);
+                    }
+                    form.render('radio'); //修改之后 在表单中渲染一下单选框（框架要求）
+
+                    $('#gradeId').val(e.GradeId);
+                    form.render('select');
+                    $('#bornDate').val($b.getMiniDate(new Date(e.BornDate)))
+                    $('#phone').val(e.Phone)
+                    $('#address').val(e.Address)
+                    $('#email').val(e.Email)
+                    $('#identityCard').val(e.IdentityCard);
+                })
+            }
+
+            // 获取全部年级信息
+            $.get('http://www.bingjs.com:81/Grade/GetAll', res => {
+                res.unshift({ GradeId: '', GradeName: '------ 请选择年级 ------' })
+                // laytpl($('#temp').html)获取模板里面的内容
+                laytpl($('#temp').html()).render({ list: res }, function (html) {
+                    $('#gradeId').html(html);
+                })
+                // 在表单中渲染下拉框
+                form.render('select')
+
+                loadStudent()//年级信息加载完成后在加载其他信息（否则出现偶尔年级信息不显示）
+            })
+
+            // 监听 表单提交 的事件
+            form.on('submit(*)', function (data) {
+                // 通过name属性获取值
+                // data.field //当前容器的全部表单字段，名值对形式：{name: value}
+                let obj = data.field;
+                // 检查学号是否重复
+                $.post('http://www.bingjs.com:81/Student/Update', obj, res => {
+                    if (res) {
+                        layer.open({
+                            title: '修改学生信息'
+                            , content: '修改成功！！！'
+                            , yes: function (index, layero) {
+                                // 确认后关闭当前 iframe 页面关闭自身
+                                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                // 关闭父级窗口
+                                parent.layer.close(index); //再执行关闭 
+                            }
+                        });
+                    }
+                })
+                return false;
+            });
+        });
+    </script>
+</body>
+
+</html>

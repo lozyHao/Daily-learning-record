@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <title>登录中心</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        body {
+            background: rgb(230, 230, 230);
+            position: relative;
+        }
+
+        .login {
+            position: absolute;
+            width: 300px;
+            background: rgb(57, 61, 73);
+            top: 60px;
+            border-radius: 10px;
+            padding: 10px 0;
+        }
+
+        h3 {
+            display: block;
+            width: 300px;
+            height: 40px;
+            line-height: 40px;
+            color: white;
+            text-align: center;
+            letter-spacing: 3px;
+        }
+
+        .item {
+            width: 240px;
+            height: 40px;
+            margin: 5px auto;
+            color: white;
+            text-align: right;
+            line-height: 40px;
+        }
+
+        .item span {
+            font-weight: 600;
+        }
+
+        .item input {
+            outline: none;
+            border: none;
+            height: 25px;
+            border-radius: 5px;
+        }
+
+        .item1 {
+            width: 240px;
+            height: 20px;
+            margin: 5px auto;
+            color: white;
+            text-align: left;
+            line-height: 20px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            user-select: none;
+            color: rgb(160, 160, 160);
+        }
+
+        .item1 input {
+            outline: none;
+            border: none;
+            height: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .item1 span~span {
+            margin-left: 85px;
+        }
+
+        .btns {
+            width: 300px;
+            height: 40px;
+            line-height: 40px;
+            margin-top: 10px;
+        }
+
+        .btns button {
+            width: 75px;
+            height: 30px;
+            margin-left: 50px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 18px;
+            color: rgb(57, 61, 73);
+            letter-spacing: 2px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login">
+        <h3>Lm 学生管理系统</h3>
+        <div class="item">
+            <span>登录名：</span>
+            <input id="loginId" type="text" placeholder="请输入登录名">
+        </div>
+        <div class="item">
+            <span>密码：</span>
+            <input id="password" type="password" placeholder="请输入密码">
+        </div>
+        <div class="item1">
+            <span>记住密码</span>
+            <input id="checkbox" type="checkbox">
+            <span>自动登录</span>
+            <input id="checkbox1" type="checkbox">
+        </div>
+        <div class="btns">
+            <button id="login_btn" type="submit">登录</button>
+            <button id="cancel_btn">注册</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="./layui/layui.js"></script>
+    <script src="./js/bing.js"></script>
+    <script>
+        // 登录框位置保持在界面中心
+        let win_width = window.innerWidth;
+        let win_height = window.innerHeight;
+        $('.login').css({
+            left: (win_width - 300) / 2 + 'px',
+            top: (win_height - 200) / 2 + 'px'
+        })
+        setInterval(() => {
+            win_width = window.innerWidth;
+            win_height = window.innerHeight;
+            $('.login').css({
+                left: (win_width - 300) / 2 + 'px',
+                top: (win_height - 200) / 2 + 'px'
+            })
+        }, 200)
+
+        $(function () {
+            // 进入网页获取cookie 并显示
+            $('#loginId').val($.cookie('loginId'))
+            if ($.cookie('isck') == 'true') {
+                $('#checkbox').prop('checked', true) //选中状态
+                // 采用base方式对密码解密  window.atob()
+                let pwd1=window.atob($.cookie('loginPwd'));
+                $('#password').val(pwd1)
+            }
+            // 判断 自动登录是否选择
+            if ($.cookie('isLogin') == 'true') {
+                $('#checkbox1').prop(('checked'), true)
+                location.href = `./mainPage.html` //页面跳转
+            }
+        })
+
+        // 引入layui弹窗模块
+        layui.use('layer', function () {
+            let layer = layui.layer;
+
+            // 登录功能实现
+            $('#login_btn').click(function () {
+
+                $.get('http://www.bingjs.com:81/Admin/Login', {
+                    loginId: $('#loginId').val().trim(),
+                    loginPwd: $('#password').val().trim()
+                }, ({ success, message }) => {
+                    if (success) {
+                        // cookie 将数据放入缓存
+                        // 用户名
+                        $.cookie('loginId', $('#loginId').val().trim(), { expires: 7 });
+                        // 判断记住密码框是否勾选，并把密码加密存储
+                        if ($('#checkbox').prop('checked')) {
+                            // 采用 base64方式 加密密码  window.btoa()
+                            let pwd=window.btoa($('#password').val().trim());
+                            $.cookie('loginPwd', pwd, { expires: 7 });
+                            $.cookie('isck', $('#checkbox').prop('checked'), { expires: 7 });
+                        } else {
+                            $.removeCookie('loginPwd')
+                            $.removeCookie('isck')
+                        }
+                        // 判断用户是否自动登录
+                        if ($('#checkbox1').prop('checked')) {
+                            // 登录成功后，保存用户登录状态在cookie中
+                            $.cookie('isLogin', true, { expires: 7 });
+                        } else {
+                            $.cookie('isLogin', true);
+                        }
+
+
+                        location.href = `./mainPage.html` //页面跳转
+                    } else {
+                        layer.open({
+                            title: message,
+                            content: '请重新输入！！！',
+                            time: 2000
+                        })
+                    }
+                });
+            })
+
+            // 自动登录
+        })
+
+    </script>
+</body>
+
+</html>

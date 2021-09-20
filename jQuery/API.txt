@@ -60,11 +60,41 @@
           identityCard 身份证
 
     http://www.bingjs.com:81/Student/Delete 删除学生 [POST请求]
-    参数：studentNo：学生学号
+    参数：studentNo 学生学号
 
 
 4.课程相关接口
     http://www.bingjs.com:81/Subject/GetAll 查询全部课程 [GET请求]
 
     http://www.bingjs.com:81/Subject/GetSubjectById 根据课程编号查询一个课程 [GET请求]
-    参数：
+    参数：subjectId 课程编号
+
+5.成绩相关接口
+    http://www.bingjs.com:81/Result/GetResultByResultld 根据成绩编号查询单个成绩信息 [GET请求]
+    参数: resultld 成绩编号
+
+    http://www.bingjs.com:81/Result/GetResultsByStudentNo 根据学号查询学生的成绩 [GET请求]
+    参数: studentNo 学号
+
+    http://www.bingjs.com:81/Result/GetResultsConditionPages 查询成绩+条件+分页 [GET请求] 
+    参数：studentNo 学生学号 (可以为空)
+          subjectld 课程编号 (可以为空)
+          pageIndex 页码 (默认值是1)
+          pageSize 每页数量 (默认值是10)
+
+    http://www.bingjs.com:81/Result/Add 添加成绩 [POST请求] 
+    参数：studentNo 学生学号
+          subjectld 课程编号
+          studentResult 学生成绩
+          examDate 考试日期
+
+    http://www.bingjs.com:81/Result/Update 修改成绩 [POST请求]
+    参数: resultld 成绩编号
+          studentNo 学生学号
+          subjectld 课程编号
+          studentResult 学生成绩
+          examDate 考试日期
+
+    http://www.bingjs.com:81/Result/Delete 删除成绩 [POST请求]
+    参数: resultld 成绩编号
+
