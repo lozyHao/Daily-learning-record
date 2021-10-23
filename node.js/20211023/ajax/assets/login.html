@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+</head>
+
+<body>
+    <form>
+        用户名：<input id="username" type="text" name="username"><br>
+        密&emsp;码：<input id="password" type="password" name="password"><br>
+        <input id="obtn" type="button" value="提交">
+    </form>
+    <div id="odiv"></div>
+
+    <script>
+        let obtn = document.getElementById("obtn");
+        let odiv = document.getElementById("odiv");
+        obtn.onclick = () => {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            let params={username,password}
+
+            let ajax = new XMLHttpRequest();
+            ajax.open('POST', '/login_post');
+            ajax.setRequestHeader("enctype", "application/x-www-form-urlencoded");
+            ajax.onreadystatechange = () => {
+                if (ajax.readyState === 4 && ajax.status === 200) {
+                    console.log(ajax.readyState);
+                    console.log(ajax.responseText);
+                    odiv.innerHTML = ajax.responseText;
+                }
+            };
+            ajax.send(JSON.stringify(params))
+        }
+    </script>
+</body>
+
+</html>

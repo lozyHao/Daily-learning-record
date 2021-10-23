@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+</head>
+
+<body>
+    <!-- 点击按钮将服务器数据放到div中 -->
+    <h1>欢迎来到 node</h1>
+    <a href="./detail.html">跳转到详情页</a>
+    <button id="obtn">点击获取数据---点击发送Get请求</button>
+    <div id="odiv"></div>
+
+    <script>
+        let obtn = document.getElementById("obtn");
+        let odiv = document.getElementById("odiv");
+
+        obtn.onclick = () => {
+            let ajax = new XMLHttpRequest();
+            ajax.open('GET', '/get_data' + Math.random()); //Math.random() 时间戳，避免缓存,服务端requestUrl.startsWith("/get_data")
+            ajax.setRequestHeader('Cache-Control', 'no-cache'); //请求头，不缓存（第二种方法）
+            ajax.onreadystatechange = () => {
+                if (ajax.readyState === 4 && ajax.status === 200) {
+                    console.log(ajax.readyState);
+                    console.log(ajax.responseText);
+                    odiv.innerHTML = ajax.responseText;
+                }
+            };
+            ajax.send()
+            // 超时处理
+            // var timer = setTimeout(function () {
+            //     // 取消请求，中断请求
+            //     ajax.abort();
+            // }, 2000);
+        }
+    </script>
+</body>
+
+</html>
