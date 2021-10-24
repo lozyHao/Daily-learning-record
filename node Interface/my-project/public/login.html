@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .login {
+            width: 300px;
+            height: 300px;
+            border: 1px solid #ccc;
+            margin: 20px;
+        }
+
+        .login h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login span {
+            margin-left: 30px;
+        }
+
+        .login button {
+            display: block;
+            width: 100px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login">
+        <h1>用户登录</h1><br><br>
+        <span>账号：</span><input id="username" type="text" name="username"><br><br>
+        <span>密码：</span><input id="password" type="text" name="password"><br><br>
+        <button id="loginBtn">登 录</button>
+        <button id="registerBtn">注 册</button>
+    </div>
+
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        // 验证账号是否存在
+        $('#username').blur(function () {
+            let username = $("#username").val();
+            $.ajax({
+                url: '/users/isAccess', //接口
+                type: 'post', //请求方式
+                data: { //请求数据
+                    username,
+                },
+                success: function (msg) { //成功的回调
+                    console.log(msg);
+                    if (msg.status == 1) {
+                        $('#registerBtn').prop('disabled', false);
+                    } else {
+                        $('#registerBtn').prop('disabled', true);
+                    }
+                }
+            })
+        })
+        // 点击登录
+        $('#loginBtn').click(function () {
+            let username = $("#username").val();
+            let password = $('#password').val();
+            console.log(username, password);
+            $.ajax({
+                url: '/users/login', //接口
+                type: 'post', //请求方式
+                data: { //请求数据
+                    username,
+                    password
+                },
+                success: function (msg) { //成功的回调
+                    console.log(msg);
+                    if (msg.status == 1) {
+                        alert("登陆成功！")
+                    } else {
+                        alert("登陆失败！")
+                    }
+                }
+            })
+        })
+        // 点击注册
+        $('#registerBtn').click(function () {
+            let username = $("#username").val();
+            let password = $('#password').val();
+            $.ajax({
+                url: '/users/register', //接口
+                type: 'post', //请求方式
+                data: { //请求数据
+                    username,
+                    password
+                },
+                success: function (msg) { //成功的回调
+                    console.log(msg);
+                    if (msg.status == 0) {
+                        alert("注册成功！")
+                    } else {
+                        alert("用户已存在，注册失败！")
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>
