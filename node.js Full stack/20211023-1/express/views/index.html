@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>这是首页</h1>
+    <hr>
+    <div>{{ user.id }}</div>
+    <div>{{ user.name }}</div>
+    <div>{{ user.age }}</div>
+    <div>{{ user['age'] }}</div>
+    <ul>
+        {{each books}}
+        <li>{{$index}}、{{$value}}</li>
+        {{/each}}
+    </ul>
+    <p>num1和num2中比较大的那个数是： {{num1>num2?num1:num2}}</p>
+    {{ if user.name === "Jack"}}
+        <p>{{ user.name }}的年龄是{{ user.age }}</p>
+    {{/if}}
+</body>
+</html>
