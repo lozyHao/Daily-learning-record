@@ -9,48 +9,59 @@
 </head>
 
 <body>
-    <h2>新增学生</h2>
-    <div>
-        <span>学生姓名：</span><input type="text" id="name" name="name"><br>
-        <span>学生年龄：</span><input type="text" id="age" name="age"><br>
-        <span>学生性别：</span>男<input type="radio" name="sex" value="男" checked> / 女<input type="radio" name="sex"
-            value="女"><br>
-        <button id="addStudents">新 增</button>
+    <div style="display: flex;">
+        <div style="width: 50%;">
+            <h2>新增学生</h2>
+            <div>
+                <span>学生姓名：</span><input type="text" id="name" name="name"><br>
+                <span>学生年龄：</span><input type="text" id="age" name="age"><br>
+                <span>学生性别：</span>男<input type="radio" name="sex" value="男" checked> / 女<input type="radio" name="sex"
+                    value="女"><br>
+                <button id="addStudents">新 增</button>
+            </div>
+
+            <h2>查询学生</h2>
+            <select id="searchType">
+                <option value="all">全部</option>
+                <option value="name">姓名</option>
+                <option value="age">年龄</option>
+                <option value="gender">性别</option>
+            </select>
+            <input type="text" id="searchValue"><button id="searchBtn">查询</button>
+
+            <h2>修改学生信息</h2>
+            <div>
+                <input type="hidden" id='updateId'>
+                <span>学生姓名：</span><input type="text" id="updatename" name="name"><br>
+                <span>学生年龄：</span><input type="text" id="updateage" name="age"><br>
+                <span>学生性别：</span>男<input type="radio" name="updatesex" value="男" checked> / 女<input type="radio"
+                    name="updatesex" value="女"><br>
+                <button id="updateStudents">确认修改</button>
+            </div>
+
+            <h2>学生列表</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>学生姓名</th>
+                        <th>学生年龄</th>
+                        <th>学生性别</th>
+                        <th>学生操作</th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+
+                </tbody>
+            </table>
+        </div>
+
+        <div style="width: 50%;">
+            <h2>新增班级</h2>
+            <span>班级名称：</span><input type="text" id="addClassesName"><br>
+            <button id="addClassesBtn">确认新增</button>
+        </div>
     </div>
 
-    <h2>查询学生</h2>
-    <select id="searchType">
-        <option value="all">全部</option>
-        <option value="name">姓名</option>
-        <option value="age">年龄</option>
-        <option value="gender">性别</option>
-    </select>
-    <input type="text" id="searchValue"><button id="searchBtn">查询</button>
-
-    <h2>修改学生信息</h2>
-    <div>
-        <input type="hidden" id='updateId'>
-        <span>学生姓名：</span><input type="text" id="updatename" name="name"><br>
-        <span>学生年龄：</span><input type="text" id="updateage" name="age"><br>
-        <span>学生性别：</span>男<input type="radio" name="updatesex" value="男" checked> / 女<input type="radio"
-            name="updatesex" value="女"><br>
-        <button id="updateStudents">确认修改</button>
-    </div>
-
-    <h2>学生列表</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>学生姓名</th>
-                <th>学生年龄</th>
-                <th>学生性别</th>
-                <th>学生操作</th>
-            </tr>
-        </thead>
-        <tbody class="tbody">
-
-        </tbody>
-    </table>
 
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
@@ -59,6 +70,30 @@
             searchValue: ''
         };
         getStudents();
+
+        // 新增班级
+        $('#addClassesBtn').click(function () {
+            let name = $('#addClassesName').val();
+            $.ajax({
+                url: '/classes/addClasses',
+                type: 'post',
+                data: {
+                    name
+                },
+                success(msg) {
+                    console.log(msg);
+                }
+            })
+        })
+
+
+
+
+
+
+
+
+
         // 学生列表/部分查询
         function getStudents() {
             $.ajax({

@@ -1,4 +1,4 @@
-const { Schema, model, isValidObjectId } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 let studentsSchema = new Schema({
     name: String,
