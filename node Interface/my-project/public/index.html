@@ -6,6 +6,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>学生管理系统</title>
+
+    <style>
+        table {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 300px;
+        }
+
+        table td,
+        th {
+            padding: 5px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        .fenye {
+            width: 350px;
+            height: 30px;
+            border: 2px solid #ccc;
+            margin: 20px auto;
+            text-align: center;
+            line-height: 30px;
+        }
+
+        .fenye span {
+            padding: 0 2px;
+        }
+    </style>
 </head>
 
 <body>
@@ -17,7 +46,10 @@
                 <span>学生年龄：</span><input type="text" id="age" name="age"><br>
                 <span>学生性别：</span>男<input type="radio" name="sex" value="男" checked> / 女<input type="radio" name="sex"
                     value="女"><br>
-                <button id="addStudents">新 增</button>
+                <span>所属班级</span>
+                <select name="" id="chooseClasses">
+                </select><br>
+                <button id="addStudents">确认新增</button>
             </div>
 
             <h2>查询学生</h2>
@@ -46,19 +78,41 @@
                         <th>学生姓名</th>
                         <th>学生年龄</th>
                         <th>学生性别</th>
+                        <th>所属班级</th>
+                        <th>负责老师</th>
                         <th>学生操作</th>
                     </tr>
                 </thead>
-                <tbody class="tbody">
-
-                </tbody>
+                <tbody class="tbody"></tbody>
             </table>
+            <div class="fenye">
+                <button id="pageStart">首页</button>
+                <button id="pageOn">上一页</button>
+                <span id="pageNow">1</span>
+                <span>/</span>
+                <span id="pageSize">5</span>
+                <button id="pageNext">下一页</button>
+                <button id="pageEnd">尾页</button>
+                <select name="" id="pageSize">
+                    <option value="">5</option>
+                    <option value="">10</option>
+                    <option value="">20</option>
+                </select>
+            </div>
         </div>
 
         <div style="width: 50%;">
             <h2>新增班级</h2>
             <span>班级名称：</span><input type="text" id="addClassesName"><br>
+
+            <div id="chooseTeacher">
+            </div>
             <button id="addClassesBtn">确认新增</button>
+
+            <h2>新增教师</h2>
+            <span>教师名称：</span><input type="text" id="addTeacherName"><br>
+            <span>联系方式：</span><input type="text" id="addTeacherPhone"><br>
+            <button id="addTeacherBtn">确认新增</button>
         </div>
     </div>
 
@@ -69,54 +123,151 @@
             searchType: 'name',
             searchValue: ''
         };
+        // 设置分页变量
+        pageSize = 5; //每页数量
+        pageNow = 1; //当前页码
+        pages = 0;
+
+
         getStudents();
+        getClasses();
+        getTeachers();
+
+        $('#pageNow').text(pageNow);
+        // 换页 上一页/下一页 点击事件
+        $('#pageOn').click(function () {
+            if (pageNow <= 1) {
+                pageNow = 1
+            } else {
+                pageNow -= 1;
+            }
+            $('#pageNow').text(pageNow);
+            getStudents();
+        })
+        $('#pageNext').click(function () {
+            if (pageNow >= pages) {
+                pageNow = pages
+            } else {
+                pageNow += 1;
+            }
+            $('#pageNow').text(pageNow);
+            getStudents();
+        })
+        // 换页 首页/尾页 点击事件
+        $('#pageStart').click(function () {
+            pageNow = 1
+            $('#pageNow').text(pageNow);
+            getStudents();
+        })
+        $('#pageEnd').click(function () {
+            pageNow = pages;
+            $('#pageNow').text(pageNow);
+            getStudents();
+        })
 
         // 新增班级
         $('#addClassesBtn').click(function () {
             let name = $('#addClassesName').val();
+            let teachersId = [ ...$('#chooseTeacher input[type=checkbox]:checked') ].map(function (item, index) {
+                return $(item).val();
+            })
             $.ajax({
                 url: '/classes/addClasses',
                 type: 'post',
                 data: {
-                    name
+                    name,
+                    teachersId
+                },
+                traditional: true,//数据中含有数组的时候，需要通过该属性来解数组格式
+                success(msg) {
+                    alert("新增成功！")
+                    getClasses();
+                }
+            })
+        })
+
+        // 获取教师信息
+        function getTeachers() {
+            $.ajax({
+                url: '/teachers/getTeachers',
+                type: 'get',
+                success(msg) {
+                    const str = msg.data.map(function (item, index) {
+                        return `<label><input name="teacher" type="checkbox" value="${item._id}" />${item.name}</label>`
+                    }).join('')
+                    $('#chooseTeacher').html(`<span>选择教师：</span>` + str)
+                }
+            })
+        }
+
+        // 新增老师
+        $('#addTeacherBtn').click(function () {
+            let name = $('#addTeacherName').val();
+            let phone = $('#addTeacherPhone').val();
+            $.ajax({
+                url: '/teachers/addTeachers',
+                type: 'post',
+                data: {
+                    name,
+                    phone
                 },
                 success(msg) {
-                    console.log(msg);
+                    alert("新增成功！");
+                    getTeachers();
                 }
             })
         })
 
 
+        // 获取所有的班级信息
+        function getClasses() {
+            $.ajax({
+                url: '/classes/getClasses',
+                type: 'get',
+                success(msg) {
+                    const str = msg.data.map(function (item, index) {
+                        return `<option value="${item._id}">${item.name}</option>`
+                    }).join('')
+                    $('#chooseClasses').html(str)
+                }
+            })
+        }
 
 
-
-
-
-
-
-        // 学生列表/部分查询
+        // 获取学生列表/部分查询
         function getStudents() {
             $.ajax({
                 url: '/students/getStudents',
                 type: 'get',
-                data: data,
+                data: {
+                    ...data,
+                    pageSize: pageSize, //每页显示条数
+                    currentPage: pageNow, //当前页码
+                },
                 success({ message, status, data }) {
+                    console.log(data);
+                    pages = data.pages;
                     if (status) {
                         // 渲染数据
-
                         // 方式三：
-                        const str = data.map(function (item, index) {
+                        const str = data.students.map(function (item, index) {
                             return `<tr>
                                     <td>${item.name}</td>
                                     <td>${item.age}</td>
                                     <td>${item.gender}</td>
+                                    <td>${item.classId.name}</td>
+                                    <td>
+                                        ${item.classId.teachersId.map(item => `<p>${item.name}</p>`).join('')}
+                                    </td>
                                     <td>
                                         <button class="updateBtn" data-id='${item._id}'>修改</button>
                                         <button class="removeBtn" data-id='${item._id}'>删除</button>
                                     </td>
                                 </tr>`
                         }).join('')
-                        $('tbody').html(str)
+                        $('tbody').html(str);
+                        $('#pageNow').text(pageNow);
+                        $('#pageSize').text(pages);
 
                         // 方式二:只需要添加一次
                         // let str = ''
@@ -148,6 +299,8 @@
                         //         </tr>
                         //     `)
                         // });
+
+
                     }
                 }
             })
@@ -164,6 +317,8 @@
                 success(msg) {
                     if (msg.status) {
                         alert("删除成功！");
+                        pageNow = 1;
+                        $('#pageNow').text(pageNow);
                         getStudents();
                     }
                 }
@@ -175,15 +330,19 @@
             let name = $('[name=name]').val();
             let age = $('[name=age]').val();
             let gender = $('[name=sex]:checked').val();
+            let classId = $('#chooseClasses').val();
             $.ajax({
                 url: '/students/addStudents',
                 type: 'post',
                 data: {
-                    name, age, gender
+                    name, age, gender, classId
                 },
                 success(msg) {
                     if (msg.status) {
+                        pageNow = 1;
+                        $('#pageNow').text(pageNow);
                         getStudents();
+                        alert("新增成功！")
                     }
                 }
             })
@@ -197,6 +356,8 @@
                 searchType: 'name',
                 searchValue: ''
             };
+            pageNow = 1;
+            $('#pageNow').text(pageNow);
             if (searchType == 'all') {
                 getStudents();
             } else {
@@ -246,9 +407,10 @@
                 },
                 success(msg) {
                     if (msg.status) {
-                        alert('修改该学生信息成功！')
+                        alert('修改该学生信息成功！');
+                        getStudents();
                     }
-                    getStudents();
+
                 }
             })
         })

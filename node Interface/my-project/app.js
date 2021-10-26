@@ -14,6 +14,7 @@ var usersRouter = require('./routes/users');
 var moviesRouter = require('./routes/movies');
 var studentsRouter = require('./routes/students');
 var classesRouter = require('./routes/classes');
+var teachersRouter = require('./routes/teachers');
 
 var app = express();
 
@@ -34,6 +35,7 @@ app.use('/users', usersRouter);
 app.use('/movies', moviesRouter);
 app.use('/students', studentsRouter);
 app.use('/classes', classesRouter);
+app.use('/teachers', teachersRouter);
 
 
 
