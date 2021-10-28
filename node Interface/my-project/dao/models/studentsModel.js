@@ -9,6 +9,7 @@ let studentsSchema = new Schema({
         type: Schema.Types.ObjectId, //MongoDB独有的字段使用
         ref: 'classesModel' //关联集合的模型名称
     },
+    imagesName: String
 });
 
 let studentsModel = model('studentsModel', studentsSchema, 'students')

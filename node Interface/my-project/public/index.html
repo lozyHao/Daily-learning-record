@@ -22,6 +22,11 @@
             text-align: center;
         }
 
+        table td img {
+            width: 100px;
+            height: 100px;
+        }
+
         .fenye {
             width: 350px;
             height: 30px;
@@ -49,6 +54,12 @@
                 <span>所属班级</span>
                 <select name="" id="chooseClasses">
                 </select><br>
+                <div>
+                    <label for="">上传头像：<input id="upload" type="file" accept="image/*"></input></label>
+                </div>
+                <div class="img_div" style="width: 150px;height: 150px;border: 1px dashed #ccc;">
+                    <img id="onImg" src="" alt="" style="width: 150px;height: 150px;">
+                </div>
                 <button id="addStudents">确认新增</button>
             </div>
 
@@ -80,6 +91,7 @@
                         <th>学生性别</th>
                         <th>所属班级</th>
                         <th>负责老师</th>
+                        <th>学生头像</th>
                         <th>学生操作</th>
                     </tr>
                 </thead>
@@ -90,13 +102,13 @@
                 <button id="pageOn">上一页</button>
                 <span id="pageNow">1</span>
                 <span>/</span>
-                <span id="pageSize">5</span>
+                <span id="currentPage">5</span>
                 <button id="pageNext">下一页</button>
                 <button id="pageEnd">尾页</button>
                 <select name="" id="pageSize">
-                    <option value="">5</option>
-                    <option value="">10</option>
-                    <option value="">20</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
                 </select>
             </div>
         </div>
@@ -126,12 +138,21 @@
         // 设置分页变量
         pageSize = 5; //每页数量
         pageNow = 1; //当前页码
-        pages = 0;
+        pages = 0; //总页数
 
 
         getStudents();
         getClasses();
         getTeachers();
+
+        // 监听每页条数变化
+        $('#pageSize').change(function () {
+            // 获取数据数量
+            pageSize = parseInt($(this).val());
+            //当前页码重置为1
+            pageNow = 1;
+            getStudents();
+        })
 
         $('#pageNow').text(pageNow);
         // 换页 上一页/下一页 点击事件
@@ -245,7 +266,6 @@
                     currentPage: pageNow, //当前页码
                 },
                 success({ message, status, data }) {
-                    console.log(data);
                     pages = data.pages;
                     if (status) {
                         // 渲染数据
@@ -260,6 +280,9 @@
                                         ${item.classId.teachersId.map(item => `<p>${item.name}</p>`).join('')}
                                     </td>
                                     <td>
+                                        <img src="./imgs/${item.imagesName || 'default.jpg'}" alt="" />    
+                                    </td>
+                                    <td>
                                         <button class="updateBtn" data-id='${item._id}'>修改</button>
                                         <button class="removeBtn" data-id='${item._id}'>删除</button>
                                     </td>
@@ -267,7 +290,7 @@
                         }).join('')
                         $('tbody').html(str);
                         $('#pageNow').text(pageNow);
-                        $('#pageSize').text(pages);
+                        $('#currentPage').text(pages);
 
                         // 方式二:只需要添加一次
                         // let str = ''
@@ -331,11 +354,12 @@
             let age = $('[name=age]').val();
             let gender = $('[name=sex]:checked').val();
             let classId = $('#chooseClasses').val();
+            let imagesName = $('#onImg').data('src');
             $.ajax({
                 url: '/students/addStudents',
                 type: 'post',
                 data: {
-                    name, age, gender, classId
+                    name, age, gender, classId, imagesName
                 },
                 success(msg) {
                     if (msg.status) {
@@ -370,7 +394,6 @@
                 getStudents();
             }
         })
-
         // 修改学生信息
         // 通过id获取要修改学生的信息
         $('.tbody').on('click', '.updateBtn', function (e) {
@@ -411,6 +434,30 @@
                         getStudents();
                     }
 
+                }
+            })
+        })
+
+        // 图片上传
+        $('#upload').change(function () {
+            // 1.files，获取该标签身上文件内容
+            let files = this.files;
+            // 2.对图片数据处理，将图片信息添加到表单对象中
+            let formData = new FormData();
+            formData.append("file", files[ 0 ])
+            // 通过ajax对象将表单信息发送到服务器
+            $.ajax({
+                url: '/images/uploadImages',
+                type: 'post',
+                data: formData,
+                // 图片上传增加一下属性：cache不读取缓存中的结果，contentType编码格式不使用jquery方式，processData 图片格式不做转换
+                cache: false,
+                contentType: false,
+                processData: false,
+                success(msg) {
+                    console.log(msg);
+                    // 将图片名称保存下来到自定义属性
+                    $('#onImg').attr('src', `./temp/${msg.data}`).data('src', msg.data);
                 }
             })
         })

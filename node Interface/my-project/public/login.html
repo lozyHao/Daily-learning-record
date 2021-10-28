@@ -85,6 +85,9 @@
                 success: function (msg) { //成功的回调
                     console.log(msg);
                     if (msg.status == 1) {
+                        // 将返回的token保存在本地
+                        // localStorage.setItem('token', msg.token);
+                        localStorage.token = msg.token;
                         alert("登陆成功！")
                     } else {
                         alert("登陆失败！")
