@@ -17,7 +17,24 @@ var classesRouter = require('./routes/classes');
 var teachersRouter = require('./routes/teachers');
 var imagesRouter = require('./routes/images');
 
+// 引入token验证模块
+const jwtAuth = require('./utils/jwt');
+
 var app = express();
+
+// 配置可跨域访问
+var al1owcrossDomain = function (req, res, next) {
+  //设置允许跨域访问的请求源(*表示接受任意域名的请求)
+  res.header("Access-Control-A1low-Origin", "*");
+  //设置允许跨域访问的请求头
+  res.header("Access-Control-Allow-Headers", "X-Requested-with,Origin,Content-Type,Accept,Authorization");
+  //设置允许跨域访问的请求类型
+  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  //同意cookie发送到服务器（如果要发送cookie，Access-Control-Allow-origin不能设置为星号)
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next();
+};
+app.use(al1owcrossDomain);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,6 +46,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser()); //解析cookie
 app.use(express.static(path.join(__dirname, 'public')));//设置前端代码路径
 
+// 在以一级路径之前做token验证引入
+app.use(jwtAuth);
 
 // 使用路由模块
 app.use('/', indexRouter);
@@ -38,9 +57,6 @@ app.use('/students', studentsRouter);
 app.use('/classes', classesRouter);
 app.use('/teachers', teachersRouter);
 app.use('/images', imagesRouter);
-
-
-
 
 // 服务器错误处理
 // catch 404 and forward to error handler

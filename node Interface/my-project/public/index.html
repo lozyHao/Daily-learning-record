@@ -127,10 +127,58 @@
             <button id="addTeacherBtn">确认新增</button>
         </div>
     </div>
-
+    <h3 class="out">退>出</h3>
 
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
+
+        // 当秘钥时间过期，任然在当前页面，避免还能操作，就要对所有操作设置秘钥过期回退登录
+        // 批量设置ajax的请求头(请求之前)
+        // $.ajaxSettings.beforeSend = function (xhr, request) {
+        //     xhr.setRequestHeader('Authorization', `Bearer ` + localStorage.token);
+        // }
+
+        // 全局设置ajax参数
+        $.ajaxSetup({
+            headers: {
+                // 请求头
+                Authorization: `Bearer ` + localStorage.token
+            },
+            error(err) {
+                if (err.status == 401) {
+                    alert("你未登录，请登录");
+                    location.href = './login.html'
+                }
+            }
+        })
+
+        isLogin();
+        // 进入页面之前验证用户是否登录（拿到本地token，然后传到后端做验证）
+        function isLogin() {
+            $.ajax({
+                url: '/users/isLogin',
+                type: 'get',
+                // headers: {
+                //     // 请求头
+                //     Authorization: `Bearer ` + localStorage.token
+                // },
+                success(msg) {
+                    getStudents();
+                    getClasses();
+                    getTeachers();
+                    console.log(msg);
+                },
+                error(err) {
+                    if (err.status == 401) {
+                        alert("你未登录，请登录");
+                        location.href = './login.html'
+                    }
+                }
+            })
+        }
+
+
+
         let data = {
             searchType: 'name',
             searchValue: ''
@@ -141,9 +189,9 @@
         pages = 0; //总页数
 
 
-        getStudents();
-        getClasses();
-        getTeachers();
+        // getStudents();
+        // getClasses();
+        // getTeachers();
 
         // 监听每页条数变化
         $('#pageSize').change(function () {
@@ -460,6 +508,15 @@
                     $('#onImg').attr('src', `./temp/${msg.data}`).data('src', msg.data);
                 }
             })
+        })
+
+        // 退出
+        $('.out').click(function () {
+            // localStorage.getItem(key) //获取数据
+            // localStorage.removeItem(key) //删除数据               
+            localStorage.clear('token'); //删除全部数据
+            alert('退出成功！')
+            location.href = './login.html';
         })
     </script>
 </body>

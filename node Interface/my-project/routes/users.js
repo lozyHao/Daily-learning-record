@@ -24,7 +24,7 @@ router.post('/login', async function (req, res, next) {
   let token = jwt.sign(
     { username }, //保存的用户信息
     'Lzh', //秘钥字符串(随意)
-    { expiresIn: 60 * 2 } //令牌有效期(默认单位为s，或者'1h')
+    { expiresIn: '15h' } //令牌有效期(默认单位为s，或者'1h')
   );
   res.send({
     message: "登陆成功",
@@ -47,6 +47,21 @@ router.post('/isAccess', async function (req, res, next) {
   const { username } = req.body;
   let data = await isAccess(username);
   res.send(data);
+})
+
+// 验证是否登录（登录后就拿到用户名）
+router.get('/isLogin', async function (req, res, next) {
+  // 拿到本地token
+  let headersToken = req.get('Authorization');
+  let token = headersToken.split(' ')[ 1 ];
+  // 解码
+  let decode = jwt.verify(token, 'Lzh');
+  // console.log("用户名：" + decode.username);
+  res.send({
+    message: '身份认证通过',
+    status: 1,
+    data: decode.username
+  })
 })
 
 

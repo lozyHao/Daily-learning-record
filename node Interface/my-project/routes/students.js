@@ -1,12 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-// let students = [
-//     { _id: 1, name: '张三', age: '20', gender: '男' },
-//     { _id: 2, name: '李四', age: '21', gender: '男' },
-//     { _id: 3, name: '王五', age: '21', gender: '女' },
-// ]
-
 const { getStudents, deleteStudent, addStudents, getStudentById, updateStudents } = require('../service/studentsServices')
 //导入上传图片的插件封装的方法
 const { moveFiles, removeFiles } = require('../utils/handleFiles')
