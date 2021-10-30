@@ -1,41 +1,27 @@
 <template>
   <div>
+    <!-- 合成api 详解 -->
+    <h1 @click="changeMsg">计数：{{ count }}</h1>
+    <!-- ref -->
+    <h1 @click="num++">计数：{{ num }}</h1>
+    <h1 @click="changeNum">计数：{{ num }}</h1>
+    <!-- reactive -->
     <h1>用户名：{{ user.username }} / 年龄：{{ user.age }}</h1>
+    <!-- toRefs -->
     <h1 @click="changeAge">用户名：{{ username }} / 年龄：{{ age }}</h1>
     <h1>年龄反转 :{{ reverseType }}</h1>
-
-    <!-- 使用组件 通过 prop 向子组件传递数据-->
-    <User :username="username" :age="age" :type="type"></User>
-    <Student></Student>
   </div>
 </template>
 
 <script>
 // 导入ref(响应变量), reactive(响应对象)，toRefs(将 reactive ---> ref), computed(计算属性), watchEffect(监听指定数据发生改变)，watch(单独监听)
-import {
-  ref,
-  reactive,
-  toRefs,
-  computed,
-  watchEffect,
-  watch,
-  provide,
-} from "vue";
-// 导入组件
-import User from "./components/User.vue";
-import Student from "./components/Student.vue";
-
+import { ref, reactive, toRefs, computed, watchEffect, watch } from "vue";
 export default {
   name: "App",
   data() {
     return {
       count: 0,
     };
-  },
-  // 引入组件
-  components: {
-    User,
-    Student,
   },
   methods: {
     changeMsg() {
@@ -74,15 +60,6 @@ export default {
       console.log(newNum, preNum);
       console.log("发生改变触发3");
     });
-
-    // 学生对象
-    const student = reactive({
-      name: "小红",
-      classname: "305班",
-    });
-
-    provide("student", student);
-
     return { num, changeNum, user, ...toRefs(user), changeAge };
   },
 };
