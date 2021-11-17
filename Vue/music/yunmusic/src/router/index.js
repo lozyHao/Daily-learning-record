@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-
+import store from '@/store/index.js'
 const routes = [
   {
     path: '/',
@@ -10,10 +10,37 @@ const routes = [
   {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import('../views/About.vue')
+  },
+  {
+    path: '/listview',
+    name: 'Listview',
+    component: () => import('../views/Listview.vue')
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: () => import('../views/Search.vue')
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/me',
+    name: 'Me',
+    // 路由守卫，判断是否登录
+    beforeEnter: (to, from, next) => {
+      console.log(store.state.user);
+      if (store.state.user.isLogin) {
+        next();
+      } else {
+        next('/login')
+      }
+
+    },
+    component: () => import('../views/Me.vue')
   }
 ]
 
