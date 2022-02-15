@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@media媒体查询的用法</title>
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            width: 800px;
+            height: 200px;
+            background: red;
+            font-size: 20px;
+        }
+        /* 0-500px之间，背景为绿色*/
+        @media(max-width:500px){
+            .box{
+                width: 500px;
+                background: green;
+                font-size: 20px;
+            }
+        }
+        /* 500px-无穷大之间，背景为黄色 */
+        @media(min-width:500px){
+            .box{
+                width: 100%;
+                background: yellow;
+                font-size: 25px;
+            }
+        }
+        /* 900px-无穷大之间，背景为蓝色 */
+        @media(min-width:900px){
+            .box{
+                width: 900px;
+                background: blue;
+                font-size: 30px;
+            }    
+        }
+    </style>
+</head>
+<body>
+    <div class="box">html响应式网站</div>
+</body>
+</html>

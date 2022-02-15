@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>案例——移动端适配</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .out {
+            width: 1100px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            display: flex;
+            flex-wrap: wrap;
+            text-align: center;
+            line-height: 100px;
+        }
+
+        .out .box {
+            width: 260px;
+            height: 100px;
+            background: #ccc;
+            margin-right: 20px;
+            margin-bottom: 20px;
+        }
+
+        .out .box:nth-child(4n) {
+            margin-right: 0;
+        }
+
+        /* 移动端优先原则 */
+        @media(max-width:768px) {
+            .out {
+                display: block;
+                width: 100%;
+            }
+
+            .out .box {
+                width: 350px;
+                margin: 0 auto;
+                margin-bottom: 20px;
+            }
+
+            .out .box:nth-child(4n) {
+                margin-right: auto;
+            }
+        }
+
+        /* 平板端适配 */
+        @media(min-width:768px) {
+            .out {
+                width: 680px;
+            }
+
+            .out .box {
+                width: 320px;
+                margin-bottom: 20px;
+                margin-right: 40px;
+            }
+
+            .out .box:nth-child(2n) {
+                margin-right: 0;
+            }
+        }
+
+        /* pc端适配 */
+        @media(min-width:992px) {
+            .out {
+                width: 960px;
+            }
+
+            .out .box {
+                width: 290px;
+                margin-bottom: 20px;
+                margin-right: 45px;
+            }
+
+            .out .box:nth-child(2n) {
+                margin-right: 45px;
+            }
+
+            .out .box:nth-child(3n) {
+                margin-right: 0;
+            }
+        }
+
+        /* pc端大屏1200px以上适配 */
+        @media(min-width:1200px) {
+            .out {
+                width: 1100px;
+            }
+
+            .out .box {
+                width: 260px;
+                margin-bottom: 20px;
+                margin-right: 20px;
+            }
+
+            .out .box:nth-child(2n) {
+                margin-right: 20px;
+            }
+
+            .out .box:nth-child(3n) {
+                margin-right: 20px;
+            }
+
+            .out .box:nth-child(4n) {
+                margin-right: 0;
+            }
+        }
+
+        /* pc端大屏1400px以上适配 */
+        @media(min-width:1400px) {
+            .out {
+                width: 1260px;
+            }
+
+            .out .box {
+                width: 300px;
+                margin-bottom: 20px;
+                margin-right: 20px;
+            }
+
+            .out .box:nth-child(2n) {
+                margin-right: 20px;
+            }
+
+            .out .box:nth-child(3n) {
+                margin-right: 20px;
+            }
+
+            .out .box:nth-child(4n) {
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="out">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+        <div class="box">5</div>
+        <div class="box">6</div>
+        <div class="box">7</div>
+        <div class="box">8</div>
+        <div class="box">9</div>
+        <div class="box">10</div>
+        <div class="box">11</div>
+    </div>
+</body>
+
+</html>
