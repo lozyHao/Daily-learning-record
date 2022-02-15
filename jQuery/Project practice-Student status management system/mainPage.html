@@ -60,7 +60,8 @@
             width: 100%;
             background: rgb(255, 255, 255);
         }
-        .right iframe{
+
+        .right iframe {
             width: 100%;
             height: 100%;
         }
@@ -90,7 +91,7 @@
         </div>
         <div class="content flex">
             <div class="left_nav">
-                <ul class="layui-nav layui-nav-tree" lay-filter="test"  lay-shrink='all'>
+                <ul class="layui-nav layui-nav-tree" lay-filter="test" lay-shrink='all'>
                     <li class="layui-nav-item  layui-this">
                         <a href="./Pages/mainindex.html" target="content">首页</a>
                     </li>
@@ -100,7 +101,7 @@
                         <dl class="layui-nav-child">
                             <dd><a href="./Pages/Students/list.html" target="content">查询学生信息</a></dd>
                             <dd><a href="./Pages/Students/addStudent.html" target="content">添加学生</a></dd>
-                            
+
                         </dl>
                     </li>
                     <li class="layui-nav-item">
@@ -120,7 +121,7 @@
                 </ul>
             </div>
             <div class="right">
-                <iframe name="content"  src="./Pages/mainindex.html" frameborder="no"></iframe>
+                <iframe name="content" src="./Pages/mainindex.html" frameborder="no"></iframe>
             </div>
         </div>
     </div>
@@ -129,22 +130,22 @@
     <script src="./layui/layui.js"></script>
     <script>
         // 页面加载执行的事件
-        $(function () {
-            // 判断用户是否登陆成功
-            if ($.cookie('isLogin') == 'true') {
-                $('#loginId').text($.cookie('loginId'))
-            } else {
-                location.href = './login.html'
-            }
+        // $(function () {
+        //     // 判断用户是否登陆成功
+        //     if ($.cookie('isLogin') == 'true') {
+        //         $('#loginId').text($.cookie('loginId'))
+        //     } else {
+        //         location.href = './login.html'
+        //     }
 
-            // 退出系统事件
-            $('#exit').click(function () {
-                $.removeCookie('isLogin');
-                $.removeCookie('isck');
-                $.removeCookie('loginPwd');
-                location.href = './login.html'
-            })
-        })
+        //     // 退出系统事件
+        //     $('#exit').click(function () {
+        //         $.removeCookie('isLogin');
+        //         $.removeCookie('isck');
+        //         $.removeCookie('loginPwd');
+        //         location.href = './login.html'
+        //     })
+        // })
 
 
 

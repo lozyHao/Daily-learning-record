@@ -12,6 +12,6 @@ let studentsSchema = new Schema({
     imagesName: String
 });
 
-let studentsModel = model('studentsModel', studentsSchema, 'students')
+let studentsModel = model('studentsModel', studentsSchema, 'students');//（模型名称，Schema名称，当前操作的数据库中的集合名称）
 
 module.exports.studentsModel = studentsModel;

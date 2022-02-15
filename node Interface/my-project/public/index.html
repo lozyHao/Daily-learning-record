@@ -139,18 +139,18 @@
         // }
 
         // 全局设置ajax参数
-        $.ajaxSetup({
-            headers: {
-                // 请求头
-                Authorization: `Bearer ` + localStorage.token
-            },
-            error(err) {
-                if (err.status == 401) {
-                    alert("你未登录，请登录");
-                    location.href = './login.html'
-                }
-            }
-        })
+        // $.ajaxSetup({
+        //     headers: {
+        //         // 请求头
+        //         Authorization: `Bearer ` + localStorage.token
+        //     },
+        //     error(err) {
+        //         if (err.status == 401) {
+        //             alert("你未登录，请登录");
+        //             location.href = './login.html'
+        //         }
+        //     }
+        // })
 
         isLogin();
         // 进入页面之前验证用户是否登录（拿到本地token，然后传到后端做验证）
