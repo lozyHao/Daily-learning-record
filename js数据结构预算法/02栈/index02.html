@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>栈-保护数据结构内部元素</title>
+</head>
+
+<body>
+    <script>
+        // 1.使用下划线命名约定+限定作用域Symbol实现类
+        // const _items = Symbol('stackItems');
+        // class Stack {
+        //     constructor() {
+        //         this[_items] = [];
+        //     }
+        //     push(element){
+        //         this[_items].push(element);
+        //     }
+        //     size(){
+        //         return this[_items].length
+        //     }
+        //     print(){
+        //         let i=this.size()-1
+        //         let str=`${this[_items][i]}`
+        //         for(i-=1;i>=0;i--){
+        //             str=`${str},${this[_items][i]}`
+        //         }
+        //         return str
+        //     }
+        // }
+        // const stack = new Stack()
+        // stack.push(5)
+        // stack.push(2)
+        // stack.push(9)
+        // // 使用Object.getOwnProperty-Symbols方法能够读取类中的Symbol属性
+        // let objectSymbols = Object.getOwnPropertySymbols(stack);
+        // console.log(objectSymbols);
+        // console.log(objectSymbols[0]);
+        // console.log(objectSymbols.length);
+        // stack[objectSymbols[0]].push(1)
+        // console.log(stack.size()); // 4
+        // console.log(stack.print()); // 1,9,2,5
+
+        // 2.WeakMap实现类
+        const items = new WeakMap();
+        class Stack {
+            constructor() {
+                items.set(this, []);
+            }
+            push(element) {
+                const s = items.get(this);
+                s.push(element);
+            }
+            pop() {
+                const s = items.get(this);
+                const r = s.pop();
+                return r;
+            }
+            print() {
+                const s = items.get(this);
+                let i=s.length-1
+                let str = `${s[i]}`
+                for (i -= 1; i >= 0; i--) {
+                    str = `${str},${s[i]}`
+                }
+                return str
+            }
+        }
+        const stack = new Stack();
+        stack.push(4)
+        stack.push(7)
+        stack.push(1)
+        console.log(stack.print()); // 1,7,4
+    </script>
+</body>
+
+</html>

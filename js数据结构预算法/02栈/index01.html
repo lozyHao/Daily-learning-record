@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>栈-创建一个基于数组栈</title>
+</head>
+
+<body>
+    <script>
+        // 1.方式一
+        // 创建一个类表示栈
+        // class Stack {
+        //     constructor() {
+        //         this.items = [];
+        //     }
+        //     // 向栈中添加元素
+        //     push(element) {
+        //         this.items.push(element);
+        //     }
+        //     // 从栈中移除元素
+        //     pop() {
+        //         return this.items.pop();
+        //     }
+        //     // 查看栈顶元素
+        //     peek() {
+        //         return this.items[this.items.length - 1];
+        //     }
+        //     // 检查栈是否为空
+        //     isEmpty() {
+        //         return this.items.length === 0;
+        //     }
+        //     // 获取栈的大小
+        //     size(){
+        //         return this.items.length;
+        //     }
+        //     // 清空栈元素
+        //     clear() {
+        //         this, items = [];
+        //     }
+        // }
+
+        // // 使用Stack
+        // // 创建Stack对象
+        // const stack = new Stack();
+        // console.log(stack.isEmpty()); // true 表示为空
+        // // 添加元素
+        // stack.push(3);
+        // stack.push(5);
+        // // 查看栈中数据和栈顶数据
+        // console.log(stack.items); // [3,5]
+        // console.log(stack.peek()); // 5
+        // console.log(stack.isEmpty()); // false 表示为栈不为空，含有元素
+        // // 获取栈的大小
+        // stack.push(8)
+        // console.log(stack.size()); // 3
+
+        // // 移除元素
+        // stack.pop();
+        // console.log(stack.size()); // 2
+
+
+        // 2.方式二，创建一个基于JavaScript对象的Stack类
+        // 声明Stack类
+        class Stack{
+            constructor(){
+                this.count=0;
+                this.items={};
+            }
+            // 插入元素（只能从栈顶插入）
+            push(element){
+                this.items[this.count]=element;
+                this.count++;
+            }
+            // 验证栈大小和是否为空
+            size(){
+                return this.count;
+            }
+            isEmpty(){
+                return this.count===0;
+            }
+            // 从栈中弹出元素
+            pop(){
+                if(this.isEmpty()){
+                    return undefined;
+                }else{
+                    this.count--;
+                    const result=this.items[this.count];
+                    delete this.items[this.count]; // delete运算符，从对象中删除一个特定的值
+                    return result;
+                }
+            }
+            // 查看栈顶的值
+            peek(){
+                if(this.isEmpty()){
+                    return undefined;
+                }else{
+                    return this.items[this.count-1];
+                }
+            }
+            // 清空栈
+            clear(){
+                this.items={};
+                // while(!this.isEmpty()){
+                //     this.pop();
+                // }
+                this.count=0;
+            }
+            // 创建toString方法，打印出栈中数据
+            toString(){
+                if(this.isEmpty()){
+                    return undefined;
+                }else{
+                    let objString=`${this.items[0]}`
+                    for (let i=1;i<this.count;i++) {
+                        objString=`${objString},${this.items[i]}`;
+                    }
+                    return objString;
+                }
+            }
+        }
+
+        const stack=new Stack();
+        stack.push(5);
+        stack.push(8);
+        stack.push(3);
+        stack.push(7);
+        console.log(stack.items); // {0: 5, 1: 8, 2: 3, 3: 7}
+        console.log(stack.pop()); // 7
+        console.log(stack.items); // {0: 5, 1: 8, 2: 3}
+        console.log(stack.toString()); // 5,8,3
+
+    </script>
+</body>
+
+</html>

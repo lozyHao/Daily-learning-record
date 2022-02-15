@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>迭代器iterator</title>
+</head>
+<body>
+    <script>
+        let arry=[1,23,4,54,45,6,56,54,6,23,34,13,33,12];
+
+        let iterator=arry[Symbol.iterator]();
+        for(const n of iterator){
+            console.log(n);
+        }
+    </script>
+</body>
+</html>

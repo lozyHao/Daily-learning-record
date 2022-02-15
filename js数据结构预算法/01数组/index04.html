@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组常用方法练习</title>
+</head>
+
+<body>
+    <script>
+        let arr3 = [5, 6, 7];
+        let arr4 = [8, 9, 10];
+
+        // 1.迭代器函数
+        let isEven = x => x % 2 == 0;
+        console.log(arr3.every(isEven)); //flase 遇 false 退出
+        console.log(arr3.some(isEven)); //true 遇 true 退出
+        console.log(arr3.forEach(x => console.log(x))); //5,6,7 遍历所有直至结尾
+        let arr31=arr3.map(isEven);
+        console.log(arr31); //[false, true, false] 将通过条件产生的新的数保存在新的数组中
+        let arr32=arr3.filter(isEven);
+        console.log(arr32); //[6] 将满足条件的数保存在新的数组中
+
+        // 2.from 创建新数组
+        let number1=Array.from(arr4);
+        console.log(number1); //[8, 9, 10]
+        let number2=Array.from(arr4,x=>x%2==0);
+        console.log(number2); //[true, false, true]
+
+        // 3.Array.of 创建新数组/复制
+        let number3=Array.of(1,2,3,4,5,6); //类似于 let number3=[1, 2, 3, 4, 5, 6]
+        console.log(number3); // [1, 2, 3, 4, 5, 6]
+        console.log(Array.of(...number3)); // [1, 2, 3, 4, 5, 6]
+
+        // 4.fill 使用静态值填充数组
+        let number4=new Array(6);
+        number4.fill(0);
+        console.log(number4); //[0, 0, 0, 0, 0, 0]
+
+        // 5.copyWithin 复制数组中指定起始位置的数据
+        let number5=[1,2,3,4,5,6]
+        console.log(number5.copyWithin(0,4)); //[5, 6, 3, 4, 5, 6] 下标为4后面的所有复制到从下标为0开始
+        console.log(number5.copyWithin(1,3,5)); //[5, 4, 5, 4, 5, 6] 下标为3-5（含有3不含5）之间的的数复制到下标为1开始
+
+        // 6.排序
+        let number6=[1,6,34,6,8,4,22,7]
+        // 6.1 reverse 反序
+        console.log(number6.reverse()); //[7, 22, 4, 8, 6, 34, 6, 1]
+        // 6.2 sort
+        console.log(number6.sort((a,b)=>a-b)); //[1, 4, 6, 6, 7, 8, 22, 34] 递增排序
+        // 6.3 自定义排序sort
+        let friends=[
+            {name:'Jone',age:30},
+            {name:'Bids',age:20},
+            {name:'Andy',age:20},
+            {name:'Chirs',age:25}
+        ]
+        function comparePerson(a,b){ // 自定义排序规则，先年龄，再按姓名
+            if(a.age<b.age){
+                return -1
+            }
+            if (a.age<b.age) {
+                return 1
+            }
+            if (a.age==b.age) {
+                if (a.name<b.name) {
+                    return -1
+                }
+                if (a.name>b.name) {
+                    return 1
+                }
+            }
+            return 0
+        }
+        console.log(friends.sort(comparePerson)); //[{name: 'Andy', age: 20},{name: 'Bids', age: 20},{name: 'Chirs', age: 25},{name: 'Jone', age: 30}]
+        
+        // 7.输出数组为字符串
+        let number7=[1,2,4,66,45,23,423,3]
+        console.log(number7.toString()); //1,2,4,66,45,23,423,3
+        console.log(number7.join('-')); //1-2-4-66-45-23-423-3
+    
+    </script>
+</body>
+
+</html>

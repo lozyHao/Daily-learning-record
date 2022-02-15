@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>栈应用-进制转换</title>
+</head>
+
+<body>
+    <script>
+        const items = new WeakMap();
+        class Stack {
+            constructor() {
+                items.set(this, []);
+            }
+            push(element) {
+                const s = items.get(this);
+                s.push(element);
+            }
+            pop() {
+                const s = items.get(this);
+                const r = s.pop();
+                return r;
+            }
+            isEmpty(){
+                const s = items.get(this);
+                return s.length===0;
+            }
+        }
+
+        // 将十进制转换成任意进制
+        function baseConverter(decNumber, base) {
+            const remStack = new Stack();
+            const disgits = '0123456798ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            let number = decNumber;
+            let rem;
+            let baseString = '';
+            if (!(base >= 2 && base <= 36)) {
+                return ' ';
+            }
+            while (number > 0) {
+                rem = Math.floor(number % base);
+                remStack.push(rem);
+                number = Math.floor(number / base);
+            }
+            while (!remStack.isEmpty()) {
+                baseString += disgits[remStack.pop()];
+            }
+            return baseString;
+        }
+        console.log(baseConverter(10010,2)); // 10011100011010
+        console.log(baseConverter(10010,8)); // 23432
+        console.log(baseConverter(10010,16)); // 271A
+    </script>
+</body>
+
+</html>
