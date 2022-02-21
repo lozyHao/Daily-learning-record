@@ -1,241 +1,513 @@
-*{ padding:0; margin:0; font-family: "微软雅黑","黑体","宋体"; font-size:14px; color:#333;}
-a{ text-decoration: none;}
-ul,ol{ list-style: none;}
-img{ border:none;}
-input,textarea{ outline: none;}
+/* 全局设置 */
+*{ 
+    padding:0; 
+    margin:0; 
+    font-family: "微软雅黑","黑体","宋体";
+    font-size:14px; 
+    color:#333;
+}
+a{ 
+    text-decoration: none;
+}
+ul,ol{ 
+    list-style: none;
+}
+img{ 
+    border:none;
+}
+input,textarea{ 
+    outline: none;
+}
+/* body{
+    filter: grayscale(100%); 变灰色
+} */
+
+/* 全局标题、内容 */
+.pubCon{
+    width: 1200px;
+    margin: 0 auto;
+}
+.pubTit{
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+.pubTit h2{
+    font-size: 30px;
+    font-weight: 400;
+}
+.pubTit .line{
+    width: 50px;
+    height: 2px;
+    background: #00abd9;
+    margin: 10px auto;
+}
 
 
+/* 头部区域 */
+.header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    background: rgba(255,255,255,0.6);
+    z-index: 999;
+    transition: .3s;
+}
+.pubCon{
+    display: flex;
+    justify-content: space-between;
+    width: 1200px;
+    height: 60px;
+    margin: 0 auto;
+    align-items: center;
+    transition: .3s;
+}
+.headNav ul{
+    display: flex;
+}
+.headNav li a{
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 30px;
+    transition: .3s;
+}
+.headNav li a:hover{
+    color: #00abd9;
+}
+.headNav li a::after{
+    display: block;
+    content:'';
+    width: 6px;
+    height: 6px;
+    background: #00abd9;
+    border-radius: 50%;
+    margin: 0 auto;
+    transition: .3s;
+    opacity: 0;
+}
+.headNav li a:hover::after{
+    opacity: 1;
+}
+.hdMenu{
+    display: none;
+    width: 30px;
+    height: 26px;
+    cursor: pointer;
+}
+.hdMenu i{
+    display: block;
+    width: 25px;
+    height: 4px;
+    background: rgb(100, 100, 100);
+    border-radius: 2px;
+}
+.hdMenu i:nth-of-type(2){
+    height: 2px;
+    margin: 8px 0;
+    width: 30px;
+}
 
+/* 轮播图区域 */
+.banner{
+    height: 500px;
+}
+.banner a{
+    display: block;
+    height: 500px;
+    background: no-repeat center;
+}
+.banner a.small{
+    display: none;
+}
+.banner .swiper-pagination-bullet{
+    background: white;
+}
 
-.pubCon{ margin:0 auto;}
-.pubTit{ text-align: center;}
-.pubTit h2{  font-weight: 400; padding-bottom:10px; line-height: 1.6em;}
-.pubTit .line{ width:50px; height: 2px; background: #00abd9; display: inline-block;}
+/* 服务区域 */
+.service{
+    width: 1200px;
+    padding: 90px 0 50px;
+    margin: 0 auto;
+}
+.serCon{
+    display: flex;
+    text-align: center;
+}
+.serCon .box{
+    display: block;
+    height: 380px;
+    padding: 0 30px;
+    transition: .3s;
+}
+.serCon .box .boxIcon{
+    width: 150px;
+    height: 150px;
+    border: 1px solid #00abd9;
+    border-radius: 50%;
+    margin: 10px auto;
+    transition: .3s;
+}
+.serCon .box h3{
+    font-size: 22px;
+    font-weight: 400;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    transition: .3s;
+}
+.serCon .box:hover{
+    margin-top: -10px;
+    background: rgb(230, 230, 230);
+    border-radius: 10px;
+}
+.serCon .box p{
+    line-height: 1.8em;
+    color: #666;
+}
 
-.bodyBg{ position: fixed; top:0; left: 0; width:100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9; display: none;}
+.serCon .box:hover .boxIcon{
+    background: #00abd9;
+}
+.serCon .box:hover h3{
+    color: #00abd9;
+}
 
+/* 关于我们区域 */
+.about{
+    padding: 50px 20px;
+    box-sizing: border-box;
+    background: url(../images/aboutBg.jpg) no-repeat center fixed;
+}
+.about h2{
+    color: white;
+}
+.about .line{
+    background: white;
+}
+.aboText{
+    display: block;
+    width: 1200px;
+    margin: 0 auto;
+    font-size: 18px;
+    color: white;
+    line-height: 2em;
+    text-align: center;
+}
+.btoGroup{
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    margin-top: 100px;
+    align-items: center;
+}
+.btoGroup .btn{
+    display: inline-block;
+    width: 150px;
+    height: 50px;
+    color: #fff;
+    border-radius: 10px;
+    line-height: 50px;
+    font-size: 20px;
+    margin: 0 15px;
+    opacity: 0.6;
+    transition: .3s;
+}
+.btoGroup .btn:hover{
+    opacity: 1;
+    transform: scale(1.05); /*放大效果*/
+}
+.btoGroup .btnLeft{
+    background: -webkit-gradient(linear,right top, left top,from(rgb(239,46,87)),to(rgb(246,123,32)));
+    background: -o-linear-gradient(right,rgb(239,46,87),rgb(246,123,32));
+    background: linear-gradient(to left,rgb(239,46,87),rgb(246,123,32));
+}
+.btoGroup .btnRight{
+    background: -webkit-gradient(linear,right top, left top,from(rgb(88,97,255)),to(rgb(16,206,216)));
+    background: -o-linear-gradient(right,rgb(88,97,255),rgb(16,206,216));
+    background: linear-gradient(to left,rgb(88,97,255),rgb(16,206,216));
+}
 
+/* 案例展示区域 */
+.case{
+    width: 1200px;
+    margin: 0 auto;
+}
+.caseCon{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.caseCon .box{
+    position: relative;
+    display: block;
+    width: 32%;
+    margin-bottom: 30px;
+    perspective: 600px; /*视距（下面X轴旋转用）*/
+    overflow: hidden;
+}
+.caseCon img{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.caseCon .ceng{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0,0.8);
+    transform: rotateX(120deg); /*旋转*/
+    transform-origin: bottom;
+    transition: .3s;
+}
+.caseCon .box:hover .ceng{
+    transform: rotateX(0deg); /*旋转*/
+}
+.caseCon .ceng h3{
+    display: block;
+    width: 80%;
+    color: white;
+    text-align: center;
+    margin: 10% auto 20px;
+    font-size: 1em;
+}
+.caseCon .ceng p{
+    display: block;
+    width: 80%;
+    color: white;
+    text-align: center;
+    margin: 5% auto;
+    font-size: 0.8em;
+}
 
-
-
-/* 头部模块 */
-.header{ height: 60px; width:100%; background: rgba(255,255,255,0.8); 
-    position: fixed; top:0; left: 0; z-index: 10; border-bottom:1px solid #00abd9}
-.hdCon{height: 100%; display: flex; justify-content: space-between; align-items: center;}
-.hdNav ul{ display: flex;height: 60px;}
-.hdNav li a{display: block; font-size: 18px; padding:0 30px; transition: 0.3s; position: relative; line-height: 60px;}
-.hdNav li:hover a,.hdNav li.active a{ color:#00abd9}
-.hdNav li a::after{display: block;content: ""; width:6px; height: 6px; background: #00abd9; border-radius: 50%; position: absolute; bottom:6px; left: calc(50% - 3px);opacity: 0; 
-transition: 0.3s; }
-.hdNav li:hover a::after,.hdNav li.active a::after{ opacity: 1;}
-
-.hdMenu{ width:40px; border:1px solid #aaa; border-radius: 3px; cursor: pointer; display: none;}
-.hdMenu i{ display: block; width:26px; height: 2px; background: #aaa; margin:6px auto;}
-
-
-
-
-/* 海报模块 */
-.banner{ height: 500px;}
-.banner a{ display:block; height: 500px; background: no-repeat center; cursor:move;}
-.banner a.small{ display: none}
-.banner .swiper-pagination-bullet{ background: #fff;}
-
-
-/*服务模块*/
-
-.serCon{ display: flex; text-align: center;}
-.serCon .box{ display: block;  padding:0 30px; 
-    box-sizing: border-box;}
-.serCon .boxIcon{border:1px #00abd9 solid; border-radius: 50%; 
-    margin:0 auto;  transition: 0.3s;}
-.serCon .boxIcon  .iconfont{ font-size: 90px; color:#00abd9; transition: 0.3s;} 
-.serCon h3{ font-size: 22px; font-weight: 400; transition: 0.3s;}
-.serCon p{ line-height: 1.8em; color:#666}
-.serCon .box:hover h3{ color: #00abd9;}
-.serCon .box:hover .boxIcon{ background: #00abd9;}
-.serCon .box:hover .boxIcon .iconfont{ color:#fff;}
-
-
-
-/* 关于我们模块 */
-.about{ padding:90px 0; background: url(../images/aboutBg.jpg) no-repeat center fixed;}
-.abtTit h2{ color:#fff;}
-.abtTit .line{ background: #fff;}
-.abtText{ font-size: 18px; color:#fff; line-height: 2em; opacity: 0.8; text-align: center;  padding:0 70px; }
-.btnGroup{ width:100%; text-align: center; font-size: 0; padding-top:100px;}
-
-.btnGroup .btn{ display: inline-block; width:150px; height: 50px; 
-    background:-webkit-gradient(linear, left top, right top, from(#f67b1f), to(#ef2d58)); 
-    background:-o-linear-gradient(left, #f67b1f, #ef2d58); 
-    background:linear-gradient(to right, #f67b1f, #ef2d58);
-    color:#fff; border-radius: 5px; line-height: 50px; font-size: 20px;margin:0 10px;  
-    transition: 0.3s;}
-
-.btnGroup .btnRit{ background: -webkit-gradient(linear, left top, right top, from(#0fcfd7),to(#5960ff)); background: -o-linear-gradient(left, #0fcfd7,#5960ff); background: linear-gradient(to right, #0fcfd7,#5960ff);}
-
-.btnGroup .btn:hover{ -webkit-transform: scale(1.05); -ms-transform: scale(1.05); transform: scale(1.05); }
-
-
-
-/* 案例展示 */
-.case{ padding:90px 0;}
-.caseCon{ display: flex; justify-content: space-between; flex-wrap: wrap;}
-.caseCon .box{display:block; width:32%; margin-bottom:30px; position: relative;perspective:600px; overflow: hidden;}
-.caseCon .pic{ width:100%; display: block;}
-.caseCon .ceng{ display: block; width:100%; height: 100%; background: rgba(0,0,0,0.8); color:#fff; position: absolute; top:0; left: 0; display: flex;align-items: center; justify-content: center; padding:0 30px; box-sizing: border-box; flex-direction: column;transform: rotateX(110deg); transform-origin: bottom; transition: 0.3s; }
-.caseCon .ceng h3{ color:#fff; font-size: 20px; font-weight: 400;}
-.caseCon .ceng .line{width:30px; height: 1px; background: #fff; margin:10px 0 20px;}
-.caseCon .ceng p{ color:#fff; opacity: 0.6; text-align: center; line-height: 1.8em;}
-.caseCon .box:hover .ceng{ transform: rotateX(0);}
-
-
-
-/*客户列表*/
-.clientCon ul{ overflow: hidden;}
-.clientCon li{ float:left; width:200px; padding:10px; box-sizing:border-box;}
-.clientCon li img{ width:100%}
-
-
-
-/*底部模块*/
-.footer{ margin-top:90px; background: #f4f4f4; }
-.ftMain{min-height: 100px; padding-top:20px;}
-.ftLogo{   display:inline-block; }
-.ftLogo img{float: left;}
-.ftLogo .text{ float: left; padding-top:10px; padding-left:10px;}
-.ftLogo .text h1{ font-size:16px; font-weight: 400;}
-
-.ftCon{ display: flex; justify-content: space-between; padding:30px 0}
-.ftCon h4{ font-size: 18px; font-weight: 400; padding-bottom:15px;}
-.ftLink{ display: flex;}
-.ftLink .box{ padding:0 20px;}
-.ftLink a{ display: block; line-height: 2em;}
-.ftLink a:hover{ color:#00abd9}
-
-.ftContact h4{ color:#00abd9}
-.ftContact p{ line-height: 2em;}
-
-.ftEwm{text-align: center;}
-
-.copyright{ background: #000; color:rgba(255,255,255,0.6); padding:10px 0; text-align: center;}
-.copyright span{ color:rgba(255,255,255,0.6)}
-.copyright a{ color:#fff;}
-
-
-
-
-/* 手机和平板端 */
+/* 不同设备适配 */
+/* 手机端/平板端适配 */
 @media(max-width:992px){
-.pubCon{ width:100%; padding:0 20px; box-sizing: border-box;}
-.pubTit{ padding-bottom:40px;}
-.pubTit h2{ font-size: 28px; }
-.pubTit .line{ width:40px;}
+    /* 头部导航 */
+    .pubCon{
+        width: 100%;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    .headNav{
+        display: none;
+        position: absolute;
+        top: 42px;
+        width: 100%;
+        background: white;
+    }
+    .headNav ul{
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+    }
+    .headNav li{
+        width: 100%;
+        height: 40px;
+        text-align: center;
+        border-top: 1px solid #ccc;
+    }
+    .headNav li:first-of-type{
+        border-top: none;
+    }
+    .headNav li:last-of-type{
+        border-bottom: 2px solid #00abd9;
+    }
+    .headNav li a{
+        display: block;
+        height: 30px;
+        line-height: 40px;
+        font-size: 16px;
+        font-weight: bold;
+        margin: 0 0;
+        transition: .3s;
+    }
+    .headNav li a:hover{
+        color: #00abd9;
+    }
+    .headNav li a:hover::after{
+        opacity: 0;
+    }
+    .hdMenu{
+        display: block;
+    }
+    /* 点击切换效果--css旋转 */
+    .hdMenu i{
+        transform-origin: left;
+        transition: .3s;
+    }
+    .hdMenu.active i:nth-child(1){
+        width: 40px;
+        height: 3px;
+        transform: rotate(32deg);
+    }
+    .hdMenu.active i:nth-of-type(2){
+        opacity: 0;
+    }
+    .hdMenu.active i:nth-child(3){
+        width: 40px;
+        height: 3px;
+        transform: rotate(-32deg);
+    }
+
+        /*海报模块*/
+    .banner{ 
+        height: 681px;
+    }
+    .banner a{
+        height: 681px;
+        background-size: cover;
+    }
+    .banner a.small{
+        display: block
+    }
+    .banner a.big{
+        display : none
+    }
+
+    /* 服务区域 */
+    .service{
+        width: 100%;
+    }
+    .serCon{
+        width: 100%;
+        display: flex;
+        text-align: center;
+        flex-wrap: wrap;
+    }
+    .serCon .box{
+        display: block;
+        width: 50%;
+        height: 380px;
+        padding: 0 30px;
+        box-sizing: border-box;
+        transition: .3s;
+    }
+    .serCon .box .boxIcon{
+        width: 150px;
+        height: 150px;
+        border: 1px solid #00abd9;
+        border-radius: 50%;
+        margin: 10px auto;
+        transition: .3s;
+    }
+    .serCon .box h3{
+        font-size: 22px;
+        font-weight: 400;
+        padding-top: 40px;
+        padding-bottom: 20px;
+        transition: .3s;
+    }
+    .serCon .box:hover{
+        margin-top: -10px;
+        background: rgb(230, 230, 230);
+        border-radius: 10px;
+    }
+    .serCon .box p{
+        line-height: 1.8em;
+        color: #666;
+    }
+    
+    .serCon .box:hover .boxIcon{
+        background: #00abd9;
+    }
+    .serCon .box:hover h3{
+        color: #00abd9;
+    }
+
+    /* 关于我们区域 */
+    .about h2{
+        color: white;
+    }
+    .about .line{
+        background: white;
+    }
+    .aboText{
+        display: block;
+        width: 100%;
+        margin: 0 auto;
+        font-size: 18px;
+        color: white;
+        line-height: 2em;
+        text-align: center;
+    }
+    .btoGroup{
+        width: 100%;
+        height: 60px;
+        text-align: center;
+        margin-top: 100px;
+        align-items: center;
+    }
+    .btoGroup .btn{
+        display: inline-block;
+        width: 42%;
+        height: 50px;
+        color: #fff;
+        border-radius: 10px;
+        line-height: 50px;
+        font-size: 20px;
+        margin: 0 2%;
+        opacity: 0.6;
+        transition: .3s;
+    }
+
+    /* 案例展示区域 */
+    .case{
+        width: 100%;
+        margin: 0 auto;
+    }
+    .caseCon{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    .caseCon .box{
+        position: relative;
+        display: block;
+        width: 32%;
+        min-width: 200px;
+        margin-bottom: 30px;
+        perspective: 600px; /*视距（下面X轴旋转用）*/
+        overflow: hidden;
+    }
 
 
-/* 头部模块 */
-.hdNav{ display:none; position: absolute; top:61px;left:0; width:100%; }
-.hdNav ul{ height:auto; flex-direction: column; text-align: center;}
-.hdNav li a{line-height: 50px; background: rgba(255,255,255,0.9); border-bottom:1px solid #e8e8e8}
-.hdMenu{  display: block;}
-.hdMenu i{transform-origin: left; transition: 0.3s;}
-.hdMenu.active i:nth-child(1){ transform: rotate(30deg); width:33px;} 
-.hdMenu.active i:nth-child(2){ opacity: 0;}
-.hdMenu.active i:nth-child(3){ transform: rotate(-30deg); width:33px;} 
-
-/* 海报模块 */
-.banner{ height: 681px;}
-.banner a{ height: 681px; background-size:cover}
-.banner a.small{ display: block}
-.banner a.big{ display: none}
-
-
-/*服务模块*/
-.service{ padding:60px 0}
-.serCon{flex-wrap: wrap;}
-.serCon .box{ height: auto; width:50%; margin-bottom:30px; padding:0 10px; }
-.serCon .boxIcon{ width:120px; height: 120px; line-height: 120px; }
-.serCon .boxIcon  .iconfont{ font-size: 60px; } 
-.serCon h3{ padding:30px 0 15px; font-size: 20px;}
-
-
-
-/* 关于我们模块 */
-.about{ padding:50px 0; background-attachment: scroll;}
-.abtTit{ padding:0 20px; box-sizing: border-box;}
-.abtTit br{ display: none;}
-.abtText{padding:0;}
-.btnGroup{ padding-top:60px;}
-.btnGroup .btn{ width:60%; height: 50px; margin-bottom:20px;}
-
-
-/* 案例展示 */
-.case{ padding:50px 0;}
-.caseCon .box{width:49%; margin-bottom:20px;}
-.caseCon .box:last-child{ display: none;}
-.caseCon .ceng{ display: none; }
-
-
-/*客户列表*/
-.clientCon li{width:33.33%; }
-
-
-/*底部模块*/
-.footer{ margin-top:50px; }
-.ftMain{ padding-top:20px;}
-.ftCon{ display: flex; flex-direction: column; position: relative;}
-.ftLink{ display: flex; margin-top:30px; justify-content: space-between;}
-.ftLink .box{ padding:0 20px 0 0;}
-.ftEwm{position: absolute; right:0; top:30px;}
 }
-
-
-/* 小屏幕显示器 */
+/* pc端适配 */
 @media(min-width:992px){
-.pubCon{ width:960px;}
-.pubTit{ padding-bottom:50px;}
-.pubTit h2{ font-size: 30px; }
+    .headNav{
+        display: block;
+    }
 
-/*服务模块*/
-.service{ padding:70px 0;}
-.serCon .box{ padding:0 10px; height: auto;}
-.serCon .boxIcon{ width:140px; height: 140px; line-height: 140px; }
-.serCon .boxIcon  .iconfont{ font-size: 80px; } 
-.serCon h3{ padding:40px 0 20px; }
-
-
-/* 关于我们模块 */
-.about{ padding:70px 0; background-attachment: scroll;}
-.abtText{ padding:0px; }
-
-/*客户列表*/
-.clientCon li{ width:25%; }
-
+    /* 服务区域 */
+    .service{
+        width: 100%;
+    }
+    .serCon{
+        width: 100%;
+        display: flex;
+        text-align: center;
+        flex-wrap: wrap;
+    }
+    .serCon .box{
+        display: block;
+        width: 25%;
+        height: 380px;
+        padding: 0 30px;
+        box-sizing: border-box;
+        transition: .3s;
+    }
 }
-
-
-/* 大屏显示器 */
-@media(min-width:1300px){
-.pubCon{ width:1200px; }
-.pubTit{padding-bottom:60px;}
-.pubTit h2{ font-size: 32px; }
-
-
-/*服务模块*/
-.service{ padding:90px 0 50px}
-.serCon .box{ height: 380px;  padding:0 30px; }
-.serCon .boxIcon{ width:200px; height: 200px;line-height: 200px;}
-.serCon .boxIcon  .iconfont{ font-size: 90px;} 
-.serCon h3{ padding:50px 0 25px; }
-
-
-/* 关于我们模块 */
-.about{ padding:90px 0; background-attachment:fixed;}
-.abtText{ padding:0px 70px; }
-
-/*客户列表*/
-.clientCon li{ width:16.6%; }
+/* pc端大屏适配 */
+@media(min-width:1200px){
+    .headNav{
+        display: block;
+    }
 }
-
-
-
