@@ -17,8 +17,15 @@
     <div>字符串颠倒：{{ msg1.split("").reverse().join("") }}</div>
     <h3>{{ id == "d1" ? "难过" : "开心" }}</h3>
     <!-- 7.动态指令，绑定属性是动态变化的 -->
-    <div :[attributeName]='id2' @click="changeColor1">动态指令，点击切换颜色</div>
+    <div :[attributeName]="id2" @click="changeColor1">
+      动态指令，点击切换颜色
+    </div>
 
+    <!-- 8.计算属性（缓存结果，刷新页面直接获取结果，不用重新计算） -->
+    <div>{{ getNum1 }}</div>
+    <!-- 9.侦听器 -->
+    <input type="text" v-model="msg" />
+    <p>{{ msg }}</p>
   </div>
 </template>
 
@@ -39,7 +46,7 @@ export default {
       html1: "<h3 style='color:red;'>萝茗在学习Vue</h3>",
       id: "d1",
       id2: "d1",
-      attributeName:'class'
+      attributeName: "class",
     };
   },
   // 导入组件
@@ -60,7 +67,21 @@ export default {
       }
     },
     changeColor1() {
-      this.attributeName='id';
+      this.attributeName = "id";
+    },
+  },
+  computed: {
+    getNum1() {
+      return 4 * 4;
+    },
+  },
+  watch: {
+    // 监听值的变化
+    msg: function (newValue, oldValue) {
+      console.log(newValue, oldValue);
+      if (newValue.length < 10) {
+        alert("输入的值太少");
+      }
     },
   },
 };
