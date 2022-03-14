@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise的使用</title>
+</head>
+
+<body>
+    <script>
+        // function demo(mess, t) {
+        //     return new Promise((resolve, reject) => {
+        //         setTimeout(() => {
+        //             resolve(mess)
+        //         }, t * 1000);
+        //     });
+        // }
+
+        // new Promise((resolve, reject) => {
+        //     console.log("这是第一层");
+        //     // resolve("这是第二层");
+        //     setTimeout(() => {
+        //         resolve("这是第二层")
+        //     }, 3000);
+        //     // reject("这是一个错误");
+        // }).then(res => {
+        //     console.log(res); //这是第二层
+        //     // 继续向下传递
+        //     // 方式一
+        //     // return new Promise((resolve, reject) => {
+        //     //     resolve("这是第三层");
+        //     // })
+        //     // 方式二
+        //     // return Promise.resolve("这是第三层");
+        //     // 方式三
+        //     // return { mess: "这是第三层" }
+        //     return demo("这是第三层", 2)
+        // }, err => {
+        //     console.log(err); //这是一个错误
+        // }).then(res => {
+        //     console.log(res); //这是第三层
+        //     // console.log(res.mess); //这是第三层
+        //     return demo("这是第四层", 1)
+        // }).then(res => {
+        //     console.log(res);
+        // }).catch(err => {
+        //     //统一处理异常，直接跳出，不用每一步都有err
+        //     console.log(err);
+        // })
+
+        Promise.all([
+            new Promise((resolve,reject)=>{
+                setTimeout(()=>{
+                    resolve("这是第一个请求");
+                },1000)
+            }),
+            new Promise((resolve,reject)=>{
+                setTimeout(()=>{
+                    resolve("这是第二个请求");
+                },1000)
+            }),
+        ]).then(res=>{
+            console.log(res); //['这是第一个请求', '这是第二个请求']
+        })
+    </script>
+</body>
+
+</html>
