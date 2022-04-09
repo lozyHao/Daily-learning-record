@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02-柱状图使用</title>
+    <style>
+        .box {
+            width: 600px;
+            height: 400px;
+            margin: 30px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+
+    <script src="./lib/echarts.min.js"></script>
+    <script>
+        // 创建echarts对象
+        let myChart = echarts.init(document.querySelector(".box"));
+
+        // 数据
+        let xDataArr = ['小明', '小红', '小华', '小张', '小天', '小罗'];
+        let yDataArr = [95, 70, 96, 85, 94, 62];
+        // 创建表
+        let option = {
+            title: {
+                text: '语文成绩表',
+            },
+            // xAxis中 type:"value" 即为值方向，即为横向显示，yAxis中 type:category
+            xAxis: {
+                type: 'value',
+            },
+            yAxis: {
+                type: "category",
+                data:xDataArr
+            },
+            // 鼠标悬浮现实提示内容
+            tooltip:{
+                show:true,
+                trigger:"axis",
+                triggerOn:"click",
+                // formatter:'{b}的{a}是{c}',
+                formatter:function(arg){
+                    console.log(arg);
+                    return arg[0].name+"的成绩是："+arg[0].data;
+                }
+            },
+            series: [
+                {
+                    name: '语文成绩',
+                    type: 'bar',
+                    //最大值、最小值
+                    markPoint: { 
+                        data: [
+                            {
+                                type: "max",
+                                name: "最大值"
+                            }, {
+                                type: "min",
+                                name: "最小值"
+                            }
+                        ]
+                    },
+                    // 平均值
+                    markLine:{
+                        data:[
+                            {
+                                type:"average",
+                                name:"平均值"
+                            }
+                        ]
+                    },
+                    // 数值显示(显示每一个柱状体的值)
+                    label:{
+                        show:true,
+                        rotate:30, //旋转
+                        position:'insideTop', //显示位置
+                    },
+                    barWidth:"60%", //柱宽度
+                    data: yDataArr
+                }
+            ]
+        }
+
+        // 步骤5:将配置项设置给echarts实例对象,绘制图标
+        myChart.setOption(option);
+    </script>
+</body>
+
+</html>
