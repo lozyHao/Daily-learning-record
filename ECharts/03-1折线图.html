@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02-折线图</title>
+    <style>
+        .box {
+            width: 600px;
+            height: 400px;
+            margin: 30px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+
+    <script src="./lib/echarts.min.js"></script>
+    <script>
+        let myChart = echarts.init(document.querySelector(".box"));
+        let xDataArr = ['一月', '二月', '三月', '四月', '五月', '六月', "七月", "八月", "九月", "十月", "十一月", "十二月"];
+        let yDataArr = [5005, 7340, 9236, 8435, 9454, 6382, 7233, 5567, 4587, 6789, 9645, 5658];
+        let option = {
+            title: {
+                text: '康师傅方便面销量',
+            },
+            xAxis: {
+                type: 'category',
+                data: xDataArr
+            },
+            yAxis: {
+                type: "value",
+            },
+            series: [
+                {
+                    name: '销量',
+                    type: 'line',
+                    label: {
+                        show: true,
+                        position: 'top',
+                    },
+                    barWidth: "60%",
+                    data: yDataArr
+                }
+            ]
+        }
+        myChart.setOption(option);
+    </script>
+</body>
+
+</html>

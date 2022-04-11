@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04-散点图</title>
+    <style>
+        .box {
+            width: 600px;
+            height: 400px;
+            margin: 30px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+
+    <script src="./lib/echarts.min.js"></script>
+    <script>
+        let myChart = echarts.init(document.querySelector(".box"));
+        let yDataArr = [
+            [174, 65.6],
+            [175.3, 71.8],
+            [193.5, 80.7],
+            [186.5, 72.6],
+            [187.2, 78.8],
+            [181.5, 74.8],
+            [184, 96.4]
+        ]
+        option = {
+            legend: {},
+            grid: {
+                left: "3%",
+                right: "7%",
+                bottom: "3%",
+                containLabel: true
+            },
+            xAxis: {
+                type: "value",
+                scale: true,
+                axisLabel: {
+                    formatter: "{value} cm"
+                },
+                splitLine: {
+                    show: false
+                }
+            },
+            yAxis: {
+                type: "value",
+                scale: true,
+                axisLabel: {
+                    formatter: "{value} kg"
+                },
+                splitLine: {
+                    show: false
+                }
+            },
+            series: [{
+                name: "Male",
+                // type: "scatter",
+                type: "effectScatter",
+                // 散点涟漪动画
+                rippleEffect:{
+                    scale:5,
+                },
+                showEffectOn:'emphasis', //涟漪动画出现时机 默认加载完显示动画render，鼠标移入显示动画 emphasis
+                data: yDataArr,
+                // 散点大小
+                symbolSize: function (arg) {
+                    let height = arg[0] / 100
+                    let weight = arg[1]
+                    let bmi = weight / (height * height);
+                    if (bmi > 28) {
+                        return 10
+                    }
+                    return 5
+                },
+                // 散点样式
+                itemStyle: {
+                    color: function (arg) {
+                        let height = arg.data[0] / 100
+                        let weight = arg.data[1]
+                        let bmi = weight / (height * height);
+                        if (bmi > 28) {
+                            return "red"
+                        }
+                        return "green"
+                    }
+                }
+            }]
+        }
+        myChart.setOption(option);
+    </script>
+</body>
+
+</html>

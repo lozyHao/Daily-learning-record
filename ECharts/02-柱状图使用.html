@@ -26,63 +26,57 @@
         // 数据
         let xDataArr = ['小明', '小红', '小华', '小张', '小天', '小罗'];
         let yDataArr = [95, 70, 96, 85, 94, 62];
+        let yDataArr1 = [85, 85, 86, 75, 84, 92];
         // 创建表
         let option = {
             title: {
-                text: '语文成绩表',
+                text: '成绩表',
             },
-            // xAxis中 type:"value" 即为值方向，即为横向显示，yAxis中 type:category
             xAxis: {
-                type: 'value',
+                type: 'category',
+                data: xDataArr
             },
             yAxis: {
-                type: "category",
-                data:xDataArr
+                type: "value",
             },
-            // 鼠标悬浮现实提示内容
-            tooltip:{
-                show:true,
-                trigger:"axis",
-                triggerOn:"click",
-                // formatter:'{b}的{a}是{c}',
-                formatter:function(arg){
-                    console.log(arg);
-                    return arg[0].name+"的成绩是："+arg[0].data;
+            legend:{
+                data:["语文成绩","数学成绩"]
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}, //导出图片
+                    dataView: {}, //数据视图
+                    restore: {}, //重置功能
+                    dataZoom: {}, //区域缩放
+                    magicType: { //图标类型切换
+                        type: ["bar", "line"],
+                    }
                 }
             },
             series: [
                 {
                     name: '语文成绩',
                     type: 'bar',
-                    //最大值、最小值
-                    markPoint: { 
-                        data: [
-                            {
-                                type: "max",
-                                name: "最大值"
-                            }, {
-                                type: "min",
-                                name: "最小值"
-                            }
-                        ]
-                    },
-                    // 平均值
-                    markLine:{
-                        data:[
-                            {
-                                type:"average",
-                                name:"平均值"
-                            }
-                        ]
-                    },
                     // 数值显示(显示每一个柱状体的值)
-                    label:{
-                        show:true,
-                        rotate:30, //旋转
-                        position:'insideTop', //显示位置
+                    label: {
+                        show: true,
+                        rotate: 30, //旋转
+                        position: 'insideTop', //显示位置
                     },
-                    barWidth:"60%", //柱宽度
+                    barWidth: "30%", //柱宽度
                     data: yDataArr
+                },
+                {
+                    name: '数学成绩',
+                    type: 'bar',
+                    // 数值显示(显示每一个柱状体的值)
+                    label: {
+                        show: true,
+                        rotate: 30, //旋转
+                        position: 'insideTop', //显示位置
+                    },
+                    barWidth: "30%", //柱宽度
+                    data: yDataArr1
                 }
             ]
         }
