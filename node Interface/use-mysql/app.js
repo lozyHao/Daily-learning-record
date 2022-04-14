@@ -43,7 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));//设置前端代码路�
 // app.use(jwtAuth);
 
 // 使用路由模块
-app.use('/users', usersRouter);
+app.use('/YiBaike2/users', usersRouter);
 
 // 服务器错误处理
 // catch 404 and forward to error handler
