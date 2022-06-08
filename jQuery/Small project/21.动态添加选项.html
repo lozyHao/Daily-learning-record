@@ -20,45 +20,54 @@
             border: 1px solid #ccc;
             margin: 20px;
         }
-        .box ul{
+
+        .box ul {
             width: 220px;
             margin: 0 auto;
         }
-        .box ul>li{
+
+        .box ul>li {
             text-align: center;
             margin: 5px 0;
         }
-        .box ul>li span{
+
+        .box ul>li span {
             display: inline-block;
             width: 15px;
             text-align: right;
         }
-        .box ul>li input{
+
+        .box ul>li input {
             width: 100px;
             height: 20px;
             outline: none;
             margin-left: 5px;
         }
-        .box ul>li button{
+
+        .box ul>li button {
             height: 20px;
             margin-left: 5px;
             cursor: pointer;
-            
+
         }
-        .go_bottom{
+
+        .go_bottom {
             width: 15px;
             text-align: center;
         }
-        .go_top{
+
+        .go_top {
             height: 20px;
             width: 15px;
             text-align: center;
         }
-        .delete{
+
+        .delete {
             height: 25px;
             width: 35px;
         }
-        .add{
+
+        .add {
             display: block;
             width: 100px;
             height: 25px;
@@ -77,34 +86,38 @@
     <div class="box">
         <div style="width: 220px;height: 30px; text-align: center;line-height: 30px;font-weight: bolder;">添加选项</div>
         <ul>
-            <li><span>A.</span><input type="text"><button class="go_top">↑</button><button class="go_bottom">↓</button><button class="delete">删除</button></li>
-            <li><span>B.</span><input type="text"><button class="go_top">↑</button><button class="go_bottom">↓</button><button class="delete">删除</button></li>
-            <li><span>C.</span><input type="text"><button class="go_top">↑</button><button class="go_bottom">↓</button><button class="delete">删除</button></li>
-            <li><span>D.</span><input type="text"><button class="go_top">↑</button><button class="go_bottom">↓</button><button class="delete">删除</button></li>
+            <li><span>A.</span><input type="text"><button class="go_top">↑</button><button
+                    class="go_bottom">↓</button><button class="delete">删除</button></li>
+            <li><span>B.</span><input type="text"><button class="go_top">↑</button><button
+                    class="go_bottom">↓</button><button class="delete">删除</button></li>
+            <li><span>C.</span><input type="text"><button class="go_top">↑</button><button
+                    class="go_bottom">↓</button><button class="delete">删除</button></li>
+            <li><span>D.</span><input type="text"><button class="go_top">↑</button><button
+                    class="go_bottom">↓</button><button class="delete">删除</button></li>
         </ul>
         <button class="add">添加选项</button>
     </div>
 
     <script>
         // 删除按钮点击事件
-        $('ul').on('click','.delete',function(){
+        $('ul').on('click', '.delete', function () {
             $(this).parent('li').remove();
             sort(); //调用排序方法
         })
         // 上移/下移按钮
-        $('ul').on('click','.go_top',function(){
+        $('ul').on('click', '.go_top', function () {
             // 获取当前li
-            let cli=$(this).parents('li');
+            let cli = $(this).parents('li');
             // 获取上一个li
-            let uli=$(this).parents('li').prev();
+            let uli = $(this).parents('li').prev();
             uli.before(cli);
             sort(); //调用排序方法
         })
-        $('ul').on('click','.go_bottom',function(){
+        $('ul').on('click', '.go_bottom', function () {
             // 获取当前li
-            let cli=$(this).parents('li');
+            let cli = $(this).parents('li');
             // 获取下一个li
-            let uli=$(this).parents('li').next();
+            let uli = $(this).parents('li').next();
             uli.after(cli);
             sort(); //调用排序方法
         })
@@ -113,9 +126,9 @@
         $('.add').click(function () {
             let span = $('<span/>').text('E.');
             let input = $('<input/>');
-            let btn1=$('<button/>').text('↑');
-            let btn2=$('<button/>').text('↓');
-            let btn3=$('<button/>').text('删除');
+            let btn1 = $('<button/>').text('↑');
+            let btn2 = $('<button/>').text('↓');
+            let btn3 = $('<button/>').text('删除');
             btn1.addClass('go_top');
             btn2.addClass('go_bottom');
             btn3.addClass('delete')
@@ -130,22 +143,22 @@
         })
 
         // 排序方法
-        let str='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        function sort(){
+        let str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        function sort() {
             // 循环ul里面所有的li
-            $('ul>li').each(function(index,li){
+            $('ul>li').each(function (index, li) {
                 // 给li添加序号
-                $(li).find('span').text(str[index]+'.');
+                $(li).find('span').text(str[index] + '.');
                 // 把第一个的上和最后一个的下禁用
-                if(index==0){
-                    $(li).find('button:eq(0)').prop('disabled',true);
-                }else{
-                    $(li).find('button:eq(0)').prop('disabled',false);
+                if (index == 0) {
+                    $(li).find('button:eq(0)').prop('disabled', true);
+                } else {
+                    $(li).find('button:eq(0)').prop('disabled', false);
                 }
-                if (index==$('ul>li').length-1) {
-                    $(li).find('button:eq(1)').prop('disabled',true);
-                }else{
-                    $(li).find('button:eq(1)').prop('disabled',false);
+                if (index == $('ul>li').length - 1) {
+                    $(li).find('button:eq(1)').prop('disabled', true);
+                } else {
+                    $(li).find('button:eq(1)').prop('disabled', false);
                 }
             })
         }
