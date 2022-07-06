@@ -1,0 +1,38 @@
+@charset "UTF-8";
+h1 {
+  padding-top: 50px;
+}
+
+/*!
+    变量
+*/
+.box {
+  width: 600px;
+  font-size: 30px;
+}
+
+#foo {
+  width: 5em;
+}
+
+#bar {
+  width: 5em;
+}
+
+/*！
+    数据类型
+*/
+.mapthis {
+  color: #999;
+}
+
+/*!
+    嵌套
+*/
+ul {
+  background: #eee;
+}
+
+ul > li {
+  color: darkcyan;
+}

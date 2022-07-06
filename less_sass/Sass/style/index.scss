@@ -1,0 +1,68 @@
+h1 {
+    padding-top: 50px;
+}
+
+/*!
+    变量
+*/
+$width: 600px;
+$pen-size: 30px;
+
+.box {
+    width: $width;
+    font-size: $pen-size;
+}
+
+// 作用域，{ }内为块级作用域，其他作用域不能访问，可以使用 !global提升至全局
+#foo {
+    $width: 5em !global;
+    width: $width;
+}
+
+#bar {
+    width: $width;
+}
+
+/*！
+    数据类型
+*/
+// 字符串
+$name: 'Tom Bob';
+$container: "top bottom";
+$what: heart;
+// 数字
+$my-age: 19;
+$your-age: 19.5;
+$height: 120px;
+// 数组
+$list0: 1px 2px 5px 6px;
+$list1: 1px 2px, 5px 6px;
+$list2: (1px 2px) (5px 6px);
+// 映射
+$map: (
+    1: #999,
+    2: #555,
+    3: #111
+);
+.mapthis{
+    color: map-get($map,1);
+}
+// 颜色
+// $color0: green;
+// $color1: lighten($color, 15%);
+// $color2: darken($color, 15%);
+// $color3: saturate($color, 15%);
+// $color4: desaturate($color, 15%);
+// $color5: (
+//     green + red
+// );
+
+/*!
+    嵌套
+*/
+ul{
+    background: #eee;
+    &>li{
+        color:darkcyan
+    }
+}
