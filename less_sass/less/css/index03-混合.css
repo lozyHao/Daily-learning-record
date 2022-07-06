@@ -1,0 +1,40 @@
+.class {
+  font: 20px/40px "微软雅黑";
+  color: #ddd;
+  text-align: center;
+  background: green;
+  border: 4px solid #555555;
+}
+.box1 {
+  height: 200px;
+  width: 200px;
+  font: 20px/40px "微软雅黑";
+  color: #ddd;
+  text-align: center;
+  background: green;
+  border: 4px solid #555555;
+  background: #ff0000;
+}
+.box2 {
+  height: 200px;
+  background: #0000ff;
+}
+.box3 {
+  border: 10px solid #ff0000;
+}
+.box4 {
+  border: 20px solid #ff0000;
+}
+.box5 {
+  height: 10px;
+  border: 10px solid #ff0000;
+  border: 20px solid #0000ff;
+  border: 30px solid #000000;
+}
+.box6 {
+  -webkit-box-shadow: 5px 5px 5px #cccccc;
+  -moz-box-shadow: 5px 5px 5px #cccccc;
+  -ms-box-shadow: 5px 5px 5px #cccccc;
+  -o-box-shadow: 5px 5px 5px #cccccc;
+  box-shadow: 5px 5px 5px #cccccc;
+}

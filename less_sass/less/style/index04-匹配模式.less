@@ -1,0 +1,29 @@
+.box1{
+    width: 0;
+    height:0;
+    overflow: hidden;
+    border-width: 20px;
+    border-color:transparent transparent red transparent;
+    border-style: solid;
+}
+
+// 匹配模式
+.triangle(top,@w:10px,@c:red){
+    border-width: @w;
+    border-color:transparent transparent @c transparent;
+    border-style: solid;
+}
+.triangle(right,@w:40px,@c:green){
+    border-width: @w;
+    border-color:transparent transparent transparent @c;
+    border-style: solid;
+}
+// 公用样式，需要放到下面的class中，第一个参数是固定的格式（@_），后面的参数与上面保存一致。
+.triangle(@_,@w:5px,@c:red){
+    width: 0;
+    height:0;
+    overflow: hidden;
+}
+.box2{
+    .triangle(right);
+}

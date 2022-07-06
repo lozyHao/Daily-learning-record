@@ -1,0 +1,64 @@
+@width: 200px;
+@border: 4px solid #555;
+
+.class {
+    font: 20px/40px "微软雅黑";
+    color: #ddd;
+    text-align: center;
+    background: green;
+    border: @border;
+}
+
+// 混合的写法
+.box1 {
+    height: @width;
+    width: @width;
+    .class;
+    .bg(red);
+}
+
+// 混合带参数
+.bg(@bg) {
+    background: @bg;
+}
+
+.box2 {
+    height: 200px;
+    .bg(blue);
+}
+
+// 混合带参数（默认值）
+.border1(@w: 10px) {
+    border: @w solid red;
+}
+
+.box3 {
+    .border1;
+}
+
+.box4 {
+    .border1(20px);
+}
+
+// 混合带多个参数
+.border2(@w: 10px, @style: solid, @color: blue) {
+    border: @w @style @color;
+}
+
+.box5 {
+    height: 10px;
+    .border2(@color: red);
+    .border2(@w: 20px);
+    .border2(@w: 30px, @color: black);
+}
+
+.boxShadow(@x: 5px, @y: 5px, @area: 5px, @color: #ccc) {
+    -webkit-box-shadow: @x @y @area @color;
+    -moz-box-shadow: @x @y @area @color;
+    -ms-box-shadow: @x @y @area @color;
+    -o-box-shadow: @x @y @area @color;
+    box-shadow: @x @y @area @color;
+}
+.box6{
+    .boxShadow()
+}

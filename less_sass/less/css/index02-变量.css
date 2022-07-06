@@ -1,0 +1,8 @@
+.box {
+  height: 200px;
+  width: 200px;
+  background: #008000;
+  color: #eee;
+  border-color: #008000;
+  background-image: url('../images/banner.jpg');
+}

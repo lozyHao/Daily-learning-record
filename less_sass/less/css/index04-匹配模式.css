@@ -1,0 +1,16 @@
+.box1 {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  border-width: 20px;
+  border-color: transparent transparent red transparent;
+  border-style: solid;
+}
+.box2 {
+  border-width: 40px;
+  border-color: transparent transparent transparent #008000;
+  border-style: solid;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}

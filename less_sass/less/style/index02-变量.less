@@ -1,0 +1,14 @@
+@all:200px;
+@back:green;
+@property:color;
+@value:green;
+@url:"../images";
+
+.box{
+    height: @all;
+    width: @all;
+    background: @back;
+    @{property}:#eee;
+    border-@{property}:@value;
+    background-image: url('@{url}/banner.jpg');
+}
