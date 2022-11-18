@@ -2,7 +2,7 @@
   "name": "webpack_code",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/main.js",
+  "main": "../src/main.js",
   "scripts": {
     "start": "npm run dev",
     "dev": "npx webpack serve --config ./config/webpack.dev.js",
