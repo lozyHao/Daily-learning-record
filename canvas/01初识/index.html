@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="c1" width="600" height="400">你的浏览器不支持 canvas，请升级你的浏览器。</canvas>
+
+    <script>
+        let c1 = document.querySelector("#c1")
+        let ctx = c1.getContext("2d")
+        // 绘制矩形
+        ctx.fillRect(100, 200, 300, 300)
+        ctx.strokeRect(0, 0, 60, 50)
+        // 清除
+        ctx.clearRect(0, 0, 50, 50)
+
+        // 绘制路径
+        ctx.beginPath();
+        ctx.moveTo(75, 50);
+        ctx.lineTo(100, 75);
+        ctx.lineTo(100, 25);
+        ctx.stroke();
+    </script>
+</body>
+
+</html>
